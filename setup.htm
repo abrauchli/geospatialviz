@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+    <script src="jquery-1.10.2.min.js"></script>
+    <script src="jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="code.js"></script>
+    <link rel="stylesheet" href="jquery-ui-1.10.4.custom.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style type="text/css">
+.subtitle {
+    font-weight: bold;
+}
+ul ul {
+    font-family: monospace;
+}
+    </style>
+</head>
+<body>
+    <div id="tabs">
+        <ul>
+            <li><a href="#tab1">Setup</a></li>
+            <li><a href="#tab2">Program Usage</a></li>
+            <li><a href="#tab3">Devblog</a></li>
+        </ul>
+        <span style="position:absolute;top:22px;left:450px;font-weight:bold;font-size:smaller;color:#555;">Study of Choleara Outbreak from London, 1854</span>
+        <div id="tab1">
+            <h2>Setup Instructions</h2>
+            <p>Copy all files into a common folder of a webserver. A listing of all files is given below.</p>
+            <p>Browse to <a href="index.htm">index.htm</a> using a W3C standards compatible browser (we suggest using Chromium).</p>
+            <p><span class="subtitle">List of files</span>
+                <ul>
+                    <!-- Keep file lists sorted alphabetically -->
+                    <li>Visualization</li>
+                    <ul>
+                        <li><a href="index.htm">index.htm</a></li>
+                        <li>setup.htm (this file)</li>
+                        <li><a href="code.js">code.js</a></li>
+                        <li><a href="style.css">style.css</a></li>
+                    </ul>
+                    <li>Data files</li>
+                    <ul>
+                        <li>TODO</li>
+                    </ul>
+                    <li>Libraries</li>
+                    <ul>
+                        <li>jquery-1.10.2.min.js</li>
+                        <li>jquery-ui-1.10.4.custom.min.css</li>
+                        <li>jquery-ui-1.10.4.custom.min.js</li>
+                        <li>kinetic-v5.0.1.min.js</li>
+                        <li>images/animated-overlay.gif</li>
+                        <li>images/ui-bg_flat_0_aaaaaa_40x100.png</li>
+                        <li>images/ui-bg_flat_75_ffffff_40x100.png</li>
+                        <li>images/ui-bg_glass_55_fbf9ee_1x400.png</li>
+                        <li>images/ui-bg_glass_65_ffffff_1x400.png</li>
+                        <li>images/ui-bg_glass_75_dadada_1x400.png</li>
+                        <li>images/ui-bg_glass_75_e6e6e6_1x400.png</li>
+                        <li>images/ui-bg_glass_95_fef1ec_1x400.png</li>
+                        <li>images/ui-bg_highlight-soft_75_cccccc_1x100.png</li>
+                        <li>images/ui-icons_222222_256x240.png</li>
+                        <li>images/ui-icons_2e83ff_256x240.png</li>
+                        <li>images/ui-icons_454545_256x240.png</li>
+                        <li>images/ui-icons_888888_256x240.png</li>
+                        <li>images/ui-icons_cd0a0a_256x240.png</li>
+                        <li>flot/jquery.flot.min.js</li>
+                    </ul>
+                </ul>
+            </p>
+        </div>
+        <div id="tab2">
+            <h2>Usage</h2>
+            <p>TODO. The website with the visualization is available <a href="index.htm">here</a>. See the <em>Help</em> tab on what features are available and the map key.</p>
+            <!-- TODO add project screenshot <img src="p2.png" width="60%" height="60%"> -->
+        </div>
+        <div id="tab3">
+            <h2>Development findings</h2>
+            <p><span class="subtitle">KineticJS</span> KineticJS quickly proved to be slower than expected. Redrawing all with all points enabled is painfully slow on my 5yr old laptop. The stack inspection reveals that it seems to be an issue with the way grouping is handled.</p>
+            <p><span class="subtitle">FlotJS</span> To ease development, the open Javascript graphing library Flot was used to draw charts. This greatly reduces the required code while still allowing every required features. It proved to be a great charting library with many options and great configurability. FlotJS depends on jQuery, also a reson why I chose this library.</p>
+            <p><span class="subtitle">jQuery</span> As base javascript framework, jQuery is used. This makes it easy to capture and process events.</p>
+            <p><span class="subtitle">Raw Data</span> TODO</p>
+        </div>
+    </div>
+</body>
+</html>

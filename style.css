@@ -1,0 +1,29 @@
+body {
+    background-color: #FCFCFC;
+    margin: 0;
+}
+
+/* Raw data table formatting */
+#tabdata table {
+    border: solid 1px grey;
+    border-collapse: collapse;
+}
+#tabdata th, #tabdata td {
+    text-align: left;
+    border: solid 1px lightgrey;
+    padding: 0 5px 0 5px;
+}
+
+/* Stage styling */
+#stage {
+    background-color: lightgrey;
+}
+#poihover {
+    position: absolute;
+    background-color: white;
+    border: solid 1px black;
+    color: #666;
+    font-family: sans-serif;
+    opacity: 0.9;
+    padding: 2px;
+}

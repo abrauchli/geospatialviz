@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+    <script src="jquery-1.10.2.min.js"></script>
+    <script src="jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="flot/jquery.flot.min.js"></script>
+    <script src="kinetic-v5.0.1.min.js"></script>
+    <script src="code.js"></script>
+    <link rel="stylesheet" href="jquery-ui-1.10.4.custom.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabviz">Visualization</a></li>
+            <li><a href="#tabdata">Data</a></li>
+            <li><a href="#tabhelp">Help</a></li>
+            <li><a href="#tabsources">Sources</a></li>
+        </ul>
+        <span style="position:absolute;top:22px;left:500px;font-weight:bold;font-size:smaller;color:#555;">TODO: Add project title.</span>
+        <div id="tabviz">
+            <div id="stage"></div>
+        </div>
+        <div id="tabdata">
+            <h2>Title</h2>
+            <div id="tbltodo"></div>
+        </div>
+        <div id="tabhelp">
+            <h2>Visualization of TODO Data</h2>
+            <p>The page is divided into four tabs: the visualization (map), the raw data, the help section and the sources.</p>
+            <p>If you're running this page directly from your local filesystem and the map remains grey and the data on the second tab is empty, see the <a href="setup.htm">setup instructions</a> for help.</p>
+            <h3>Map</h3>
+            <p><span style="font-weight:bolder;">Map key</span> TODO</p>
+            <p><span style="font-weight:bolder;">Zooming/Panning</span> Using the + and - buttons, you can zoom in and out of the map. Drag your mouse to move the map.</p>
+        </div>
+        <div id="tabsources">
+            <h2>Sources</h2>
+            <p>Page, Visualization: TODO List contributors<br>
+            Map data: ...</p>
+        </div>
+    </div>
+</body>
+</html>

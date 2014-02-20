@@ -27,3 +27,27 @@ body {
     opacity: 0.9;
     padding: 2px;
 }
+
+/*Main Box */
+#main{
+    width:1280px;
+    height: 720px;
+}
+
+/* USAmap and Worldmap styling */
+#USAmap{
+    background-color: lightgrey;
+    width: 500px;
+    border :solid 2px black;
+    padding: 3px;
+    border-radius:8px;
+}
+
+#Worldmap{
+    background-color: lightgrey;
+    width: 730px;
+    border :solid 2px black;
+    left : 507px;
+    padding: 3px;
+    border-radius:8px;
+}

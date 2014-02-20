@@ -1,7 +1,10 @@
 //Script to paint the USA map and World Map
+
+//Load the Geochart Library
 google.load('visualization', '1', {packages: ['geochart']});
 
-function drawVisualization() {
+//Function to paint the WorldMap
+function worldMap() {
   var data = google.visualization.arrayToDataTable([
     ['Country', 'Popularity'],
     ['Spain', 700],
@@ -11,15 +14,14 @@ function drawVisualization() {
     ['France', 600],
     ['RU', 700]
   ]);
-
   var geochart = new google.visualization.GeoChart(
       document.getElementById('Worldmap'));
   geochart.draw(data, {width: 300, height: 300});
 }
 
 
-
-function drawMarkersMap() {
+//Function to paint the USA map
+function usaMap() {
   var data = google.visualization.arrayToDataTable([
     ['State',   'Population', 'Area'],
     ['New York',      2761477,    1285.31],
@@ -41,5 +43,5 @@ function drawMarkersMap() {
   chart.draw(data, options);
 };
 
-google.setOnLoadCallback(drawVisualization);
-google.setOnLoadCallback(drawMarkersMap);
+google.setOnLoadCallback(worldMap);
+google.setOnLoadCallback(usaMap);

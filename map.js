@@ -46,6 +46,3 @@ function usaMap() {
   var USA = new google.visualization.GeoChart(document.getElementById('USAmap'));
   USA.draw(data, options);
 };
-
-google.setOnLoadCallback(worldMap);
-google.setOnLoadCallback(usaMap);

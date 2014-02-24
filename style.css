@@ -41,13 +41,16 @@ body {
     border :solid 2px black;
     padding: 3px;
     border-radius:8px;
+    margin:0px;
 }
 
 #Worldmap{
+    position: absolute;
     background-color: lightgrey;
-    width: 730px;
+    top :70px;
+    width: 710px;
     border :solid 2px black;
-    left : 507px;
+    left : 540px;
     padding: 3px;
     border-radius:8px;
 }

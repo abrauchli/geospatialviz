@@ -16,20 +16,23 @@ function worldMap() {
   ]);
   var World = new google.visualization.GeoChart(
       document.getElementById('Worldmap'));
-  World.draw(data, {width: 730, height: 372});
+  World.draw(data, {width: 710, height: 372});
+
+  //Function to get the name of the country we click on the world map
+  google.visualization.events.addListener(World, 'regionClick', function(eventData)
+    {
+      region = eventData.region;
+      console.log(region)
+    });
 }
 
 
 //Function to paint the USA map
 function usaMap() {
   var data = google.visualization.arrayToDataTable([
-    ['State', 'Popularity', 'Cuantity'],
-    ['Hawaii', 700, 122],
-    ['California', 300, 1223],
-    ['Arizona', 400, 900],
-    ['Texas', 500, 800],
-    ['New Mexico', 600, 722],
-    ['Ontario', 700, 300]
+    ['State', "Description", "2012"],
+    ['Alabama', "ZINC ORES AND CONCENTRATES", 0.3],
+    ['Alaska', "ZINC ORES AND CONCENTRATES", 0.5]
   ]);
 
   var options = {
@@ -40,9 +43,17 @@ function usaMap() {
     colorAxis: {colors: ['green', 'blue']},
     showLegend: true,
     width: 500,
-    height: 320
+    height: 372
   };
 
   var USA = new google.visualization.GeoChart(document.getElementById('USAmap'));
   USA.draw(data, options);
+
+  //Function to get the name of the country we click on the USA map
+  google.visualization.events.addListener(USA, 'regionClick', function(eventData)
+  {
+    region = eventData.region;
+    region = region.substring(3,5)
+    console.log(region)
+  });
 };

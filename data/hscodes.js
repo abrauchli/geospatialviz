@@ -1,4 +1,7 @@
-var hscodes = new google.visualization.arrayToDataTable([
+var hscodes;
+
+function init_hscodes() {
+hscodes = new google.visualization.arrayToDataTable([
 ["Prefix length", "HSCode (or -prefix, or prefix range)", "Description"],
 [0, '01-05', "Animal & Animal Products"],
 [0, '06-15', "Vegetable Products"],
@@ -6333,3 +6336,4 @@ var hscodes = new google.visualization.arrayToDataTable([
 [6, 970500, "Collections and Collectors' Pieces"],
 [6, 970600, "Antiques of an Age Exceeding One Hundred Years"]
 ]);
+}

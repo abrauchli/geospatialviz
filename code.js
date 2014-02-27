@@ -4,6 +4,8 @@ function main() {
 }
 
 function googleReady() {
+    init_import_export();
+    init_hscodes();
     worldMap();
     usaMap();
 }

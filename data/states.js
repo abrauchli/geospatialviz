@@ -1,11 +1,11 @@
-var stateAbvArray = new Array();
-var importDtaItem = new Array();
-var importDtaCountry = new Array();
-var exportDtaItem = new Array();
-var exportDtaCountry = new Array();
+var stateAbvArray = new Array(); // Array of state abrev. srtrings (e.g. 'IL', 'HI', etc.)
+var importDtaItem = new Array(); // Imported items per state
+var importDtaCountry = new Array(); // Country of imports per state
+var exportDtaItem = new Array(); // Exported items per state
+var exportDtaCountry = new Array(); // Export Countries per state
 
 
-function convert() {
+function init_import_export() {
 //---------------------------------------------------------------------
 stateAbvArray.push('AK');
 var AKExportItem = [

@@ -8,8 +8,8 @@ function main() {
         if (params.selected!=undefined) {
         	commodities_select.push(params.selected)
         } else {
-        	for(var i=0; i<select.length+1; ++i) {
-        		if (select[i]==params.deselected) {
+        	for(var i=0; i<commodities_select.length+1; ++i) {
+        		if (commodities_select[i]==params.deselected) {
         			commodities_select.splice(i,1);
         		}
         	}

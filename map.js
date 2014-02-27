@@ -12,7 +12,7 @@ function worldMap() {
   World.draw(view, {
     width: 710,
     height: 372,
-    colorAxis: { maxValue: 1000 }
+    colorAxis: { maxValue: 1000 , colors: ['#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#E0D39E','#E0D39E','#E0D39E','#E0D39E','#E0D39E','#E0D39E','#E0D39E','#E0D39E']},
   });
 
   //Function to get the name of the country we click on the world map
@@ -38,7 +38,7 @@ function usaMap() {
     enableRegionInteractivity: 'true', 
     resolution: 'provinces',
     colorAxis: {colors: ['green', 'blue']},
-    showLegend: true,
+    legend: false,
     width: 500,
     height: 372
   };

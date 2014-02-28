@@ -54,3 +54,25 @@ body {
     padding: 3px;
     border-radius:8px;
 }
+
+/* UI styling*/
+.title{
+    position: relative;
+    top:5px;
+    font-family:Serif;
+    font-size: 20px;
+}
+
+.select{
+    position: relative;
+    left:20px;
+}
+
+#commodities_selector{
+    position:relative;
+    top:5px;
+    width:500px;
+    border:solid 2px black;
+    border-radius:8px;
+    padding: 5px;
+}

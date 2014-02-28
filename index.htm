@@ -8,6 +8,8 @@
     <script type="text/javascript" src="lib/jsapi/jsapi.js"></script>
     <script type="text/javascript" src="lib/chosen/chosen.jquery.js"></script>
     <script type="text/javascript" src="lib/chosen/docsupport/prism.js" charset="utf-8"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dojo/dojo.js"></script>
+    <script type="text/javascript" src="lib/chosen/chosen-dojo-master/chosen-dojo.js"></script>
     <!--Internal js files-->
     <script type="text/javascript" src="data/hscodes.js"></script>
     <script type="text/javascript" src="data/states.js"></script>
@@ -18,7 +20,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="lib/chosen/docsupport/style.css">
     <link rel="stylesheet" href="lib/chosen/docsupport/prism.css">
-    <link rel="stylesheet" href="lib/chosen/chosen.css">
+    <link rel="stylesheet" href="lib/chosen/chosen-dojo-master/chosen.css">
 
 </head>
 <body>
@@ -35,36 +37,25 @@
             <div id="main">
                 <div id="USAmap"></div>
                 <div id="Worldmap"></div>
-                 <form id="selector">
-                    <div id="container">
+                <form id="selection">
+                    <div id="commodities_selector">
                         <div class="side-by-side clearfix">
-                            <p></p>
                             <div>
-                                <em>Search for commodities</em>
-                                <select data-placeholder="Search or select one or several types of commodities" style="width:350px;" multiple class="chosen-select-no-results" tabindex="11">
+                                <em class='title'>Commodities</em>
+                                <select id="select"  data-placeholder="Search or select individual or group commodities" style="width:480px;" class="chzn-select-batch" multiple tabindex="6">
                                     <option value=""></option>
-                                    <option>commodity 1</option>
-                                    <option>commodity 2</option>
-                                    <option>commodity 3</option>
-                                    <option>commodity 4</option>
-                                    <option>commodity 5</option>
-                                    <option>commodity 6</option>
-                                    <option>commodity 7</option>
-                                    <option>commodity 8</option>
+                                    <optgroup label="NFC EAST">
+                                        <option>Dallas Cowboys</option>
+                                        <option>New York Giants</option>
+                                        <option>Philadelphia Eagles</option>
+                                        <option>Washington Redskins</option>
+                                    </optgroup>
                                 </select>
                             </div>
                         </div>
-                  </div>
-            </div>
-              <script type="text/javascript">
-                var config = {
-                  '.chosen-select-no-results': {no_results_text:'Commodity not found'},
-                }
-                for (var selector in config) {
-                  $(selector).chosen(config[selector]);
-                }
-              </script>
-            </form>
+                        <div id="msg"></div>
+                    </div>
+                </form>
         </div>
         <div id="tabdata">
             <h2>Title</h2>

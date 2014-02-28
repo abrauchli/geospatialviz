@@ -3,22 +3,23 @@ function main() {
     google.load('visualization', '1', {packages: ['geochart']});
     google.setOnLoadCallback(googleReady);
     var commodities_select=[];
-    //To manage the commoditie selection
-    $('select').on('change', function(event, params) {
-        var partial_select=[params.selected,params.deselected];
-        if (params.selected!=undefined) {
-        	commodities_select.push(params.selected)
-        } else {
-        	for(var i=0; i<commodities_select.length+1; ++i) {
-        		if (commodities_select[i]==params.deselected) {
-        			commodities_select.splice(i,1);
-        		}
-        	}
+    dojo.ready(chosenDojo);
+    //Management of the selection
+    $('select').on('change', function(event) {
+    var select_object = dojo.byId('select');
+    var select_div = dojo.byId('msg');
+    var selected_values = [];
+    for (x=0;x<=select_object.length;x++) {
+        if (select_object[x] && select_object[x].selected) {
+            selected_values.push(select_object[x].value);
         }
-        console.log(commodities_select)
+    }      
+     select_div.innerHTML = 'Selected value = ' + selected_values;
+     console.log(selected_values)                        
     });
 }
 
+//Function to launch the googleAPI
 function googleReady() {
     init_import_export();
     init_hscodes();
@@ -26,10 +27,11 @@ function googleReady() {
     usaMap();
 }
 
-function chosenChange(){
-	 $('select').on('change', function(event, params) {
-    // can now use params.selected and params.deselected
-    console.log(peter);
-  });
-}
+//Function to configure options of chosen-dojo commodities selector
+function chosenDojo() {
+        dojo.query(".chzn-select").chosen();
+        dojo.query(".chzn-select-deselect").chosen({allow_single_deselect:true});
+        dojo.query(".chzn-select-batch").chosen({batch_select:true});          
+    }
+
 $(main);

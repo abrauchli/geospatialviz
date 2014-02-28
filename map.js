@@ -31,15 +31,18 @@ function worldMap() {
   World.draw(view, {
     width: 710,
     height: 372,
-    colorAxis: { maxValue: 1000 , colors: ['#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#E0D39E','#E0D39E','#E0D39E','#E0D39E','#E0D39E','#E0D39E','#E0D39E','#E0D39E']},
+    colorAxis: {
+      maxValue: 1000 ,
+      colors: ['#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#438094','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#E0D39E','#E0D39E','#E0D39E','#E0D39E','#E0D39E','#E0D39E','#E0D39E','#E0D39E']
+    }
   });
 
   //Function to get the name of the country we click on the world map
-  google.visualization.events.addListener(World, 'regionClick', function(eventData)
-    {
-      region = eventData.region;
-      console.log(region)
-    });
+  google.visualization.events.addListener(World, 'regionClick', function(eventData) {
+    region = eventData.region;
+    console.log(region);
+  });
+
 }
 
 

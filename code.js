@@ -1,5 +1,6 @@
 function main() {
     $('#tabs').tabs();
+    google.load('visualization', '1', {packages: ['geochart']});
     google.setOnLoadCallback(googleReady);
     var commodities_select=[];
     //To manage the commoditie selection

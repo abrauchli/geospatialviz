@@ -1,9 +1,8 @@
 <!doctype html>
 <html>
 <head>
-    <script src="lib/jquery-1.10.2.min.js"></script>
+    <script src="lib/jquery-1.11.0.min.js"></script>
     <script src="lib/jquery-ui-1.10.4.custom.min.js"></script>
-    <script src="code.js"></script>
     <link rel="stylesheet" href="lib/jquery-ui-1.10.4.custom.min.css">
     <link rel="stylesheet" href="style.css">
     <style type="text/css">
@@ -22,11 +21,11 @@ ul ul {
             <li><a href="#tab2">Program Usage</a></li>
             <li><a href="#tab3">Devblog</a></li>
         </ul>
-        <span style="position:absolute;top:22px;left:450px;font-weight:bold;font-size:smaller;color:#555;">Study of Choleara Outbreak from London, 1854</span>
+        <span style="position:absolute;top:22px;left:500px;font-weight:bold;font-size:smaller;color:#555;">U.S. Import and Export Visualization</span>
         <div id="tab1">
             <h2>Setup Instructions</h2>
             <p>Copy all files into a common folder of a webserver. A listing of all files is given below.</p>
-            <p>Browse to <a href="index.htm">index.htm</a> using a W3C standards compatible browser (we suggest using Chromium).</p>
+            <p>Browse to <a href="index.htm">index.htm</a> using a W3C standards compatible browser (we suggest using Chromium). An internet connection from the client is required.</p>
             <p><span class="subtitle">List of files</span>
                 <ul>
                     <!-- Keep file lists sorted alphabetically -->
@@ -35,49 +34,76 @@ ul ul {
                         <li><a href="index.htm">index.htm</a></li>
                         <li>setup.htm (this file)</li>
                         <li><a href="code.js">code.js</a></li>
+                        <li><a href="filter.js">code.js</a></li>
+                        <li><a href="map.js">map.js</a></li>
                         <li><a href="style.css">style.css</a></li>
                     </ul>
                     <li>Data files</li>
                     <ul>
-                        <li>TODO</li>
+                        <li>data/hscodes.js</li>
+                        <li>data/states.js</li>
                     </ul>
                     <li>Libraries</li>
                     <ul>
-                        <li>jquery-1.10.2.min.js</li>
-                        <li>jquery-ui-1.10.4.custom.min.css</li>
-                        <li>jquery-ui-1.10.4.custom.min.js</li>
-                        <li>kinetic-v5.0.1.min.js</li>
-                        <li>images/animated-overlay.gif</li>
-                        <li>images/ui-bg_flat_0_aaaaaa_40x100.png</li>
-                        <li>images/ui-bg_flat_75_ffffff_40x100.png</li>
-                        <li>images/ui-bg_glass_55_fbf9ee_1x400.png</li>
-                        <li>images/ui-bg_glass_65_ffffff_1x400.png</li>
-                        <li>images/ui-bg_glass_75_dadada_1x400.png</li>
-                        <li>images/ui-bg_glass_75_e6e6e6_1x400.png</li>
-                        <li>images/ui-bg_glass_95_fef1ec_1x400.png</li>
-                        <li>images/ui-bg_highlight-soft_75_cccccc_1x100.png</li>
-                        <li>images/ui-icons_222222_256x240.png</li>
-                        <li>images/ui-icons_2e83ff_256x240.png</li>
-                        <li>images/ui-icons_454545_256x240.png</li>
-                        <li>images/ui-icons_888888_256x240.png</li>
-                        <li>images/ui-icons_cd0a0a_256x240.png</li>
-                        <li>flot/jquery.flot.min.js</li>
+                        <li>lib/chosen/chosen.css</li>
+                        <li>lib/chosen/chosen.jquery.css</li>
+                        <li>lib/chosen/chosen-sprite.png</li>
+                        <li>lib/chosen/docsupport/prism.js</li>
+                        <li>lib/chosen/docsupport/style.css</li>
+                        <li>lib/chosen/chosen-dojo-master/chosen.css</li>
+                        <li>lib/chosen/chosen-dojo-master/chosen-dojo.js</li>
+                        <li>lib/chosen/chosen-dojo-master/chosen-sprite.png</li>
+                        <li>lib/jsapi/jsapi.js</li>
+                        <li>lib/jquery-1.11.0.min.js</li>
+                        <li>lib/jquery-ui-1.10.4.custom.min.css</li>
+                        <li>lib/jquery-ui-1.10.4.custom.min.js</li>
+                        <li>lib/images/animated-overlay.gif</li>
+                        <li>lib/images/ui-bg_flat_0_aaaaaa_40x100.png</li>
+                        <li>lib/images/ui-bg_flat_75_ffffff_40x100.png</li>
+                        <li>lib/images/ui-bg_glass_55_fbf9ee_1x400.png</li>
+                        <li>lib/images/ui-bg_glass_65_ffffff_1x400.png</li>
+                        <li>lib/images/ui-bg_glass_75_dadada_1x400.png</li>
+                        <li>lib/images/ui-bg_glass_75_e6e6e6_1x400.png</li>
+                        <li>lib/images/ui-bg_glass_95_fef1ec_1x400.png</li>
+                        <li>lib/images/ui-bg_highlight-soft_75_cccccc_1x100.png</li>
+                        <li>lib/images/ui-icons_222222_256x240.png</li>
+                        <li>lib/images/ui-icons_2e83ff_256x240.png</li>
+                        <li>lib/images/ui-icons_454545_256x240.png</li>
+                        <li>lib/images/ui-icons_888888_256x240.png</li>
+                        <li>lib/images/ui-icons_cd0a0a_256x240.png</li>
                     </ul>
                 </ul>
             </p>
         </div>
         <div id="tab2">
             <h2>Usage</h2>
-            <p>TODO. The website with the visualization is available <a href="index.htm">here</a>. See the <em>Help</em> tab on what features are available and the map key.</p>
+            <p>The website with the visualization is available <a href="index.htm">here</a>. See the <em>Help</em> tab on what features are available and the map key.</p>
             <!-- TODO add project screenshot <img src="p2.png" width="60%" height="60%"> -->
         </div>
         <div id="tab3">
+            <h2>Development progress</h2>
+            <ul>
+                <li>2014-02-05: Team set. Start reading into the problem.</li>
+                <li>2014-02-14: Initial git repository setup on <a href="https://github.com/abrauchli/geospatialviz">GitHub</a>.</li>
+                <li>2014-02-14: Initial web page skeleton set.</li>
+                <li>2014-02-16: Working map prototype.</li>
+                <li>2014-02-19: First (failed) attempt at importing data.. copy pasting takes too long</li>
+                <li>2014-02-19: Individual research. Andreas: Data aquisition, Alberto: commodity selection/layout, Patryk: Graphs and charts.</li>
+                <li>2014-02-24: Commodity selection prototype.</li>
+                <li>2014-02-25: Video meeting. Present and exchange ideas.</li>
+                <li>2014-02-26: Data import complete.</li>
+                <li>2014-02-26: Real data displayed on map.</li>
+                <li>2014-02-27: Video meeting. Individual work continues.</li>
+            </ul>
             <h2>Development findings</h2>
-            <p><span class="subtitle">KineticJS</span> KineticJS quickly proved to be slower than expected. Redrawing all with all points enabled is painfully slow on my 5yr old laptop. The stack inspection reveals that it seems to be an issue with the way grouping is handled.</p>
-            <p><span class="subtitle">FlotJS</span> To ease development, the open Javascript graphing library Flot was used to draw charts. This greatly reduces the required code while still allowing every required features. It proved to be a great charting library with many options and great configurability. FlotJS depends on jQuery, also a reson why I chose this library.</p>
+            <p><span class="subtitle">Google Visualization API</span> All graphs and charts rely on the Google Visualization API for rendering.</p>
             <p><span class="subtitle">jQuery</span> As base javascript framework, jQuery is used. This makes it easy to capture and process events.</p>
+            <p><span class="subtitle">chosen</span> A jQuery plugin for tag lists.</p>
             <p><span class="subtitle">Raw Data</span> TODO</p>
         </div>
     </div>
+    <script type="text/javascript">
+        $(function() { $('#tabs').tabs() });;
+    </script>
 </body>
 </html>

@@ -1,8 +1,44 @@
-var hscodes;
+var hscodes,
+  HSColumn = {
+    PrefixLength: 0,
+    Hscode: 1,
+    Description: 2
+  };
+
+// --- Begin Filter Functions ---
+
+/**
+ * Gets a view of hscode categories by prefix length with one or two columns:
+ *   - The prefix of length plen and
+ *   - the category description.
+ * @param plen {Number} Prefix length. One of [0, 2, 4, 6]
+ * @return {Object} A view of the hscode table filtered by prefix length.
+ */
+function getCategoriesByPrefixLength(plen, descOnly) {
+  var view = new google.visualization.DataView(hscodes);
+  view.setRows(view.getFilteredRows([{column: HSColumn.PrefixLength, value: plen}]));
+  view.setColumns([HSColumn.Hscode, HSColumn.Description]);
+  return view;
+}
+
+/**
+ * Get super category for full 6 digit hscode.
+ * This can be used when the 6 digit code does not exist in the table.
+ * @param hscode {String} Full 6 digit hscode
+ * @return {Object} A single-row view of the hscode's super category
+ */
+function getSuperCategory(hscode) {
+  var view = new google.visualization.DataView(hscodes);
+  view.setRows(view.getFilteredRows([{ column: HSColumn.Hscode: value: hscode.substr(0, 4) }]));
+  view.setColumns([HSColumn.Hscode, HSColumn.Description]);
+  return view;
+}
+
+// --- End Filter Functions ---
 
 function init_hscodes() {
 hscodes = new google.visualization.arrayToDataTable([
-["Prefix length", "HSCode (or -prefix, or prefix range)", "Description"],
+["Prefix length", "HSCode (or -prefix)", "Description"],
 [0, '01-05', "Animal & Animal Products"],
 [0, '06-15', "Vegetable Products"],
 [0, '16-24', "Foodstuffs"],

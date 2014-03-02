@@ -71,7 +71,7 @@ function usaMap() {
         n = t.getNumberOfRows(),
         ret = [];
     for (; i < n; ++i) {
-      if ((''+ t.getValue(i, 2)).substr(0, c.length) === c
+      if ((t.getValue(i, 2)).substr(0, c.length) === c
           && t.getValue(i, 1) > 0) {
         ret.push(i);
       }

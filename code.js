@@ -29,9 +29,14 @@ function googleReady() {
 
 //Function to configure options of chosen-dojo commodities selector
 function chosenDojo() {
+        //Text to display when hovering the languages in map
+        var contentString = '<div class="side-by-side clearfix"><div><em class="title">Commodities</em><select id="select"  data-placeholder="Search or select individual or group commodities" style="width:480px;" class="chzn-select-batch" multiple tabindex="6"><option value=""></option><optgroup label="NFC EAST"><option>Dallas Cowboys</option><option>New York Giants</option><option>Philadelphia Eagles</option><option>Washington Redskins</option></optgroup></select></div></div>'
+        select = dojo.byId('commodities_selector');
+        select.innerHTML= contentString;
+
         dojo.query(".chzn-select").chosen();
         dojo.query(".chzn-select-deselect").chosen({allow_single_deselect:true});
-        dojo.query(".chzn-select-batch").chosen({batch_select:true});          
+        dojo.query(".chzn-select-batch").chosen({batch_select:true});    
     }
 
 $(main);

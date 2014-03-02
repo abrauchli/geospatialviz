@@ -38,6 +38,9 @@ function getCommodityYearCol(year, perct) {
   console.error('Invalid case');
 }
 
+// ---- Begin Wrapper Functions ----
+// Easy usage functions. More advanced filters below these.
+
 /**
  * Get all export countries for a given state
  * @param state {String} State to select (e.g. 'AK')
@@ -90,7 +93,18 @@ function getImportCommoditiesYear(state, hscode, year, raw) {
   return getCommoditiesYear(Type.Import, state, hscode, year, raw);
 }
 
-// --------------------------
+/**
+ * Get aggregated commodity export totals for each state
+ * @return a view of commodity totals for each state
+ */
+function getExportCommodityTotals() {
+  return getCommodityTotals(Type.Export);
+}
+function getImportCommodityTotals() {
+  return getCommodityTotals(Type.Import);
+}
+
+// ---- End Wrapper Functions ----
 
 function getCountries(type, state) {
   var view = new google.visualization.DataView(type === Type.Export ? stateExportCountries : stateImportCountries);
@@ -135,7 +149,7 @@ function getCountriesYear(type, state, year, raw) {
 }
 
 /**
- * Filters a list of rows matching an hscode category
+ * Filters a view with a matching hscode category
  * @param table the table to search (DataView)
  * @param hscode the hscode prefix to match
  */
@@ -149,6 +163,13 @@ function filterHscodes(table, hscode) {
     }
   }
   table.setRows(filter);
+}
+
+function getCommodityTotals(type) {
+  var view = new google.visualization.DataView(type === Type.Export ? stateExportCommodities : stateImportCommodities);
+  var filter = [{column: Column.Rank, value: -2}];
+  view.setRows(view.getFilteredRows(filter));
+  return view;
 }
 
 function getCommodities(type, state) {

@@ -7,27 +7,7 @@ google.load('visualization', '1', {packages: ['geochart']});
 function worldMap() {
   var World = new google.visualization.GeoChart(
       document.getElementById('Worldmap'));
-  var view = new google.visualization.DataView(stateExportCountries);
-
-  view.setRows(view.getFilteredRows([
-    // Filter out current state w/o the "total" rows
-    {column: 0, value: 'AK'},
-    {column: 1, minValue: 1}
-  ]));
-
-  // Filter out the country (2), year1 and year2
-  view.setColumns([
-    2,
-    3,
-    {
-      label: 'Years',
-      type: 'string',
-      role: 'tooltip',
-      calc: function(t,r) {
-        return 'Col3: '+ t.getValue(r, 3);
-      }
-    }
-  ]);
+  var view = getExportCountriesYear('AK', 2009);
   World.draw(view, {
     width: 710,
     height: 372,
@@ -60,33 +40,14 @@ function usaMap() {
   };
 
   var USA = new google.visualization.GeoChart(document.getElementById('USAmap'));
-  var comView = new google.visualization.DataView(stateExportCommodities);
-  /**
-   * Return a list of rows matching an hscode category
-   * @param t the table to search (DataView)
-   * @param c the hscode prefix to match
-   */
-  var hscodeRowFilter = function(t, c) {
-    var i = 0,
-        n = t.getNumberOfRows(),
-        ret = [];
-    for (; i < n; ++i) {
-      if ((t.getValue(i, 2)).substr(0, c.length) === c
-          && t.getValue(i, 1) > 0) {
-        ret.push(i);
-      }
-    }
-    return ret;
-  }
-  comView.setRows(hscodeRowFilter(comView, '26'));
-  comView.setColumns([0, 4 /* 2009 */]);
+  var comView = getExportCommoditiesYear('ALL', '26', 2009);
   USA.draw(comView, options);
 
   //Function to get the name of the country we click on the USA map
   google.visualization.events.addListener(USA, 'regionClick', function(eventData)
   {
     region = eventData.region;
-    region = region.substring(3,5)
+    region = region.substring(3,5);
     console.log(region)
   });
 };

@@ -29,7 +29,7 @@ function getCategoriesByPrefixLength(plen, descOnly) {
  */
 function getSuperCategory(hscode) {
   var view = new google.visualization.DataView(hscodes);
-  view.setRows(view.getFilteredRows([{ column: HSColumn.Hscode: value: hscode.substr(0, 4) }]));
+  view.setRows(view.getFilteredRows([{ column: HSColumn.Hscode, value: hscode.substr(0, 4) }]));
   view.setColumns([HSColumn.Hscode, HSColumn.Description]);
   return view;
 }

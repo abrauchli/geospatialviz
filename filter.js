@@ -1,9 +1,13 @@
 var Column = {
-  State: 0,
-  Rank: 1,
-  Hscode: 2, // only by-commodity tables
-  Country: 2 // only by-country tables
-};
+    State: 0,
+    Rank: 1,
+    Hscode: 2, // only by-commodity tables
+    Country: 2 // only by-country tables
+  },
+  Type = {
+    Export: 'export',
+    Import: 'import',
+  };
 
 /**
  * Get the db column index for a given year for the per-country tables
@@ -17,6 +21,7 @@ function getCountryYearCol(year, perct) {
     case 2011: return perct ? 9 : 5;
     case 2012: return perct ? 10 : 6;
   }
+  console.error('Invalid case');
 }
 /**
  * Get the db column index for a given year for the commodity tables
@@ -30,6 +35,7 @@ function getCommodityYearCol(year, perct) {
     case 2011: return perct ? 10 : 6;
     case 2012: return perct ? 11 : 7;
   }
+  console.error('Invalid case');
 }
 
 /**
@@ -38,7 +44,56 @@ function getCommodityYearCol(year, perct) {
  * @return row-filtered view
  */
 function getExportCountries(state) {
-  var view = new google.visualization.DataView(stateExportCountries);
+  return getCountries(Type.Export, state);
+}
+function getImportCountries(state) {
+  return getCountries(Type.Import, state);
+}
+/**
+ * Get final view of exports per country for a given state and year
+ * @param state {String} State to filter
+ * @param year {Number} Year to filter
+ * @param raw {boolean} Optional, return only raw data true or w/ textual tooltip (default).
+ * @return filtered view
+ */
+function getExportCountriesYear(state, year, raw) {
+  return getCountriesYear(Type.Export, state, year, raw);
+}
+function getImportCountriesYear(state, year, raw) {
+  return getCountriesYear(Type.Import, state, year, raw);
+}
+
+/**
+ * Get exported commodities
+ * @param state {String} Optional, state to select (e.g. 'AK')
+ * @return row-filtered view
+ */
+function getExportCommodities(state) {
+  return getCommodities(Type.Export, state);
+}
+function getImportCommodities(state) {
+  return getCommodities(Type.Import, state);
+}
+
+/**
+ * Get final view of exports per commodity for a given state and year
+ * @param state {String} State to filter, pass '' or 'ALL' for all states
+ * @param hscode {String} Hscode or prefix to filter (default '')
+ * @param year {Number} Year to filter
+ * @param raw {boolean} Optional, return only raw data true or w/ textual tooltip (default).
+ * @return filtered view
+ */
+function getExportCommoditiesYear(state, hscode, year, raw) {
+  return getCommoditiesYear(Type.Export, state, hscode, year, raw);
+}
+function getImportCommoditiesYear(state, hscode, year, raw) {
+  return getCommoditiesYear(Type.Import, state, hscode, year, raw);
+}
+
+// --------------------------
+
+function getCountries(type, state) {
+  var view = new google.visualization.DataView(type === Type.Export ? stateExportCountries : stateImportCountries);
   view.setRows(view.getFilteredRows([
     // Filter out current state w/o the "total" rows
     {column: Column.State, value: state},
@@ -61,15 +116,8 @@ function filterCountryViewByYear(view, year, colidxs) {
   return view;
 }
 
-/**
- * Get final view of exports per country for a given state and year
- * @param state {String} State to filter
- * @param year {Number} Year to filter
- * @param raw {boolean} Optional, return only raw data true or w/ textual tooltip (default).
- * @return filtered view
- */
-function getExportCountriesYear(state, year, raw) {
-  var v = getExportCountries(state);
+function getCountriesYear(type, state, year, raw) {
+  var v = getCountries(type, state);
   var y = getCountryYearCol(year);
   var columns = [2, y];
   if (!raw) {
@@ -82,34 +130,29 @@ function getExportCountriesYear(state, year, raw) {
       }
     });
   }
+  v.setColumns(columns);
   return v;
 }
 
 /**
- * Return a list of rows matching an hscode category
- * @param t the table to search (DataView)
- * @param c the hscode prefix to match
+ * Filters a list of rows matching an hscode category
+ * @param table the table to search (DataView)
+ * @param hscode the hscode prefix to match
  */
-function getFilteredHscodes(t, c) {
+function filterHscodes(table, hscode) {
   var i = 0,
-      n = t.getNumberOfRows(),
-      ret = [];
+      n = table.getNumberOfRows(),
+      filter = [];
   for (; i < n; ++i) {
-    if ((t.getValue(i, Column.Hscode)).substr(0, c.length) === c
-        && t.getValue(i, Column.Rank) > 0) {
-      ret.push(i);
+    if ((table.getValue(i, Column.Hscode)).substr(0, hscode.length) === hscode) {
+      filter.push(i);
     }
   }
-  return ret;
+  table.setRows(filter);
 }
 
-/**
- * Get exported commodities
- * @param state {String} Optional, state to select (e.g. 'AK')
- * @return row-filtered view
- */
-function getExportCommodities(state) {
-  var view = new google.visualization.DataView(stateExportCommodities);
+function getCommodities(type, state) {
+  var view = new google.visualization.DataView(type === Type.Export ? stateExportCommodities : stateImportCommodities);
   var filter = [{column: Column.Rank, minValue: 1}];
   if (state)
     filter.push({column: Column.State, value: state});
@@ -117,28 +160,25 @@ function getExportCommodities(state) {
   return view;
 }
 
-/**
- * Get final view of exports per commodity for a given state and year
- * @param state {String} State to filter
- * @param hscode {String} Hscode or prefix to filter (default '')
- * @param year {Number} Year to filter
- * @param raw {boolean} Optional, return only raw data true or w/ textual tooltip (default).
- * @return filtered view
- */
-function getExportCommoditiesYear(state, hscode, year) {
-  var v = getExportCommodities(state);
+function getCommoditiesYear(type, state, hscode, year, raw) {
+  if (state == 'ALL')
+    state = '';
+  var v = getCommodities(type, state);
+  if (hscode)
+    filterHscodes(v, hscode);
   var y = getCommodityYearCol(year);
-  var columns = [0, y];
+  var columns = [Column.State, y];
   if (!raw) {
     columns.push({
       label: 'Years',
       type: 'string',
       role: 'tooltip',
-      calc: function(t,r) {
-        return 'Year '+year+': '+ t.getValue(r, getCountryYearCol(year));
+      calc: function(t, r) {
+        return 'Year '+year+': '+ t.getValue(r, y);
       }
     });
   }
+  v.setColumns(columns);
   return v;
   
 }

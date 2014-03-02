@@ -7,7 +7,7 @@ google.load('visualization', '1', {packages: ['geochart']});
 function worldMap() {
   var World = new google.visualization.GeoChart(
       document.getElementById('Worldmap'));
-  var view = getExportCountries('AK', 2009);
+  var view = getExportCountriesYear('AK', 2009);
   World.draw(view, {
     width: 710,
     height: 372,
@@ -40,10 +40,7 @@ function usaMap() {
   };
 
   var USA = new google.visualization.GeoChart(document.getElementById('USAmap'));
-  var comView = new google.visualization.DataView(stateExportCommodities);
-
-  comView.setRows(hscodeRowFilter(comView, '26'));
-  comView.setColumns([0, 4 /* 2009 */]);
+  var comView = getExportCommoditiesYear('ALL', '26', 2009);
   USA.draw(comView, options);
 
   //Function to get the name of the country we click on the USA map

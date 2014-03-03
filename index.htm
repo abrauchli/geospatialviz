@@ -12,6 +12,7 @@
     <script type="text/javascript" src="lib/chosen/chosen-dojo-master/chosen-dojo.js"></script>
     <!--Internal js files-->
     <script type="text/javascript" src="data/hscodes.js"></script>
+    <script type="text/javascript" src="data/hscodes.json"></script>
     <script type="text/javascript" src="data/states.js"></script>
     <script type="text/javascript" src="filter.js"></script>
     <script type="text/javascript" src="map.js"></script>
@@ -36,13 +37,19 @@
         <div id="tabviz">
             <div id="stage"></div>
             <div id="main">
-                <div id="USAmap"></div>
-                <div id="Worldmap"></div>
-                <form id="selection">
-                    <div id="commodities_selector">
-                        <div id="msg"></div>
-                    </div>
-                </form>
+                <div id="first_group">
+                    <div id="USAmap"></div>
+                    <div id="Worldmap"></div>
+                </div>
+                <div id="second_group">
+                    <form id="selection">
+                        <div id="commodities_selector">
+                            <div id="msg"></div>
+                        </div>
+                    </form>
+                    <div id="plots"></div>
+                </div>
+            </div>
         </div>
         <div id="tabdata">
             <h2>Title</h2>

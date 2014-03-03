@@ -34,7 +34,10 @@ body {
     height: 720px;
 }
 
-/* USAmap and Worldmap styling */
+/* First Group styling */
+#first_group{
+    width:97%;
+}
 #USAmap{
     background-color: lightgrey;
     width: 500px;
@@ -45,17 +48,18 @@ body {
 }
 
 #Worldmap{
-    position: absolute;
+    position: relative;
     background-color: lightgrey;
-    top :70px;
     width: 710px;
     border :solid 2px black;
-    left : 540px;
+    float:right;
+    top:-381px;
     padding: 3px;
     border-radius:8px;
 }
 
-/* UI styling*/
+/* Second Group Styling*/
+
 .title{
     position: relative;
     top:5px;
@@ -68,11 +72,37 @@ body {
     left:20px;
 }
 
+#second_group{
+    position: relative;
+    width:97%;
+    top:5px;
+}
+
 #commodities_selector{
     position:relative;
-    top:5px;
-    width:500px;
+    width:497px;
+    height: 150px;
     border:solid 2px black;
     border-radius:8px;
     padding: 5px;
+    background-color: white;
+    box-shadow: 0 0 0 3px lightgrey inset;
+}
+
+
+#commodities_selector .chzn-container-multi .chzn-choices {
+    height: 50px !important;
+    overflow-y: auto;
+}
+
+#plots{
+    position:relative;
+    top:-381px;
+    float:right;
+    width:705px;
+    border:solid 2px black;
+    border-radius:5px;
+    padding: 5px;
+    background-color: white;
+    box-shadow: 0 0 0 3px lightgrey inset;
 }

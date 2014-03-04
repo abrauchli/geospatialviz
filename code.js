@@ -1,31 +1,21 @@
 //variable for the groups of chosenDojo selector
 var group_code = [];
+//Initial value for region
+region='AK'
+//main function
 function main() {
     $('#tabs').tabs();
     google.load('visualization', '1', {packages: ['geochart']});
-    google.setOnLoadCallback(googleReady);
+    google.setOnLoadCallback(googleReady(region));
     var commodities_select=[];
     dojo.ready(chosenDojo);
-    //Management of the selection
-    $('select').on('change', function(event) {
-    var select_object = dojo.byId('select');
-    var select_div = dojo.byId('msg');
-    var selected_values = [];
-    for (var x=0; x<=select_object.length; x++) {
-        if (select_object[x] && select_object[x].selected) {
-            selected_values.push(select_object[x].value);
-        }
-    }
-     select_div.innerHTML = 'Selected value = ' + selected_values;
-     console.log(selected_values);
-    });
 }
 
 //Function to launch the googleAPI
-function googleReady() {
+function googleReady(region) {
     init_import_export();
     init_hscodes();
-    worldMap();
+    worldMap(region);
     usaMap();
 }
 
@@ -125,14 +115,29 @@ function chosenDojo() {
                 //}
             }
         }
-        console.log(group_code);
-        var contentString = '<div class="side-by-side clearfix"><div><em class="title">Commodities</em><select id="select"  data-placeholder="Search or select individual or group commodities" style="width:475px;" class="chzn-select-batch" multiple tabindex="6"><option value=""></option>'+ group_code[0] +  group_code[1] + group_code[2] +  group_code[3] + group_code[4] +  group_code[5] + group_code[6] +  group_code[7] + group_code[8] +  group_code[9] + group_code[10] +  group_code[11] + group_code[12] +  group_code[13] + group_code[14] +  group_code[15] +'</optgroup></select></div></div>'
+        //console.log(group_code);
+        var contentString = '<div class="side-by-side clearfix"><div><em class="title">Commodities</em><select id="select"  data-placeholder="Search or select individual or group commodities" style="width:475px;" class="chzn-select-batch" multiple tabindex="6"><option value=""></option>'+ group_code[0] +  group_code[1] + group_code[2] +  group_code[3] + group_code[4] +  group_code[5] + group_code[6] +  group_code[7] + group_code[8] +  group_code[9] + group_code[10] +  group_code[11] + group_code[12] +  group_code[13] + group_code[14] +  group_code[15] +'</optgroup></select></div></div>';
         select = dojo.byId('commodities_selector');
-        select.innerHTML= contentString;
+        select.innerHTML = contentString;
 
+        //Chosen-dojo options
         dojo.query(".chzn-select").chosen();
         dojo.query(".chzn-select-deselect").chosen({allow_single_deselect:true});
-        dojo.query(".chzn-select-batch").chosen({batch_select:true});    
+        dojo.query(".chzn-select-batch").chosen({batch_select:true});
+
+        //Management of the selection
+        $('select').on('change', function(event) {
+        var select_object = dojo.byId('select');
+        var select_div = dojo.byId('msg');
+        var selected_values = [];
+        for (var x=0; x<=select_object.length; x++) {
+            if (select_object[x] && select_object[x].selected) {
+                selected_values.push(select_object[x].value);
+            } 
+        }
+        select_div.innerHTML = 'Selected value = ' + selected_values;
+        console.log(selected_values);
+        });    
     }
 
 $(main);

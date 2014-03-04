@@ -2,12 +2,11 @@
 
 //Load the Geochart Library
 google.load('visualization', '1', {packages: ['geochart']});
-
 //Function to paint the WorldMap
-function worldMap() {
+function worldMap(region) {
   var World = new google.visualization.GeoChart(
       document.getElementById('Worldmap'));
-  var view = getExportCountriesYear('AK', 2009);
+  var view = getExportCountriesYear(region, 2009);
   World.draw(view, {
     width: 710,
     height: 372,
@@ -48,6 +47,6 @@ function usaMap() {
   {
     region = eventData.region;
     region = region.substring(3,5);
-    console.log(region)
+    worldMap(region)
   });
 };

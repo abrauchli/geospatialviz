@@ -8,13 +8,13 @@ function main() {
     google.load('visualization', '1', {packages: ['geochart']});
     google.setOnLoadCallback(googleReady(region));
     var commodities_select=[];
-    dojo.ready(chosenDojo);
 }
 
 //Function to launch the googleAPI
 function googleReady(region) {
     init_import_export();
     init_hscodes();
+    dojo.ready(chosenDojo);
     worldMap(region);
     usaMap();
 }
@@ -25,10 +25,10 @@ function chosenDojo() {
         for(var i=0; i<commodities.hscodes.length; ++i) {
             //If it is a group code
             if (commodities.hscodes[i].code == 0) { 
-                group_code.push('<optgroup label= \u0022' + commodities.hscodes[i].group + ' ' + commodities.hscodes[i].commodity +'\u0022>');
+                group_code.push('<optgroup label="' + commodities.hscodes[i].group + ' ' + commodities.hscodes[i].commodity +'">');
             } else {
                 //If it is a two digit code
-                var group = parseInt(commodities.hscodes[i].group.substring(0,2))
+                var group = parseInt(commodities.hscodes[i].group.substring(0,2), 10);
                 var g;
                 if (group<6) g = 0;
                 else if (group>5 && group <16) g = 1;
@@ -50,7 +50,7 @@ function chosenDojo() {
             }
         }
         //console.log(group_code);
-        var contentString = '<div class="side-by-side clearfix"><div><em class="title">Commodities</em><select id="select"  data-placeholder="Search or select individual or group commodities" style="width:475px;" class="chzn-select-batch" multiple tabindex="6"><option value=""></option>'+ group_code[0] +  group_code[1] + group_code[2] +  group_code[3] + group_code[4] +  group_code[5] + group_code[6] +  group_code[7] + group_code[8] +  group_code[9] + group_code[10] +  group_code[11] + group_code[12] +  group_code[13] + group_code[14] +  group_code[15] +'</optgroup></select></div></div>';
+        var contentString = '<div class="side-by-side clearfix"><div><em class="title">Commodities</em><select id="select"  data-placeholder="Search or select individual or group commodities" style="width:475px;" class="chzn-select-batch" multiple tabindex="6"><option value=""></option>'+ group_code.join('') +'</optgroup></select></div></div>';
         select = dojo.byId('commodities_selector');
         select.innerHTML = contentString;
 

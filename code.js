@@ -1,7 +1,7 @@
 //variable for the groups of chosenDojo selector
 var group_code = [];
 //Initial value for region
-region='AK'
+var region='AK'
 //main function
 function main() {
     $('#tabs').tabs();
@@ -75,15 +75,16 @@ function chosenDojo() {
         console.log(selected_values);
         }); 
 
-        $(function() {
-    $( "input[type=submit], a, button" )
-      .button()
-      .click(function( event ) {
-        event.preventDefault();
-        console.log('clik');
-        selected_values = []
-      });
-  });   
+        function removeSelect(selected_values) {
+            $( "input[type=submit], a, button" )
+            .button()
+            .click(function( event ) {
+                event.preventDefault();
+                console.log('clik');
+                selected_values = []
+                return selected_values
+            });
+        }   
     }
 
 $(main);

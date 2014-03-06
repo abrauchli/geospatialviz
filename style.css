@@ -78,10 +78,10 @@ body {
     top:5px;
 }
 
-#commodities_selector{
+#selection{
     position:relative;
     width:497px;
-    height: 150px;
+    height: 250px;
     border:solid 2px black;
     border-radius:8px;
     padding: 5px;

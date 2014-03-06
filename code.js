@@ -8,6 +8,8 @@ function main() {
     google.load('visualization', '1', {packages: ['geochart']});
     google.setOnLoadCallback(googleReady(region));
     var commodities_select=[];
+    $( "#check" ).button();
+    $( "#format" ).buttonset();
 }
 
 //Function to launch the googleAPI
@@ -71,7 +73,17 @@ function chosenDojo() {
         }
         select_div.innerHTML = 'Selected value = ' + selected_values;
         console.log(selected_values);
-        });    
+        }); 
+
+        $(function() {
+    $( "input[type=submit], a, button" )
+      .button()
+      .click(function( event ) {
+        event.preventDefault();
+        console.log('clik');
+        selected_values = []
+      });
+  });   
     }
 
 $(main);

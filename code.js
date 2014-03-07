@@ -18,7 +18,12 @@ function googleReady(region) {
     init_hscodes();
     dojo.ready(initCommoditiesSelector);
     drawCommoditiesUSMap();
-    drawSelectionUSMap();
+    //Initial value for the mapUI
+    var initial_data = google.visualization.arrayToDataTable([
+        ['region', 'selected'],
+        [region, 200]
+        ]);
+    drawSelectionUSMap(initial_data);
     drawWorldMap(region);
     drawRawTable();
 }

@@ -3,7 +3,7 @@
 //Load the Geochart Library
 google.load('visualization', '1', {packages: ['geochart']});
 //Function to paint the WorldMap
-function worldMap(region) {
+function drawWorldMap(region) {
   var World = new google.visualization.GeoChart(
       document.getElementById('Worldmap'));
   var view = getExportCountriesYear(region, 2009);
@@ -24,9 +24,30 @@ function worldMap(region) {
 
 }
 
+function drawSelectionUSMap() {
+  var options = {
+    region: 'US',
+    displayMode: 'regions',
+    enableRegionInteractivity: 'true',
+    resolution: 'provinces',
+    legend: false,
+    width: 500,
+    height: 372
+  };
 
-//Function to paint the USA map
-function usaMap() {
+  var USA = new google.visualization.GeoChart(document.getElementById('USselectmap'));
+  USA.draw(google.visualization.arrayToDataTable([["State", "Foo"]]), options);
+
+  //Function to get the name of the country we click on the USA map
+  google.visualization.events.addListener(USA, 'regionClick', function(eventData)
+  {
+    region = eventData.region;
+    region = region.substring(3,5);
+    drawWorldMap(region)
+  });
+}
+
+function drawCommoditiesUSMap() {
   var options = {
     region: 'US',
     displayMode: 'regions',
@@ -47,6 +68,5 @@ function usaMap() {
   {
     region = eventData.region;
     region = region.substring(3,5);
-    worldMap(region)
   });
 };

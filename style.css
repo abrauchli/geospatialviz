@@ -29,16 +29,16 @@ body {
 }
 
 /*Main Box */
-#main{
+.main{
     width:1280px;
     height: 720px;
 }
 
 /* First Group styling */
-#first_group{
+.first_group{
     width:97%;
 }
-#USAmap{
+.USmap{
     background-color: lightgrey;
     width: 500px;
     border :solid 2px black;
@@ -72,7 +72,7 @@ body {
     left:20px;
 }
 
-#second_group{
+.second_group{
     position: relative;
     width:97%;
     top:5px;

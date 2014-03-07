@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+    <title>U.S. Import and Export Visualization</title>
     <!--External Libraries js -->
     <script type="text/javascript" src="lib/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="lib/jquery-ui-1.10.4.custom.min.js"></script>
@@ -28,20 +29,18 @@
 <body>
     <div id="tabs">
         <ul>
-            <li><a href="#tabviz">Visualization</a></li>
+            <li><a href="#tabviz">Commodities by U.S. State</a></li>
+            <li><a href="#tabworld">International Imports/Exports</a></li>
             <li><a href="#tabdata">Raw Data</a></li>
             <li><a href="#tabhelp">Help</a></li>
             <li><a href="#tabsources">Sources</a></li>
         </ul>
-        <span style="position:absolute;top:22px;left:500px;font-weight:bold;font-size:smaller;color:#555;">U.S. Import and Export Visualization</span>
         <div id="tabviz">
-            <div id="stage"></div>
-            <div id="main">
-                <div id="first_group">
-                    <div id="USAmap"></div>
-                    <div id="Worldmap"></div>
+            <div class="main">
+                <div class="first_group">
+                    <div id="USAmap" class="USmap"></div>
                 </div>
-                <div id="second_group">
+                <div class="second_group">
                     <form id="selection">
                         <div id="format">
                             <p> Select a year or years to browse the data</p>
@@ -54,7 +53,17 @@
                         <div id="commodities_selector"></div>
                         <div id="msg"></div>
                     </form>
-                    <div id="plots"></div>
+                    <div id="plots"><a href="chart.html">Chart</a><br><a href="chartdouble.html">Chart 2</a></div>
+                </div>
+            </div>
+        </div>
+        <div id="tabworld">
+            <div class="main">
+                <div class="first_group">
+                    <div id="USselectmap" class="USmap"></div>
+                    <div id="Worldmap"></div>
+                </div>
+                <div class="second_group">
                 </div>
             </div>
         </div>

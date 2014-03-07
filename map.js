@@ -41,12 +41,11 @@ function drawSelectionUSMap(data) {
   //Function to get the name of the country we click on the USA Selection map
   google.visualization.events.addListener(USA, 'regionClick', function(eventData)
   {
-    region = eventData.region;
-    region = region.substring(3,5);
+    region = eventData.region.substr(3,5);
     drawWorldMap(region)
     var selection = google.visualization.arrayToDataTable([
         ['region', 'selected'],
-        [region, 200]
+        [region, region]
         ]);
     USA.draw(selection, options);
   });

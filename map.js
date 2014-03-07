@@ -32,7 +32,7 @@ function drawSelectionUSMap() {
     resolution: 'provinces',
     legend: false,
     width: 500,
-    height: 372
+    height: 300
   };
 
   var USA = new google.visualization.GeoChart(document.getElementById('USselectmap'));

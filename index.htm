@@ -38,19 +38,21 @@
         <div id="tabviz">
             <div class="main">
                 <div class="first_group">
-                    <form id="selection">
-                        <div id="format">
-                            <p>Toggle years to display</p>
-                            <input type="checkbox" id="check1"><label for="check1">2009</label>
-                            <input type="checkbox" id="check2"><label for="check2">2010</label>
-                            <input type="checkbox" id="check3"><label for="check3">2011</label>
-                            <input type="checkbox" id="check4"><label for="check4">2012</label>
-                        </div>
-                        <input type="submit" value="Clear Search">
-                        <div id="commodities_selector"></div>
-                        <div id="msg"></div>
-                    </form>
-                    <div id="USAmap" class="USmap"></div>
+                    <div class="leftbox">
+                        <form id="selection">
+                            <div id="format">
+                                <p>Toggle years to display</p>
+                                <input type="checkbox" id="check1"><label for="check1">2009</label>
+                                <input type="checkbox" id="check2"><label for="check2">2010</label>
+                                <input type="checkbox" id="check3"><label for="check3">2011</label>
+                                <input type="checkbox" id="check4"><label for="check4">2012</label>
+                            </div>
+                            <div id="commodities_selector"></div>
+                            <button id="comclear" style="font-size:small;"><label for="comclear">Clear commodity filter</label>
+                            <div id="msg"></div>
+                        </form>
+                    </div>
+                    <div id="USAmap" class="leftbox"></div>
                 </div>
                 <div class="second_group">
                     <div id="plots"><a href="chart.html">Chart</a><br><a href="chartdouble.html">Chart 2</a></div>
@@ -60,7 +62,26 @@
         <div id="tabworld">
             <div class="main">
                 <div class="first_group">
-                    <div id="USselectmap" class="USmap"></div>
+                    <div class="leftbox">
+                        <div class="label">
+                            <label for="worldimportexport">Chart options</label>
+                            <select id="worldimportexport">
+                                <option>Imports</option>
+                                <option>Exports</option>
+                                <option>Combined</option>
+                            </select>
+                        </div>
+                        <div class="label">
+                            <label for="worldyear">Year</label>
+                            <select id="worldyear">
+                                <option>2009</option>
+                                <option>2010</option>
+                                <option>2011</option>
+                                <option>2012</option>
+                            </select>
+                        </div>
+                        <div id="USselectmap"></div>
+                    </div>
                     <div id="Worldmap"></div>
                 </div>
                 <div class="second_group">

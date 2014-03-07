@@ -65,7 +65,7 @@ function initCommoditiesSelector() {
         }
     }
     //console.log(group_code);
-    var contentString = '<div class="side-by-side clearfix"><div><em class="title">Commodities</em><select id="select"  data-placeholder="Search or select individual or group commodities" style="width:475px;" class="chzn-select-batch" multiple tabindex="6"><option value=""></option>'+ group_code.join('') +'</optgroup></select></div></div>';
+    var contentString = '<div class="side-by-side clearfix"><div><label for="comselect">Commodities</label><select id="comselect"  data-placeholder="Search or select individual or group commodities" style="width:475px;" class="chzn-select-batch" multiple tabindex="6"><option value=""></option>'+ group_code.join('') +'</optgroup></select></div></div>';
     select = dojo.byId('commodities_selector');
     select.innerHTML = contentString;
 
@@ -75,8 +75,8 @@ function initCommoditiesSelector() {
     dojo.query(".chzn-select-batch").chosen({batch_select:true});
 
     //Management of the selection
-    $('select').on('change', function(event) {
-    var select_object = dojo.byId('select');
+    $('comselect').on('change', function(event) {
+    var select_object = dojo.byId('comselect');
     var select_div = dojo.byId('msg');
     var selected_values = [];
     for (var x=0; x<=select_object.length; x++) {
@@ -88,16 +88,16 @@ function initCommoditiesSelector() {
     console.log(selected_values);
     });
 
-    function removeSelect(selected_values) {
-        $( "input[type=submit], a, button" )
+    //function removeSelect(selected_values) {
+    // What's that ^^ for?
+        $('#comclear')
         .button()
-        .click(function( event ) {
-            event.preventDefault();
+        .click(function(e) {
+            e.preventDefault();
             console.log('clik');
             selected_values = []
-            return selected_values
         });
-    }
+    //}
 }
 
 $(main);

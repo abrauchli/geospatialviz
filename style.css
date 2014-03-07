@@ -38,7 +38,7 @@ body {
 .first_group{
     width:97%;
 }
-.USmap{
+.leftbox {
     float: left;
     background-color: lightgrey;
     width: 500px;
@@ -59,13 +59,6 @@ body {
 
 /* Second Group Styling*/
 
-.title{
-    position: relative;
-    top:5px;
-    font-family:Serif;
-    font-size: 20px;
-}
-
 .select{
     position: relative;
     left:20px;
@@ -78,11 +71,6 @@ body {
 }
 
 #selection{
-    float: left;
-    width:497px;
-    height: 250px;
-    border:solid 2px black;
-    border-radius:8px;
     padding: 5px;
     background-color: white;
     box-shadow: 0 0 0 3px lightgrey inset;
@@ -102,4 +90,9 @@ body {
     padding: 5px;
     background-color: white;
     box-shadow: 0 0 0 3px lightgrey inset;
+}
+
+.label label {
+    display: inline-block;
+    min-width: 130px;
 }

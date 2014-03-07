@@ -10,6 +10,7 @@ function main() {
     google.setOnLoadCallback(googleReady(region));
     $('#check').button();
     $('#format').buttonset();
+    $('#worldimportexport').change(drawWorldMap);
 }
 
 //Function to launch the googleAPI

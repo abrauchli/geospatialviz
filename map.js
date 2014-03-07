@@ -3,11 +3,15 @@
 //Load the Geochart Library
 google.load('visualization', '1', {packages: ['geochart']});
 //Function to paint the WorldMap
-function drawWorldMap(region) {
-  var World = new google.visualization.GeoChart(
-      document.getElementById('Worldmap'));
+function drawWorldMap() {
+  var ie = $('#worldimportexport').get(0).selectedIndex; // 0: import, 1: export, 2: combined
+  var str = (ie === 0) ? "Imports" : ((ie === 1) ? "Exports" : "Imports/Exports");
+  $('#worldmapdesc').text(str +" for "+region);
+
+  var world = new google.visualization.GeoChart(
+      document.getElementById('worldmap'));
   var view = getExportCountriesYear(region, 2009);
-  World.draw(view, {
+  world.draw(view, {
     width: 710,
     height: 372,
     colorAxis: {
@@ -17,7 +21,7 @@ function drawWorldMap(region) {
   });
 
   //Function to get the name of the country we click on the world map
-  google.visualization.events.addListener(World, 'regionClick', function(eventData) {
+  google.visualization.events.addListener(world, 'regionClick', function(eventData) {
     region = eventData.region;
     console.log(region);
   });
@@ -42,7 +46,7 @@ function drawSelectionUSMap(data) {
   google.visualization.events.addListener(USA, 'regionClick', function(eventData)
   {
     region = eventData.region.substr(3,5);
-    drawWorldMap(region)
+    drawWorldMap()
     var selection = google.visualization.arrayToDataTable([
         ['region', 'selected'],
         [region, region]

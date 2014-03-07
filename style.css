@@ -48,17 +48,6 @@ body {
     margin:0px;
 }
 
-#Worldmap{
-    background-color: lightgrey;
-    width: 710px;
-    border: solid 2px black;
-    float: left;
-    padding: 3px;
-    border-radius:8px;
-}
-
-/* Second Group Styling*/
-
 .select{
     position: relative;
     left:20px;

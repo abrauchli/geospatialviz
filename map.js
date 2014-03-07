@@ -24,7 +24,7 @@ function drawWorldMap(region) {
 
 }
 
-function drawSelectionUSMap() {
+function drawSelectionUSMap(data) {
   var options = {
     region: 'US',
     displayMode: 'regions',
@@ -36,14 +36,19 @@ function drawSelectionUSMap() {
   };
 
   var USA = new google.visualization.GeoChart(document.getElementById('USselectmap'));
-  USA.draw(google.visualization.arrayToDataTable([["State", "Foo"]]), options);
+  USA.draw(data, options);
 
-  //Function to get the name of the country we click on the USA map
+  //Function to get the name of the country we click on the USA Selection map
   google.visualization.events.addListener(USA, 'regionClick', function(eventData)
   {
     region = eventData.region;
     region = region.substring(3,5);
     drawWorldMap(region)
+    var selection = google.visualization.arrayToDataTable([
+        ['region', 'selected'],
+        [region, 200]
+        ]);
+    USA.draw(selection, options);
   });
 }
 

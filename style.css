@@ -39,6 +39,7 @@ body {
     width:97%;
 }
 .USmap{
+    float: left;
     background-color: lightgrey;
     width: 500px;
     border :solid 2px black;
@@ -48,12 +49,10 @@ body {
 }
 
 #Worldmap{
-    position: relative;
     background-color: lightgrey;
     width: 710px;
-    border :solid 2px black;
-    float:right;
-    top:-381px;
+    border: solid 2px black;
+    float: left;
     padding: 3px;
     border-radius:8px;
 }
@@ -79,7 +78,7 @@ body {
 }
 
 #selection{
-    position:relative;
+    float: left;
     width:497px;
     height: 250px;
     border:solid 2px black;
@@ -96,10 +95,8 @@ body {
 }
 
 #plots{
-    position:relative;
-    top:-381px;
-    float:right;
-    width:705px;
+    float:left;
+    width:497px;
     border:solid 2px black;
     border-radius:5px;
     padding: 5px;

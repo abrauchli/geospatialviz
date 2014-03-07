@@ -1,24 +1,37 @@
 //variable for the groups of chosenDojo selector
 var group_code = [];
 //Initial value for region
-var region='AK'
+var region='AK';
+google.load('visualization', '1', {packages: ['geochart', 'table']});
+
 //main function
 function main() {
     $('#tabs').tabs();
-    google.load('visualization', '1', {packages: ['geochart']});
     google.setOnLoadCallback(googleReady(region));
-    var commodities_select=[];
-    $( "#check" ).button();
-    $( "#format" ).buttonset();
+    $('#check').button();
+    $('#format').buttonset();
 }
 
 //Function to launch the googleAPI
 function googleReady(region) {
     init_import_export();
     init_hscodes();
-    dojo.ready(chosenDojo);
-    worldMap(region);
-    usaMap();
+    dojo.ready(initCommoditiesSelector);
+    drawCommoditiesUSMap();
+    drawSelectionUSMap();
+    drawWorldMap(region);
+    drawRawTable();
+}
+
+function drawRawTable() {
+    var d = [stateExportCountries, stateImportCountries, stateExportCommodities, stateImportCommodities],
+        table = new google.visualization.Table(document.getElementById('tbldata'));
+    $('#tabdataselect').change(function(e) {
+        var v = e.target.selectedIndex;
+        if (!v)
+            return;
+        table.draw(d[v-1], {showRowNumber: true});
+    });
 }
 
 //Function to configure options of chosen-dojo commodities selector and fill in the data to select dynamically

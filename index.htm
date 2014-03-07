@@ -29,7 +29,7 @@
     <div id="tabs">
         <ul>
             <li><a href="#tabviz">Visualization</a></li>
-            <li><a href="#tabdata">Data</a></li>
+            <li><a href="#tabdata">Raw Data</a></li>
             <li><a href="#tabhelp">Help</a></li>
             <li><a href="#tabsources">Sources</a></li>
         </ul>
@@ -59,8 +59,15 @@
             </div>
         </div>
         <div id="tabdata">
-            <h2>Title</h2>
-            <div id="tbltodo"></div>
+            <h2>Data</h2>
+            <select id="tabdataselect">
+                <option>Select an option</option>
+                <option>State Export by Country</option>
+                <option>State Import by Country</option>
+                <option>State Export by Commodities</option>
+                <option>State Import by Commodities</option>
+            </select>
+            <div id="tbldata"></div>
         </div>
         <div id="tabhelp">
             <h2>Visualization of TODO Data</h2>

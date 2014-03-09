@@ -6,10 +6,33 @@ google.load('visualization', '1', {packages: ['geochart']});
 var maps = {
     byCountry: {
         usa: null,
-        world: null
+        usaOptions: {
+            region: 'US',
+            displayMode: 'regions',
+            enableRegionInteractivity: 'true',
+            resolution: 'provinces',
+            legend: false,
+            width: 500,
+            height: 300
+        },
+        world: null,
+        worldOptions: {
+            width: 710,
+            height: 372
+        }
     },
     byCommodity: {
-        usa: null
+        usa: null,
+        usaOptions: {
+            region: 'US',
+            displayMode: 'regions',
+            enableRegionInteractivity: 'true',
+            resolution: 'provinces',
+            colorAxis: {colors: ['green', 'blue']},
+            legend: false,
+            width: 500,
+            height: 372
+        }
     }
 };
 
@@ -31,7 +54,7 @@ function initMaps() {
         ['region', 'selected'],
         [region, region]
     ]);
-    maps.byCountry.usa.draw(selection, options);
+    maps.byCountry.usa.draw(selection, maps.byCountry.usaOptions);
   });
 }
 //Function to paint the WorldMap
@@ -48,55 +71,25 @@ function drawWorldMap() {
         type = Type.Export;
         break;
     default:
-        str = "Imports/Exports";
+        str = "Imports/Exports difference. Negative number means more imports";
+        type = Type.ImportExportDiff;
   }
   $('#worldmapdesc').text(region +", "+ year +" "+ str);
   var view = getCountriesYear(type, region, year);
-  var opts = {
-    width: 710,
-    height: 372
     /*
-    ,colorAxis: {
+    opts.colorAxis = {
       maxValue: 1000 ,
       colors: ['#438094','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#E0D39E','#E0D39E','#E0D39E']
     }
     */
-  };
-  maps.byCountry.world.draw(view, opts);
-
-  //Function to get the name of the country we click on the world map
-  google.visualization.events.addListener(maps.byCountry.world, 'regionClick', function(eventData) {
-    region = eventData.region;
-    console.log(region);
-  });
-
+  maps.byCountry.world.draw(view, maps.byCountry.worldOptions);
 }
 
 function drawSelectionUSMap(data) {
-  var options = {
-    region: 'US',
-    displayMode: 'regions',
-    enableRegionInteractivity: 'true',
-    resolution: 'provinces',
-    legend: false,
-    width: 500,
-    height: 300
-  };
-  maps.byCountry.usa.draw(data, options);
+  maps.byCountry.usa.draw(data, maps.byCountry.usaOptions);
 }
 
 function drawCommoditiesUSMap() {
-  var options = {
-    region: 'US',
-    displayMode: 'regions',
-    enableRegionInteractivity: 'true', 
-    resolution: 'provinces',
-    colorAxis: {colors: ['green', 'blue']},
-    legend: false,
-    width: 500,
-    height: 372
-  };
-
   var comView = getExportCommoditiesYear('ALL', '26', 2009);
-  maps.byCommodity.usa.draw(comView, options);
-};
+  maps.byCommodity.usa.draw(comView, maps.byCommodity.usaOptions);
+}

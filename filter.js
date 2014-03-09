@@ -7,6 +7,7 @@ var Column = {
   Type = {
     Export: 'export',
     Import: 'import',
+    ImportExportDiff: 'iediff'
   };
 
 /**
@@ -131,18 +132,45 @@ function filterCountryViewByYear(view, year, colidxs) {
 }
 
 function getCountriesYear(type, state, year, raw) {
-  var v = getCountries(type, state);
   var y = getCountryYearCol(year);
-  var columns = [2, y];
+  var v = (type !== Type.ImportExportDiff)
+            ? getCountries(type, state)
+            : new google.visualization.DataView(
+                google.visualization.data.join(
+                  getCountries(Type.Import, state),
+                  getCountries(Type.Export, state),
+                  'full',
+                  [[Column.Country, Column.Country]],
+                  [y],
+                  [y])
+              );
+
+  var columns = (type !== Type.ImportExportDiff ? [2, y] : [0]);
   if (!raw) {
-    columns.push({
-      label: 'Years',
-      type: 'string',
-      role: 'tooltip',
-      calc: function(t,r) {
-        return 'Year '+year+': '+ t.getValue(r, getCountryYearCol(year));
-      }
-    });
+    if (type !== Type.ImportExportDiff) {
+      columns.push({
+        label: 'Years',
+        type: 'string',
+        role: 'tooltip',
+        calc: function(t,r) {
+          return 'Year '+year+': '+ t.getValue(r, getCountryYearCol(year));
+        }
+      });
+
+    } else {
+      columns.push({
+        label: 'Years',
+        type: 'string',
+        role: 'tooltip',
+        calc: function(t,r) {
+          var i = t.getValue(r, 1),
+              e = t.getValue(r, 2);
+          return "Diff: "+ (e-i) +"\n"
+            + "Imports: "+ (i+0) +"\n"
+            + "Exports: "+ (e+0);
+        }
+      })
+    }
   }
   v.setColumns(columns);
   return v;

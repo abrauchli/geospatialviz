@@ -10,9 +10,9 @@ var Column = {
     ImportExportDiff: 'iediff'
   },
   TypeString = {
-    'export': "Imports",
-    'import': "Exports",
-    'iediff': "Imports/Exports difference. Negative number means more imports";
+    'export': "Exports",
+    'import': "Imports",
+    'iediff': "Imports/Exports difference. Negative number means more imports"
   };
 
 /**

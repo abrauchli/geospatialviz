@@ -2,23 +2,24 @@
 var group_code = [];
 //Initial value for region
 var region='AK';
-google.load('visualization', '1', {packages: ['geochart', 'table']});
+google.load('visualization', '1', {packages: ['geochart', 'table','sankey']});
 
 //main function
 function main() {
     $('#tabs').tabs();
-    google.setOnLoadCallback(googleReady(region));
+    google.setOnLoadCallback(googleReady());
     $('#check').button();
     $('#format').buttonset();
     $('#worldimportexport').change(drawWorldMap);
 }
 
 //Function to launch the googleAPI
-function googleReady(region) {
+function googleReady() {
     init_import_export();
     init_hscodes();
     dojo.ready(initCommoditiesSelector);
     drawCommoditiesUSMap();
+    drawChart();
     //Initial value for the mapUI
     var initial_data = google.visualization.arrayToDataTable([
         ['region', 'selected'],

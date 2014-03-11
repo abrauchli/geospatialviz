@@ -71,9 +71,9 @@ body {
     overflow-y: auto;
 }
 
-#plots{
+.plots{
     float:left;
-    width:497px;
+    width:98%;
     border:solid 2px black;
     border-radius:5px;
     padding: 5px;

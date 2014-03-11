@@ -52,6 +52,7 @@ function drawSelectionUSMap(data) {
         [region, region]
         ]);
     USA.draw(selection, options);
+    drawChart();
   });
 }
 

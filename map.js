@@ -59,21 +59,17 @@ function initMaps() {
 }
 //Function to paint the WorldMap
 function drawWorldMap() {
-  var ie = $('#worldimportexport').get(0).selectedIndex; // 0: import, 1: export, 2: combined
-  var year = parseInt($('#worldyear').get(0).value, 10);
-  switch (ie) {
-    case 0:
-        str = "Imports";
-        type = Type.Import;
-        break;
-    case 1:
-        str = "Exports";
-        type = Type.Export;
-        break;
-    default:
-        str = "Imports/Exports difference. Negative number means more imports";
-        type = Type.ImportExportDiff;
+  function getSelectedType() {
+    var ie = $('#worldimportexport').get(0).selectedIndex; // 0: import, 1: export, 2: combined
+    if (ie === 0)
+      return Type.Import;
+    if (ie === 1)
+      return Type.Export;
+    return Type.ImportExportDiff;
   }
+  var year = parseInt($('#worldyear').get(0).value, 10);
+  var type = getSelectedType();
+  var str = TypeString[type];
   $('#worldmapdesc').text(region +", "+ year +" "+ str);
   var view = getCountriesYear(type, region, year);
     /*

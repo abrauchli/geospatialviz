@@ -10,7 +10,6 @@ function main() {
     google.setOnLoadCallback(googleReady());
     $('#check').button();
     $('#format').buttonset();
-    $('#worldimportexport').change(drawWorldMap);
 }
 
 //Function to launch the googleAPI
@@ -18,16 +17,19 @@ function googleReady() {
     init_import_export();
     init_hscodes();
     dojo.ready(initCommoditiesSelector);
+    initMaps();
     drawCommoditiesUSMap();
     drawChart();
     //Initial value for the mapUI
     var initial_data = google.visualization.arrayToDataTable([
         ['region', 'selected'],
-        [region, 200]
-        ]);
+        [region, region]
+    ]);
     drawSelectionUSMap(initial_data);
-    drawWorldMap(region);
+    drawWorldMap();
     drawRawTable();
+    $('#worldimportexport').change(drawWorldMap);
+    $('#worldyear').change(drawWorldMap);
 }
 
 function drawRawTable() {

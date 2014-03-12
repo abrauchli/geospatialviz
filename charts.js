@@ -38,13 +38,24 @@ function drawSankeyChart() {
 
 function getSankeyDataForCountryYear(type, state, year) {
     var t = getCountriesYear(type, state, year, true).toDataTable();
+    var yearCol = (type === Type.ImportExportDiff ? 2 : getCountryYearCol(year));
+    if (type === Type.ImportExportDiff) {
+        t.insertColumn(0, 'string', "State");
+        t.setColumnLabel(yearCol, "Import Export Difference");
+    }
     var v = new google.visualization.DataView(t);
-    var yearCol = getCountryYearCol(year);
     var rows = [];
     var sumOther = 0;
     for (var i = 0; i < t.getNumberOfRows(); ++i) {
-        var val = t.getValue(i, yearCol);
-        if (val < 25)
+        var val;
+        if (type !== Type.ImportExportDiff) {
+            val = t.getValue(i, yearCol);
+        } else {
+            val = t.getValue(i, 3) - t.getValue(i, 2); // Exp-Imp
+            t.setValue(i, yearCol, val); // Reuse imp column as difference
+            t.setValue(i, Column.State, state);
+        }
+        if (val < 25) // TODO: what about negative values with difference?
             sumOther += val;
         else
             rows.push(i);
@@ -57,6 +68,10 @@ function getSankeyDataForCountryYear(type, state, year) {
         rows.push(i);
     }
     v.setRows(rows);
-    v.setColumns([Column.State, Column.Country, yearCol]);
+    if (type === Type.ImportExportDiff) {
+        v.setColumns([Column.State, 1, yearCol]);
+    } else {
+        v.setColumns([Column.State, Column.Country, yearCol]);
+    }
     return v;
 }

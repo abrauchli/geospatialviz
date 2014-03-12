@@ -145,7 +145,8 @@ function getCountriesYear(type, state, year, raw) {
                   getCountries(Type.Import, state),
                   getCountries(Type.Export, state),
                   'full',
-                  [[Column.Country, Column.Country]],
+                  // Also join on state when multiple allowed
+                  [/*[Column.State, Column.State],*/[Column.Country, Column.Country]],
                   [y],
                   [y])
               );

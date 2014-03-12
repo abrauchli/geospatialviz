@@ -18,8 +18,9 @@ function googleReady() {
     init_hscodes();
     dojo.ready(initCommoditiesSelector);
     initMaps();
+    initCharts();
     drawCommoditiesUSMap();
-    drawChart();
+    drawSankeyChart();
     //Initial value for the mapUI
     var initial_data = google.visualization.arrayToDataTable([
         ['region', 'selected'],
@@ -28,8 +29,13 @@ function googleReady() {
     drawSelectionUSMap(initial_data);
     drawWorldMap();
     drawRawTable();
-    $('#worldimportexport').change(drawWorldMap);
-    $('#worldyear').change(drawWorldMap);
+    $('#worldimportexport').change(onWorldMapDataChanged);
+    $('#worldyear').change(onWorldMapDataChanged);
+}
+
+function onWorldMapDataChanged() {
+  drawWorldMap();
+  drawSankeyChart();
 }
 
 function drawRawTable() {

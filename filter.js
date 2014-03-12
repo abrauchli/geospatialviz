@@ -150,8 +150,8 @@ function getCountriesYear(type, state, year, raw) {
                   [y])
               );
 
-  var columns = (type !== Type.ImportExportDiff ? [2, y] : [0]);
   if (!raw) {
+    var columns = (type !== Type.ImportExportDiff ? [2, y] : [0]);
     if (type !== Type.ImportExportDiff) {
       columns.push({
         label: 'Years',
@@ -176,8 +176,8 @@ function getCountriesYear(type, state, year, raw) {
         }
       })
     }
+    v.setColumns(columns);
   }
-  v.setColumns(columns);
   return v;
 }
 

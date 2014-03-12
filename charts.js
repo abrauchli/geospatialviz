@@ -1,16 +1,22 @@
-//Function to draw a Sankey Chart
-function drawChart() {
+var charts = {
+    byCountry: {
+        sankey: null
+    }
+}
+
+function initCharts() {
+    charts.byCountry.sankey = new google.visualization.Sankey(document.getElementById('sankey'));
+
+    //  google.visualization.events.addListener(chart, 'onmouseover', function() {
+    //     console.log('go')
+    // });
+}
+
+function drawSankeyChart() {
     //Set the data
-    var type='imports';
-    $('#worldimportexport').change( function() {
-        var ie = $('#worldimportexport').val(); // 0: import, 1: export, 2: combined
-        if (ie=='Imports') var type='imports';
-        else if (ie=='Exports') var type='exports';
-        data = dataForCountryYear(type,region,2009);
-        chart.draw(data, options);
-        console.log(type)
-    });
-    data = dataForCountryYear(type,region,2009);
+    var type = getWorldSelectedType();
+    var year = getWorldSelectedYear();
+    data = getSankeyDataForCountryYear(type, region, year);
 
     // Set chart options
     var options = {
@@ -22,42 +28,35 @@ function drawChart() {
                          color: '#871b47',
                          bold: true,
                          italic: true }, 
-                nodePadding: 10} }
+                nodePadding: 10}
+      }
     };
 
     // Instantiate and draw Sankey chart
-    var chart = new google.visualization.Sankey(document.getElementById('sankey'));
-    chart.draw(data, options);
-
-     google.visualization.events.addListener(chart, 'onmouseover', function()
-    {
-        console.log('go')
-    });
+    charts.byCountry.sankey.draw(data, options);
 }
 
-function dataForCountryYear(type,state,year){
-    //Fill in data
-    var country = getCountries(type,state)
-    var trading_countries = [];
-    var year = getCountryYearCol(year);
-    var rows = country.getNumberOfRows();
-    var value = [];
-    for (var i=0; i<rows; i++){
-        if(country.getValue(i,3)>30){
-            value.push(country.getValue(i,3));
-            trading_countries.push(country.getValue(i,2))
-        }
+function getSankeyDataForCountryYear(type, state, year) {
+    var t = getCountriesYear(type, state, year, true).toDataTable();
+    var v = new google.visualization.DataView(t);
+    var yearCol = getCountryYearCol(year);
+    var rows = [];
+    var sumOther = 0;
+    for (var i = 0; i < t.getNumberOfRows(); ++i) {
+        var val = t.getValue(i, yearCol);
+        if (val < 25)
+            sumOther += val;
+        else
+            rows.push(i);
     }
-
-    var data = new google.visualization.DataTable();
-    data.addColumn('string', 'From');
-    data.addColumn('string', 'To');
-    data.addColumn('number', 'Weight');
-    data.addRows(trading_countries.length);
-    for (var i=0; i<trading_countries.length; i++){
-        data.setCell(i, 0, state);
-        data.setCell(i, 1, trading_countries[i]);
-        data.setCell(i, 2, value[i])
+    if (sumOther >= 25) { // TODO: no "Others" category with multiple states?
+        t.addRow();
+        t.setCell(i, Column.State, state);
+        t.setCell(i, Column.Country, "Others");
+        t.setCell(i, yearCol, sumOther);
+        rows.push(i);
     }
-    return(data)
+    v.setRows(rows);
+    v.setColumns([Column.State, Column.Country, yearCol]);
+    return v;
 }

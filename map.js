@@ -49,26 +49,34 @@ function initMaps() {
   maps.byCountry.usa = new google.visualization.GeoChart(document.getElementById('USselectmap'));
   google.visualization.events.addListener(maps.byCountry.usa, 'regionClick', function(eventData) {
     region = eventData.region.substr(3,5);
-    drawWorldMap()
     var selection = google.visualization.arrayToDataTable([
         ['region', 'selected'],
         [region, region]
     ]);
     maps.byCountry.usa.draw(selection, maps.byCountry.usaOptions);
+    onWorldMapDataChanged();
   });
 }
+
+// === Helper functions only for world map related code ===
+function getWorldSelectedType() {
+  var ie = $('#worldimportexport').get(0).selectedIndex; // 0: import, 1: export, 2: combined
+  if (ie === 0)
+    return Type.Import;
+  if (ie === 1)
+    return Type.Export;
+  return Type.ImportExportDiff;
+}
+
+function getWorldSelectedYear() {
+  return parseInt($('#worldyear').get(0).value, 10);
+}
+// === End helper functions only for world map related code ===
+
 //Function to paint the WorldMap
 function drawWorldMap() {
-  function getSelectedType() {
-    var ie = $('#worldimportexport').get(0).selectedIndex; // 0: import, 1: export, 2: combined
-    if (ie === 0)
-      return Type.Import;
-    if (ie === 1)
-      return Type.Export;
-    return Type.ImportExportDiff;
-  }
-  var year = parseInt($('#worldyear').get(0).value, 10);
-  var type = getSelectedType();
+  var year = getWorldSelectedYear();
+  var type = getWorldSelectedType();
   var str = TypeString[type];
   $('#worldmapdesc').text(region +", "+ year +" "+ str);
   var view = getCountriesYear(type, region, year);

@@ -79,7 +79,7 @@ function drawWorldMap() {
   var year = getWorldSelectedYear();
   var type = getWorldSelectedType();
   var str = TypeString[type];
-  $('#worldmapdesc').text(region +", "+ year +" "+ str);
+  $('#worldmapdesc').text(region +", "+ str +" "+ year);
   var view = getCountriesYear(type, region, year);
     /*
     opts.colorAxis = {

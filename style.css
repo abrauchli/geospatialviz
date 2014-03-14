@@ -48,6 +48,17 @@ body {
     margin:0px;
 }
 
+.rightbox{
+    position:relative;
+    float : right;
+    background-color: white;
+    width: 500px;
+    border :solid 2px black;
+    padding: 3px;
+    border-radius:8px;
+    margin:0px;
+}
+
 .select{
     position: relative;
     left:20px;
@@ -77,10 +88,9 @@ body {
     overflow-y: auto;
 }
 
-#state_selector > #chosen-drop {
-    width:300px;
+#state_selector{
+    padding: 5px;
 }
-
 
 .plots{
     float:left;
@@ -90,4 +100,10 @@ body {
     padding: 5px;
     background-color: white;
     box-shadow: 0 0 0 3px lightgrey inset;
+}
+
+#worldmapdesc{
+    position:relative;
+    left:320px;
+    padding: 10px;
 }

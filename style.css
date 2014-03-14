@@ -59,7 +59,7 @@ body {
     top:5px;
 }
 
-#selection{
+.selection{
     padding: 5px;
     background-color: white;
     box-shadow: 0 0 0 3px lightgrey inset;
@@ -70,6 +70,14 @@ body {
     height: 50px !important;
     overflow-y: auto;
 }
+
+#state_selector .chzn-container-multi .chzn-choices {
+    height: 50px !important;
+    width: 200px;
+    overflow-y: auto;
+}
+
+
 
 .plots{
     float:left;

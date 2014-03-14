@@ -72,11 +72,14 @@ body {
 }
 
 #state_selector .chzn-container-multi .chzn-choices {
-    height: 50px !important;
-    width: 200px;
+    height: 30px !important;
+    width: 380px;
     overflow-y: auto;
 }
 
+#state_selector > #chosen-drop {
+    width:300px;
+}
 
 
 .plots{
@@ -87,9 +90,4 @@ body {
     padding: 5px;
     background-color: white;
     box-shadow: 0 0 0 3px lightgrey inset;
-}
-
-.label label {
-    display: inline-block;
-    min-width: 130px;
 }

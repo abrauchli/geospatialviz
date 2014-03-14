@@ -55,6 +55,7 @@ function initMaps() {
     ]);
     maps.byCountry.usa.draw(selection, maps.byCountry.usaOptions);
     onWorldMapDataChanged();
+    //Need something to eliminate the selected elemented in the search bar.
   });
 }
 

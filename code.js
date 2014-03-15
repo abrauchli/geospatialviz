@@ -90,7 +90,7 @@ function initCommoditiesSelector() {
     dojo.query(".chzn-select-batch").chosen({batch_select:true});
 
     //Management of the selection
-    $('comselect').on('change', function(event) {
+    $('#comselect').on('change', function(event) {
     var select_object = dojo.byId('comselect');
     var selected_values = [];
     for (var x=0; x<=select_object.length; x++) {
@@ -99,14 +99,10 @@ function initCommoditiesSelector() {
         }
     }
     });
-
-    //function removeSelect(selected_values) {
-    // What's that ^^ for?
     $('#comclear')
     .button()
     .click(function(e) {
         e.preventDefault();
-        console.log('clik');
         selected_values = []
     });
     //}
@@ -121,7 +117,7 @@ function initCommoditiesSelector() {
     dojo.query(".chzn-select-batch").chosen({batch_select:true});
 
     //Management of the selection
-    $('stateselect').on('change', function(event) {
+    $('#stateselect').on('change', function(event) {
     var select_object = dojo.byId('stateselect');
     var selected_values = [];
     for (var x=0; x<=select_object.length; x++) {

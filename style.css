@@ -48,6 +48,17 @@ body {
     margin:0px;
 }
 
+.rightbox{
+    position:relative;
+    float : right;
+    background-color: white;
+    width: 500px;
+    border :solid 2px black;
+    padding: 3px;
+    border-radius:8px;
+    margin:0px;
+}
+
 .select{
     position: relative;
     left:20px;
@@ -59,7 +70,7 @@ body {
     top:5px;
 }
 
-#selection{
+.selection{
     padding: 5px;
     background-color: white;
     box-shadow: 0 0 0 3px lightgrey inset;
@@ -69,6 +80,16 @@ body {
 #commodities_selector .chzn-container-multi .chzn-choices {
     height: 50px !important;
     overflow-y: auto;
+}
+
+#state_selector .chzn-container-multi .chzn-choices {
+    height: 30px !important;
+    width: 380px;
+    overflow-y: auto;
+}
+
+#state_selector{
+    padding: 5px;
 }
 
 .plots{
@@ -81,7 +102,8 @@ body {
     box-shadow: 0 0 0 3px lightgrey inset;
 }
 
-.label label {
-    display: inline-block;
-    min-width: 130px;
+#worldmapdesc{
+    position:relative;
+    left:320px;
+    padding: 10px;
 }

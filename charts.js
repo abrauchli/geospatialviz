@@ -15,7 +15,7 @@ function initCharts() {
 function drawSankeyChart() {
     //Set the data
     var type = getWorldSelectedType();
-    var year = getWorldSelectedYear();
+    var year = selectedYears[0];
     data = getSankeyDataForCountryYear(type, regions.toArray(), year);
 
     // Set chart options

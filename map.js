@@ -62,14 +62,11 @@ function getWorldSelectedType() {
   return Type.ImportExportDiff;
 }
 
-function getWorldSelectedYear() {
-  return parseInt($('#worldyear').get(0).value, 10);
-}
 // === End helper functions only for world map related code ===
 
 //Function to paint the WorldMap
 function drawWorldMap() {
-  var year = getWorldSelectedYear();
+  var year = selectedYears[0];
   var type = getWorldSelectedType();
   var str = TypeString[type];
   var reg = regions.toArray();

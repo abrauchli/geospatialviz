@@ -4,13 +4,14 @@ google.load('visualization', '1', {
 
 // Selected commodities
 var group_code = [];
-var year = [];
+var selectedYears = [2012];
 
 //main function
 function main() {
     $('#tabs').tabs();
     $('#formatcoun').buttonset();
-    $('#formatcomm').buttonset(yearSelect());
+    $('#formatcomm').buttonset();
+    initYearSelect();
     google.setOnLoadCallback(googleReady());
 }
 
@@ -27,12 +28,16 @@ function googleReady() {
     drawWorldMap();
     drawRawTable();
     $('#worldimportexport').change(onWorldMapDataChanged);
-    $('#worldyear').change(onWorldMapDataChanged);
 }
 
 function onWorldMapDataChanged() {
   drawWorldMap();
   drawSankeyChart();
+}
+
+function onYearChanged() {
+    // TODO
+    onWorldMapDataChanged();
 }
 
 function drawRawTable() {
@@ -128,35 +133,29 @@ function initCommoditiesSelector() {
 }
 
 //Function to monitor the year selection for commodities
-function yearSelect (){
-    $('#check1').click(function () {
-        checkYear('#check1',2009);
-    });
-    $('#check2').click(function () {
-        checkYear('#check2',2010);
-    });
-    $('#check3').click(function () {
-        checkYear('#check3',2011);
-    });
-    $('#check4').click(function () {
-        checkYear('#check4',2012);
-    });
-    //Function to remove the year selected
-    function remove (actual_year){
-        var remove = actual_year;
-        year = jQuery.grep(year, function(value) {
-            return value != remove;
-            });
-    }
+function initYearSelect (){
     //Function to check the actual year of selection - deselection
-    function checkYear (selected,actual_year){
-         if ($(selected).is(":checked")) {
-            year.push(actual_year);
+    function checkYear (btn) {
+        if (btn.is(':checked')) {
+            selectedYears.push(btn.data('year'));
         } else {
-           remove(actual_year)
+            selectedYears.splice(selectedYears.indexOf(btn.data('year')), 1);
         }
-        console.log(year)
     }
+    function setSelectedYears () {
+        $.each($('.chkyear'), function(i, o) {
+            var b = $(o);
+            var sel = ($.inArray(b.data('year'), selectedYears) >= 0);
+            if (b.prop('checked') !== sel) {
+                b.prop('checked', sel);
+                b.button('refresh');
+            }
+        });
+    }
+    setSelectedYears();
+    $('.chkyear').click(function (e) {
+        checkYear($(e.target));
+    });
 }
 
 $(main);

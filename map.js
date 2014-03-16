@@ -12,12 +12,12 @@ var maps = {
             enableRegionInteractivity: 'true',
             resolution: 'provinces',
             legend: false,
-            width: 500,
-            height: 300
+            width: 300,
+            height: 200
         },
         world: null,
         worldOptions: {
-            width: 710,
+            width: 900,
             height: 372
         }
     },
@@ -28,9 +28,9 @@ var maps = {
             displayMode: 'regions',
             enableRegionInteractivity: 'true',
             resolution: 'provinces',
-            colorAxis: {colors: ['green', 'blue']},
+            colorAxis: {colors: ['#F0FFC2', '#3D4C0F']},
             legend: false,
-            width: 500,
+            width: 700,
             height: 372
         }
     }

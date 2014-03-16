@@ -8,8 +8,9 @@ google.load('visualization', '1', {packages: ['geochart', 'table','sankey']});
 //main function
 function main() {
     $('#tabs').tabs();
+    $('#formatcoun').buttonset();
+    $('#formatcomm').buttonset(yearSelect());
     google.setOnLoadCallback(googleReady());
-    $('#format').buttonset(yearSelect());
 }
 
 //Function to launch the googleAPI
@@ -80,7 +81,7 @@ function initCommoditiesSelector() {
         }
     }
 
-    var contentStringCommodities = '<div class="side-by-side clearfix"><label for="comselect">Commodities</label><select id="comselect"  data-placeholder="Search and select individual or group of commodities" style="width:475px;" class="chzn-select-batch" multiple tabindex="6"><option value=""></option>'+ group_code.join('') +'</optgroup></select></div>';
+    var contentStringCommodities = '<div class="side-by-side clearfix"><label for="comselect">Commodities</label><select id="comselect"  data-placeholder="Search and select individual or group of commodities" style="width:400px;" class="chzn-select-batch" multiple tabindex="6"><option value=""></option>'+ group_code.join('') +'</optgroup></select></div>';
     select = dojo.byId('commodities_selector');
     select.innerHTML = contentStringCommodities;
 
@@ -109,7 +110,7 @@ function initCommoditiesSelector() {
         selected_values = []
     });
     //Text to fill in the states Selector for International Imports/Exports USA Map
-    var contentStringStates = '<div class="side-by-side clearfix"><label for="stateselect">State</label><select id="stateselect"  data-placeholder="Select individual or group of States" style="width:200px;" class="chzn-select-batch" multiple tabindex="6"><option value=""></option><option>Alabama</option><option>Alaska</option><option>Arizona</option><option>Arkansas</option><option>California</option><option>Colorado</option><option>Connecticut</option><option>Delaware</option><option>Florida</option><option>Georgia</option><option>Hawaii</option><option>Idaho</option><option>Illinois</option><option>Indiana</option><option>Iowa</option><option>Kansas</option><option>Kentucky</option><option>Louisiana</option><option>Maine</option><option>Maryland</option><option>Massachusetts</option><option>Michigan</option><option>Minnesota</option><option>Mississippi</option><option>Missouri</option><option>Montana</option><option>Nebraska</option><option>Nevada</option><option>New Hampshire</option><option>New Jersey</option><option>New Mexico</option><option>New York</option><option>North Carolina</option><option>North Dakota</option><option>Ohio</option><option>Oklahoma</option><option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option><option>South Carolina</option><option>South Dakota</option><option>Tennessee</option><option>Texas</option><option>Utah</option><option>Vermont</option><option>Virginia</option><option>Washington</option><option>West Virginia</option><option>Wisconsin</option><option>Wyoming</option></select></div>';
+    var contentStringStates = '<div class="side-by-side clearfix"><label for="stateselect">State</label><select id="stateselect"  data-placeholder="Select individual or group of States" style="width:100px;" class="chzn-select-batch" multiple tabindex="6"><option value=""></option><option>Alabama</option><option>Alaska</option><option>Arizona</option><option>Arkansas</option><option>California</option><option>Colorado</option><option>Connecticut</option><option>Delaware</option><option>Florida</option><option>Georgia</option><option>Hawaii</option><option>Idaho</option><option>Illinois</option><option>Indiana</option><option>Iowa</option><option>Kansas</option><option>Kentucky</option><option>Louisiana</option><option>Maine</option><option>Maryland</option><option>Massachusetts</option><option>Michigan</option><option>Minnesota</option><option>Mississippi</option><option>Missouri</option><option>Montana</option><option>Nebraska</option><option>Nevada</option><option>New Hampshire</option><option>New Jersey</option><option>New Mexico</option><option>New York</option><option>North Carolina</option><option>North Dakota</option><option>Ohio</option><option>Oklahoma</option><option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option><option>South Carolina</option><option>South Dakota</option><option>Tennessee</option><option>Texas</option><option>Utah</option><option>Vermont</option><option>Virginia</option><option>Washington</option><option>West Virginia</option><option>Wisconsin</option><option>Wyoming</option></select></div>';
     select = dojo.byId('state_selector');
     select.innerHTML = contentStringStates;
 

@@ -1,15 +1,15 @@
 //variable for the groups of chosenDojo selector
 var group_code = [];
-//Initial value for region
+//Initial value for region and year
 var region='AK';
+var year = [];
 google.load('visualization', '1', {packages: ['geochart', 'table','sankey']});
 
 //main function
 function main() {
     $('#tabs').tabs();
     google.setOnLoadCallback(googleReady());
-    $('#check').button();
-    $('#format').buttonset();
+    $('#format').buttonset(yearSelect());
 }
 
 //Function to launch the googleAPI
@@ -95,17 +95,20 @@ function initCommoditiesSelector() {
     var selected_values = [];
     for (var x=0; x<=select_object.length; x++) {
         if (select_object[x] && select_object[x].selected) {
-            selected_values.push(select_object[x].value);
+            selected_values.push(select_object[x].value.split(" ")[0]);
         }
     }
+    console.log(selected_values)
     });
+
+    //Clear search button
     $('#comclear')
     .button()
     .click(function(e) {
         e.preventDefault();
         selected_values = []
     });
-    //}
+
     //Text to fill in the states Selector for International Imports/Exports USA Map
     var contentStringStates = '<div class="side-by-side clearfix"><label for="stateselect">State</label><select id="stateselect"  data-placeholder="Select individual or group of States" style="width:200px;" class="chzn-select-batch" multiple tabindex="6"><option value=""></option><option>Alabama</option><option>Alaska</option><option>Arizona</option><option>Arkansas</option><option>California</option><option>Colorado</option><option>Connecticut</option><option>Delaware</option><option>Florida</option><option>Georgia</option><option>Hawaii</option><option>Idaho</option><option>Illinois</option><option>Indiana</option><option>Iowa</option><option>Kansas</option><option>Kentucky</option><option>Louisiana</option><option>Maine</option><option>Maryland</option><option>Massachusetts</option><option>Michigan</option><option>Minnesota</option><option>Mississippi</option><option>Missouri</option><option>Montana</option><option>Nebraska</option><option>Nevada</option><option>New Hampshire</option><option>New Jersey</option><option>New Mexico</option><option>New York</option><option>North Carolina</option><option>North Dakota</option><option>Ohio</option><option>Oklahoma</option><option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option><option>South Carolina</option><option>South Dakota</option><option>Tennessee</option><option>Texas</option><option>Utah</option><option>Vermont</option><option>Virginia</option><option>Washington</option><option>West Virginia</option><option>Wisconsin</option><option>Wyoming</option></select></div>';
     select = dojo.byId('state_selector');
@@ -126,7 +129,38 @@ function initCommoditiesSelector() {
         }
     }
     });
+}
 
+//Function to monitor the year selection for commodities
+function yearSelect (){
+    $('#check1').click(function () {
+        checkYear('#check1',2009);
+    });
+    $('#check2').click(function () {
+        checkYear('#check2',2010);
+    });
+    $('#check3').click(function () {
+        checkYear('#check3',2011);
+    });
+    $('#check4').click(function () {
+        checkYear('#check4',2012);
+    });
+    //Function to remove the year selected
+    function remove (actual_year){
+        var remove = actual_year;
+        year = jQuery.grep(year, function(value) {
+            return value != remove;
+            });
+    }
+    //Function to check the actual year of selection - deselection
+    function checkYear (selected,actual_year){
+         if ($(selected).is(":checked")) {
+            year.push(actual_year);
+        } else {
+           remove(actual_year)
+        }
+        console.log(year)
+    }
 }
 
 $(main);

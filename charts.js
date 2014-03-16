@@ -16,7 +16,7 @@ function drawSankeyChart() {
     //Set the data
     var type = getWorldSelectedType();
     var year = getWorldSelectedYear();
-    data = getSankeyDataForCountryYear(type, region, year);
+    data = getSankeyDataForCountryYear(type, regions.toArray(), year);
 
     // Set chart options
     var options = {
@@ -36,37 +36,56 @@ function drawSankeyChart() {
     charts.byCountry.sankey.draw(data, options);
 }
 
-function getSankeyDataForCountryYear(type, state, year) {
-    var t = getCountriesYear(type, state, year, true).toDataTable();
+function getSankeyDataForCountryYear(type, states, year) {
+    var t = getCountriesYear(type, states, year, true).toDataTable();
     var yearCol = (type === Type.ImportExportDiff ? 2 : getCountryYearCol(year));
     if (type === Type.ImportExportDiff) {
         t.insertColumn(0, 'string', "State");
         t.setColumnLabel(yearCol, "Import Export Difference");
     }
     var v = new google.visualization.DataView(t);
-    var rows = [];
-    var sumOther = 0;
-    for (var i = 0; i < t.getNumberOfRows(); ++i) {
+    var i;
+    var maxMost = [];
+    function ascSort(a,b) {return a-b}
+    for (i = 0; i < t.getNumberOfRows(); ++i) {
         var val;
         if (type !== Type.ImportExportDiff) {
             val = t.getValue(i, yearCol);
         } else {
+            // TODO: this case is still broken
             val = t.getValue(i, 3) - t.getValue(i, 2); // Exp-Imp
             t.setValue(i, yearCol, val); // Reuse imp column as difference
-            t.setValue(i, Column.State, state);
         }
-        if (val < 25) // TODO: what about negative values with difference?
-            sumOther += val;
+        // pick at most the 20 largest values
+        if (maxMost.length < 15) {
+            maxMost.push(val);
+        } else {
+            maxMost = maxMost.sort(ascSort);
+            if (val > maxMost[0])
+                maxMost[0] = val;
+        }
+    }
+    maxMost = maxMost.sort(ascSort);
+    var threshold = maxMost[0];
+    var rows = [];
+    var sumOther = {};
+    $.each(states, function(k) { sumOther[k] = 0; });
+    for (i = 0; i < t.getNumberOfRows(); ++i) {
+        val = t.getValue(i, yearCol);
+        if (val < threshold) // let's ignore negative values on ImportExportDiff
+            sumOther[t.getValue(i, Column.State)] += val;
         else
             rows.push(i);
     }
-    if (sumOther >= 25) { // TODO: no "Others" category with multiple states?
-        t.addRow();
-        t.setCell(i, Column.State, state);
-        t.setCell(i, Column.Country, "Others");
-        t.setCell(i, yearCol, sumOther);
-        rows.push(i);
-    }
+    $.each(states, function(k) {
+        if (sumOther[k] >= threshold) {
+            t.addRow();
+            t.setCell(i, Column.State, k);
+            t.setCell(i, Column.Country, "Others");
+            t.setCell(i, yearCol, sumOther[k]);
+            rows.push(i);
+        }
+    });
     v.setRows(rows);
     if (type === Type.ImportExportDiff) {
         v.setColumns([Column.State, 1, yearCol]);

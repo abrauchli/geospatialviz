@@ -1,8 +1,3 @@
-//Script to paint the USA map and World Map
-
-//Load the Geochart Library
-google.load('visualization', '1', {packages: ['geochart']});
-
 var maps = {
     byCountry: {
         usa: null,
@@ -35,28 +30,26 @@ var maps = {
         }
     }
 };
+var regions = {
+  'AK': true,
+  toArray: function() {
+    var a = []
+    $.each(this, function(k, v) { if (!$.isFunction(v)) a.push(k); });
+    return a;
+  }
+};
 
 function initMaps() {
   // Commodity Maps
   maps.byCommodity.usa = new google.visualization.GeoChart(document.getElementById('USAmap'));
   google.visualization.events.addListener(maps.byCommodity.usa, 'regionClick', function(eventData) {
-    region = eventData.region;
-    region = region.substring(3,5);
+    // TODO
   });
 
   // Country Maps
   maps.byCountry.world = new google.visualization.GeoChart(document.getElementById('worldmap'));
   maps.byCountry.usa = new google.visualization.GeoChart(document.getElementById('USselectmap'));
-  google.visualization.events.addListener(maps.byCountry.usa, 'regionClick', function(eventData) {
-    region = eventData.region.substr(3,5);
-    var selection = google.visualization.arrayToDataTable([
-        ['region', 'selected'],
-        [region, region]
-    ]);
-    maps.byCountry.usa.draw(selection, maps.byCountry.usaOptions);
-    onWorldMapDataChanged();
-    //Need something to eliminate the selected elemented in the search bar.
-  });
+  google.visualization.events.addListener(maps.byCountry.usa, 'regionClick', drawSelectionUSMap);
 }
 
 // === Helper functions only for world map related code ===
@@ -79,8 +72,9 @@ function drawWorldMap() {
   var year = getWorldSelectedYear();
   var type = getWorldSelectedType();
   var str = TypeString[type];
-  $('#worldmapdesc').text(region +", "+ str +" "+ year);
-  var view = getCountriesYear(type, region, year);
+  var reg = regions.toArray();
+  $('#worldmapdesc').text(reg.sort().join(', ') +", "+ str +" "+ year);
+  var view = getCountriesYear(type, reg, year);
     /*
     opts.colorAxis = {
       maxValue: 1000 ,
@@ -90,8 +84,26 @@ function drawWorldMap() {
   maps.byCountry.world.draw(view, maps.byCountry.worldOptions);
 }
 
-function drawSelectionUSMap(data) {
-  maps.byCountry.usa.draw(data, maps.byCountry.usaOptions);
+function drawSelectionUSMap(e) {
+  if (e) {
+    var reg = e.region.substr(3,5);
+    if (regions[reg]) {
+        delete regions[reg];
+        // TODO: eliminate the selected elemented in the search bar.
+    } else {
+        regions[reg] = true;
+    }
+  }
+  var selection = google.visualization.arrayToDataTable([
+      ['region', 'selected']
+  ]);
+  $.each(regions, function(k,v) {
+    selection.addRow([k, k]);
+  });
+  maps.byCountry.usa.draw(selection, maps.byCountry.usaOptions);
+  if (e) {
+    onWorldMapDataChanged();
+  }
 }
 
 function drawCommoditiesUSMap() {

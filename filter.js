@@ -112,11 +112,37 @@ function getImportCommodityTotals() {
 
 // ---- End Wrapper Functions ----
 
-function getCountries(type, state) {
+function getMultivalFilteredRows(view, filters) {
+  var rows = [];
+  for (var i = 0; i < view.getNumberOfRows(); ++i) {
+    var matched = 0;
+    $.each(filters, function(k, f) {
+      var s = view.getValue(i, f.column);
+      if ($.isArray(f.value)) {
+        for (var j = 0; j < f.value.length; ++j) {
+          if (s === f.value[j]) {
+            ++matched;
+            break;
+          }
+        }
+      } else if (f.value === s) {
+        ++matched;
+      } else if ((!f.hasOwnProperty('minValue') || s >= f.minValue)
+                 && (!f.hasOwnProperty('maxValue') || s <= f.maxValue)) {
+        ++matched;
+      }
+    });
+    if (matched === filters.length)
+      rows.push(i);
+  }
+  return rows;
+}
+
+function getCountries(type, states) {
   var view = new google.visualization.DataView(type === Type.Export ? stateExportCountries : stateImportCountries);
-  view.setRows(view.getFilteredRows([
+  view.setRows(getMultivalFilteredRows(view, [
     // Filter out current state w/o the "total" rows
-    {column: Column.State, value: state},
+    {column: Column.State, value: states},
     {column: Column.Rank, minValue: 1}
   ]));
   return view;
@@ -136,18 +162,17 @@ function filterCountryViewByYear(view, year, colidxs) {
   return view;
 }
 
-function getCountriesYear(type, state, year, raw) {
+function getCountriesYear(type, states, year, raw) {
   var y = getCountryYearCol(year);
   var v = (type !== Type.ImportExportDiff)
-            ? getCountries(type, state)
+            ? getCountries(type, states)
             : new google.visualization.DataView(
                 google.visualization.data.join(
-                  getCountries(Type.Import, state),
-                  getCountries(Type.Export, state),
+                  getCountries(Type.Import, states),
+                  getCountries(Type.Export, states),
                   'full',
-                  // Also join on state when multiple allowed
-                  [/*[Column.State, Column.State],*/[Column.Country, Column.Country]],
-                  [y],
+                  [[Column.State, Column.State],[Column.Country, Column.Country]],
+                  [Column.State, y],
                   [y])
               );
 
@@ -169,8 +194,8 @@ function getCountriesYear(type, state, year, raw) {
         type: 'string',
         role: 'tooltip',
         calc: function(t,r) {
-          var i = t.getValue(r, 1),
-              e = t.getValue(r, 2);
+          var i = t.getValue(r, 2),
+              e = t.getValue(r, 3);
           return "Diff: "+ (e-i) +"\n"
             + "Imports: "+ (i+0) +"\n"
             + "Exports: "+ (e+0);

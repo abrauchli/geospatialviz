@@ -1,8 +1,9 @@
-//variable for the groups of chosenDojo selector
+google.load('visualization', '1', {
+    packages: ['geochart', 'table','sankey']
+});
+
+// Selected commodities
 var group_code = [];
-//Initial value for region
-var region='AK';
-google.load('visualization', '1', {packages: ['geochart', 'table','sankey']});
 
 //main function
 function main() {
@@ -21,12 +22,7 @@ function googleReady() {
     initCharts();
     drawCommoditiesUSMap();
     drawSankeyChart();
-    //Initial value for the mapUI
-    var initial_data = google.visualization.arrayToDataTable([
-        ['region', 'selected'],
-        [region, region]
-    ]);
-    drawSelectionUSMap(initial_data);
+    drawSelectionUSMap();
     drawWorldMap();
     drawRawTable();
     $('#worldimportexport').change(onWorldMapDataChanged);

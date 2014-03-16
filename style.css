@@ -141,14 +141,13 @@ body {
     /*left: 130px;*/
 }
 
-.worldimportexport{
+.importexport{
     position: relative;
     top:5px;
     left:30px;
 }
 
-
-#worldimportexportlabel{
+.importexportlabel{
     position:relative;
     top:5px;
     left:15px;

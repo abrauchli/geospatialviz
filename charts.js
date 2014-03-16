@@ -69,7 +69,7 @@ function getSankeyDataForCountryYear(type, states, year) {
     var threshold = maxMost[0];
     var rows = [];
     var sumOther = {};
-    $.each(states, function(k) { sumOther[k] = 0; });
+    $.each(states, function(k,v) { sumOther[v] = 0; });
     for (i = 0; i < t.getNumberOfRows(); ++i) {
         val = t.getValue(i, yearCol);
         if (val < threshold) // let's ignore negative values on ImportExportDiff
@@ -77,13 +77,14 @@ function getSankeyDataForCountryYear(type, states, year) {
         else
             rows.push(i);
     }
-    $.each(states, function(k) {
-        if (sumOther[k] >= threshold) {
+    $.each(states, function(k,v) {
+        if (sumOther[v] >= threshold) {
             t.addRow();
-            t.setCell(i, Column.State, k);
+            t.setCell(i, Column.State, v);
             t.setCell(i, Column.Country, "Others");
-            t.setCell(i, yearCol, sumOther[k]);
+            t.setCell(i, yearCol, sumOther[v]);
             rows.push(i);
+            ++i;
         }
     });
     v.setRows(rows);

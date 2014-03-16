@@ -25,7 +25,7 @@ var maps = {
             resolution: 'provinces',
             colorAxis: {colors: ['#F0FFC2', '#3D4C0F']},
             legend: false,
-            width: 700,
+            width: 800,
             height: 372
         }
     }

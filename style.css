@@ -52,10 +52,12 @@ body {
     float: left;
     background-color: lightgrey;
     width: 410px;
+    height: 373px;
     border :solid 2px black;
     padding: 3px;
     border-radius:8px;
     margin:0px;
+
 }
 
 .rightbox{
@@ -81,14 +83,25 @@ body {
 }
 
 .selection{
-    background-color: white;
+    position: relative;
+    top:-3px;
+    right:3px;
+    width:417px;
+    background-color: lightgrey;
     border-radius: 8px;
     box-shadow: 0 0 0 3px lightgrey inset;
+    height: 378px;
 }
 
+#commodities_selector{
+    position: relative;
+    left:8px;
+    top:25px;
+
+}
 
 #commodities_selector .chzn-container-multi .chzn-choices {
-    height: 50px !important;
+    height: 30px !important;
     overflow-y: auto;
 }
 
@@ -130,13 +143,68 @@ body {
 
 .worldimportexport{
     position: relative;
+    top:5px;
     left:30px;
 }
 
 
 #worldimportexportlabel{
     position:relative;
+    top:5px;
     left:15px;
+}
+
+#label{
+    left:5px;
+}
+
+.ui-button-text {
+    font-size: 14px !important;
+} 
+
+#formatcomm{
+    position: relative;
+    top:85px;
+    left:10px;
+    height: 40px;
+    width: 378px;
+    border:solid 2px lightgrey;
+    border-radius: 5px;
+    
+}
+
+#options .worldimportexport{
+    position: relative;
+    top:40px;
+    left: 10px;
+    width: 100px;
+}
+
+.selection #worldimportexportlabel{
+    position: relative;
+    top:15px;
+    left:80px;
+    font-size: 25px;
+}
+
+#options{
+    position: relative;
+    top:40px;
+    left: 6px;
+    height: 300px;
+    width: 400px;
+    background: white;
+    border:solid 2px black;
+    border-radius: 5px;
+    box-shadow: 0 0 0 3px grey inset;
+}
+
+#comsel{
+    position:relative;
+    left:10px;
+    top:100px;
+    width: 150px;
+    height: 30px;
 }
 
 

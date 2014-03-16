@@ -42,24 +42,23 @@
                 <div class="first_group">
                     <div id="commleftbox">
                         <form class="selection">
-                            <div class="label">
-                                <label for="worldimportexport">Chart options</label>
-                                <select id="worldimportexport">
+                            <label for="worldimportexport" id="worldimportexportlabel">Visualization options</label>
+                            <div id="options">
+                                <div id="commodities_selector"></div>
+                                <select class="worldimportexport">
                                     <option>Imports</option>
                                     <option>Exports</option>
                                     <option>Combined difference</option>
                                 </select>
+                                <div id="formatcomm">
+                                    <input type="checkbox" id="check1"><label for="check1">2009</label>
+                                    <input type="checkbox" id="check2"><label for="check2">2010</label>
+                                    <input type="checkbox" id="check3"><label for="check3">2011</label>
+                                    <input type="checkbox" id="check4"><label for="check4">2012</label>
+                                </div>
+                                <input type="submit" id="comsel" value="Clear Search">
+                                <div id="msg"></div>
                             </div>
-                            <div id="formatcomm">
-                                <p>Toggle years to display</p>
-                                <input type="checkbox" id="check1"><label for="check1">2009</label>
-                                <input type="checkbox" id="check2"><label for="check2">2010</label>
-                                <input type="checkbox" id="check3"><label for="check3">2011</label>
-                                <input type="checkbox" id="check4"><label for="check4">2012</label>
-                            </div>
-                            <div id="commodities_selector"></div>
-                           <input type="submit" value="Clear Search">
-                            <div id="msg"></div>
                         </form>
                     </div>
                     <div id="USAmap" class="rightbox" style="width:initial;"></div>

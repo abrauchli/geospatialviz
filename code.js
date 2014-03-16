@@ -77,7 +77,7 @@ function initCommoditiesSelector() {
         }
     }
 
-    var contentStringCommodities = '<div class="side-by-side clearfix"><label for="comselect">Commodities</label><select id="comselect"  data-placeholder="Search and select individual or group of commodities" style="width:400px;" class="chzn-select-batch" multiple tabindex="6"><option value=""></option>'+ group_code.join('') +'</optgroup></select></div>';
+    var contentStringCommodities = '<div class="side-by-side clearfix"><select id="comselect"  data-placeholder="Search and select individual or group of commodities" style="width:385px;" class="chzn-select-batch" multiple tabindex="6"><option value=""></option>'+ group_code.join('') +'</optgroup></select></div>';
     select = dojo.byId('commodities_selector');
     select.innerHTML = contentStringCommodities;
 

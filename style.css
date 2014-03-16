@@ -41,7 +41,17 @@ body {
 .leftbox {
     float: left;
     background-color: lightgrey;
-    width: 500px;
+    width: 310px;
+    border :solid 2px black;
+    padding: 3px;
+    border-radius:8px;
+    margin:0px;
+}
+
+#commleftbox{
+    float: left;
+    background-color: lightgrey;
+    width: 410px;
     border :solid 2px black;
     padding: 3px;
     border-radius:8px;
@@ -71,8 +81,8 @@ body {
 }
 
 .selection{
-    padding: 5px;
     background-color: white;
+    border-radius: 8px;
     box-shadow: 0 0 0 3px lightgrey inset;
 }
 
@@ -84,17 +94,19 @@ body {
 
 #state_selector .chzn-container-multi .chzn-choices {
     height: 30px !important;
-    width: 380px;
+    width: 250px;
     overflow-y: auto;
 }
 
 #state_selector{
+    position: relative;
     padding: 5px;
+    left:20px;
 }
 
 .plots{
     float:left;
-    width:98%;
+    width:99%;
     border:solid 2px black;
     border-radius:5px;
     padding: 5px;
@@ -107,3 +119,24 @@ body {
     left:320px;
     padding: 10px;
 }
+
+#USselectmap{
+    width:300px;
+    border: solid 2px black;
+    border-radius: 5px;
+    left:3px;
+    /*left: 130px;*/
+}
+
+.worldimportexport{
+    position: relative;
+    left:30px;
+}
+
+
+#worldimportexportlabel{
+    position:relative;
+    left:15px;
+}
+
+

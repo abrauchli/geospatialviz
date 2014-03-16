@@ -22,10 +22,10 @@
 
     <!--Stylesheets-->
     <link rel="stylesheet" href="lib/jquery-ui-1.10.4.custom.min.css">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="lib/chosen/docsupport/style.css">
     <link rel="stylesheet" href="lib/chosen/docsupport/prism.css">
     <link rel="stylesheet" href="lib/chosen/chosen-dojo-master/chosen.css">
+    <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
@@ -40,9 +40,17 @@
         <div id="tabviz">
             <div class="main">
                 <div class="first_group">
-                    <div class="leftbox">
+                    <div id="commleftbox">
                         <form class="selection">
-                            <div id="format">
+                            <div class="label">
+                                <label for="worldimportexport">Chart options</label>
+                                <select id="worldimportexport">
+                                    <option>Imports</option>
+                                    <option>Exports</option>
+                                    <option>Combined difference</option>
+                                </select>
+                            </div>
+                            <div id="formatcomm">
                                 <p>Toggle years to display</p>
                                 <input type="checkbox" id="check1"><label for="check1">2009</label>
                                 <input type="checkbox" id="check2"><label for="check2">2010</label>
@@ -54,7 +62,7 @@
                             <div id="msg"></div>
                         </form>
                     </div>
-                    <div id="USAmap" class="rightbox"></div>
+                    <div id="USAmap" class="rightbox" style="width:initial;"></div>
                 </div>
                 <div class="second_group">
                     <div class="plots"><a href="chart.html">Chart</a><br><a href="chartdouble.html">Chart 2</a>
@@ -67,21 +75,22 @@
                 <div class="first_group">
                     <div class="leftbox">
                         <div class="label">
-                            <label for="worldimportexport">Chart options</label>
-                            <select id="worldimportexport">
+                            <label for="worldimportexport" id="worldimportexportlabel">Select Year and Type of Trade</label>
+                            <select class="worldimportexport">
                                 <option>Imports</option>
                                 <option>Exports</option>
                                 <option>Combined difference</option>
                             </select>
                         </div>
                         <div class="label">
-                            <label for="worldyear">Year</label>
-                            <select id="worldyear">
-                                <option>2009</option>
-                                <option>2010</option>
-                                <option>2011</option>
-                                <option>2012</option>
-                            </select>
+                            <label for="worldyear"></label>
+                            <div id="formatcoun">
+                                <p>Toggle years to display</p>
+                                <input type="checkbox" id="check1"><label for="check1">2009</label>
+                                <input type="checkbox" id="check2"><label for="check2">2010</label>
+                                <input type="checkbox" id="check3"><label for="check3">2011</label>
+                                <input type="checkbox" id="check4"><label for="check4">2012</label>
+                            </div>
                         </div>
                         <div id="USselectmap"></div>
                         <div id="state_selector"></div>

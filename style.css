@@ -84,19 +84,19 @@ body {
 
 .selection{
     position: relative;
-    top:-3px;
+    top:-7px;
     right:3px;
     width:415px;
     background-color: lightgrey;
     border-radius: 8px;
     box-shadow: 0 0 0 3px lightgrey inset;
-    height: 378px;
+    height: 278px;
 }
 
 #commodities_selector{
     position: relative;
-    left:8px;
-    top:25px;
+    top:5px;
+    left:15px;
 
 }
 
@@ -113,6 +113,7 @@ body {
 
 #state_selector{
     position: relative;
+    top:15px;
     padding: 5px;
     left:20px;
 }
@@ -134,50 +135,46 @@ body {
 }
 
 #USselectmap{
+    position: relative;
+    top:15px;
     width:300px;
+    padding: 2px;
     border: solid 2px black;
     border-radius: 5px;
-    left:3px;
-    /*left: 130px;*/
+    left:2px;
+    background-color: grey;
 }
 
-.importexport{
+#usimportexport{
     position: relative;
-    top:5px;
-    left:30px;
+    top:15px;
+    left:10px;
 }
 
-.importexportlabel{
+#importexportlabel{
     position:relative;
-    top:5px;
-    left:15px;
+    top:0px;
+    left:80px;
+    font-size: 20px;
 }
 
 #label{
     left:5px;
 }
 
-.ui-button-text {
-    font-size: 14px !important;
-} 
-
 #formatcomm{
     position: relative;
-    top:85px;
+    top:10px;
     left:10px;
     height: 40px;
     width: 378px;
     border:solid 2px lightgrey;
-    border-radius: 5px;
-    
+    border-radius: 5px;   
 }
 
-#options .worldimportexport{
-    position: relative;
-    top:40px;
-    left: 10px;
-    width: 100px;
-}
+#formatcomm .ui-button-text {
+    font-size: 20px !important;
+} 
 
 .selection #worldimportexportlabel{
     position: relative;
@@ -186,11 +183,11 @@ body {
     font-size: 25px;
 }
 
-#options{
+#optionscomm{
     position: relative;
-    top:40px;
+    top:0px;
     left: 6px;
-    height: 300px;
+    height: 90px;
     width: 400px;
     background: white;
     border:solid 2px black;
@@ -200,10 +197,70 @@ body {
 
 #comsel{
     position:relative;
-    left:10px;
-    top:100px;
-    width: 150px;
-    height: 30px;
+    left:15px;
+    top:-10px;
+    height: 200px;
+    width: 100px;
 }
 
+#worldimportexportlabel{
+    position: relative;
+    top:5px;
+    left:20px;
+    font-size: 20px;
+}
 
+#optionscoun{
+    position: relative;
+    top:10px;
+    left: 2px;
+    height: 100px;
+    width: 304px;
+    background: white;
+    border:solid 2px black;
+    border-radius: 5px;
+    box-shadow: 0 0 0 3px grey inset;
+}
+
+#optionscoun #worldimportexport{
+    position: relative;
+    top:20px;
+    left: 10px;
+    width: 100px;
+}
+
+#formatcoun{
+    position: relative;
+    top:10px;
+    left:4px;
+    height: 32px;
+    width: 290px;
+    border:solid 2px lightgrey;
+    border-radius: 5px; 
+}
+
+#formatcoun .ui-button-text {
+    font-size: 15px !important;
+} 
+
+#USselectmapcomm{
+    position: relative;
+    left:6px;
+    top:3px;
+    width:396px;
+    border: solid 2px black;
+    border-radius: 5px;
+    background-color: grey;
+    padding: 2px;
+}
+
+.formatplot{
+    position: relative;
+    float:left;
+    width: 112px;
+    height: 158px;
+}
+.formatplot button{ 
+    position: relative;
+    top:-2px;
+    border-radius: 80%;

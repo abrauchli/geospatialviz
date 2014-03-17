@@ -41,30 +41,39 @@
             <div class="main">
                 <div class="first_group">
                     <div id="commleftbox">
+                        <div id="commodities_selector"></div>
+                        <input type="submit" id="comsel" value="Clear Search">
                         <form class="selection">
-                            <label for="usimportexport" class="importexportlabel">Visualization options</label>
-                            <div id="options">
-                                <div id="commodities_selector"></div>
-                                <select id="usimportexport" class="importexport">
-                                    <option>Imports</option>
-                                    <option>Exports</option>
-                                    <option>Combined difference</option>
-                                </select>
+                            <label for="usimportexport" id="importexportlabel">Select options to visualize</label>
+                            <div id="optionscomm">
                                 <div id="formatcomm">
                                     <input type="checkbox" data-year="2009" class="chkyear" id="chkusyear09"><label for="chkusyear09">2009</label>
                                     <input type="checkbox" data-year="2010" class="chkyear" id="chkusyear10"><label for="chkusyear10">2010</label>
                                     <input type="checkbox" data-year="2011" class="chkyear" id="chkusyear11"><label for="chkusyear11">2011</label>
                                     <input type="checkbox" data-year="2012" class="chkyear" id="chkusyear12"><label for="chkusyear12">2012</label>
                                 </div>
-                                <input type="submit" id="comsel" value="Clear Search">
+                                <select id="usimportexport" class="importexport">
+                                    <option>Imports</option>
+                                    <option>Exports</option>
+                                    <option>Combined difference</option>
+                                </select>
                                 <div id="msg"></div>
                             </div>
+                            <div id="USselectmapcomm"></div>
                         </form>
                     </div>
                     <div id="USAmap" class="rightbox" style="width:initial;"></div>
                 </div>
                 <div class="second_group">
-                    <div class="plots"><a href="chart.html">Chart</a><br><a href="chartdouble.html">Chart 2</a>
+                    <div class="plots">
+                        <div class="formatplot">
+                            <button id="pie" class="plotbutton">Pie Chart</button>
+                            <button id="hist" class="plotbutton">Histogram</button>
+                            <button id="diff" class="plotbutton">Diff Chart</button>
+                            <button id="trend" class="plotbutton">Trendlines</button>
+                        </div>
+                        <a href="chart.html">Chart</a><br>
+                        <a href="chartdouble.html">Chart 2</a>
                     </div>
                 </div>
             </div>
@@ -74,21 +83,22 @@
                 <div class="first_group">
                     <div class="leftbox">
                         <div class="label">
-                            <label for="worldimportexport" class="importexportlabel">Select Year and Type of Trade</label>
-                            <select id="worldimportexport" class="importexport">
-                                <option>Imports</option>
-                                <option>Exports</option>
-                                <option>Combined difference</option>
-                            </select>
-                        </div>
-                        <div class="label">
-                            <label for="worldyear"></label>
-                            <div id="formatcoun">
-                                <p>Toggle years to display</p>
-                                <input type="checkbox" data-year="2009" class="chkyear" id="chkworldyear09"><label for="chkworldyear09">2009</label>
-                                <input type="checkbox" data-year="2010" class="chkyear" id="chkworldyear10"><label for="chkworldyear10">2010</label>
-                                <input type="checkbox" data-year="2011" class="chkyear" id="chkworldyear11"><label for="chkworldyear11">2011</label>
-                                <input type="checkbox" data-year="2012" class="chkyear" id="chkworldyear12"><label for="chkworldyear12">2012</label>
+                            <label for="worldimportexport" id="worldimportexportlabel">Select options to visualize</label>
+                            <div id="optionscoun">
+                                <div class="label">
+                                    <label for="worldyear"></label>
+                                    <div id="formatcoun">
+                                        <input type="checkbox" data-year="2009" class="chkyear" id="chkworldyear09"><label for="chkworldyear09">2009</label>
+                                        <input type="checkbox" data-year="2010" class="chkyear" id="chkworldyear10"><label for="chkworldyear10">2010</label>
+                                        <input type="checkbox" data-year="2011" class="chkyear" id="chkworldyear11"><label for="chkworldyear11">2011</label>
+                                        <input type="checkbox" data-year="2012" class="chkyear" id="chkworldyear12"><label for="chkworldyear12">2012</label>
+                                    </div>
+                                </div>
+                                <select id="worldimportexport" class="importexport">
+                                    <option>Imports</option>
+                                    <option>Exports</option>
+                                    <option>Combined difference</option>
+                                </select>
                             </div>
                         </div>
                         <div id="USselectmap"></div>

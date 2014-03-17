@@ -11,7 +11,11 @@ var worldSelectedYears = [2012];
 function main() {
     $('#tabs').tabs();
     $('#formatcoun').buttonset();
+    $('#plotbutton').buttonset();
     $('#formatcomm').buttonset();
+    $('.plotbutton').toggle(); //Chart Buttons initially hidden
+    buttonBar();
+    changePlot();
     initYearSelect();
     google.setOnLoadCallback(googleReady());
 }
@@ -83,7 +87,7 @@ function initCommoditiesSelector() {
         }
     }
 
-    var contentStringCommodities = '<div class="side-by-side clearfix"><select id="comselect"  data-placeholder="Search and select individual or group of commodities" style="width:385px;" class="chzn-select-batch" multiple tabindex="6"><option value=""></option>'+ group_code.join('') +'</optgroup></select></div>';
+    var contentStringCommodities = '<div class="side-by-side clearfix"><select id="comselect"  data-placeholder="Search and select individual or group of commodities" style="width:370px;" class="chzn-select-batch" multiple tabindex="6"><option value=""></option>'+ group_code.join('') +'</optgroup></select></div>';
     select = dojo.byId('commodities_selector');
     select.innerHTML = contentStringCommodities;
 
@@ -171,6 +175,20 @@ function initYearSelect (){
     $('.chkyear').click(function (e) {
         checkYear($(e.target));
     });
+}
+
+//Function to toggle button on hover
+function buttonBar(){
+    $('.formatplot').hover(function(){
+        $('.plotbutton').toggle("slow");
+    });
+}
+
+//Function to get value from Plot buttons and change the plot accordingly
+function changePlot(){
+    $('.plotbutton').click(function(){
+        console.log(this.id)
+    })
 }
 
 $(main);

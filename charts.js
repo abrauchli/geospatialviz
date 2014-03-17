@@ -15,8 +15,7 @@ function initCharts() {
 function drawSankeyChart() {
     //Set the data
     var type = getWorldSelectedType();
-    var year = selectedYears[0];
-    data = getSankeyDataForCountryYear(type, regions.toArray(), year);
+    data = getSankeyDataForCountry(type, regions.toArray(), worldSelectedYears);
 
     // Set chart options
     var options = {
@@ -36,8 +35,9 @@ function drawSankeyChart() {
     charts.byCountry.sankey.draw(data, options);
 }
 
-function getSankeyDataForCountryYear(type, states, year) {
-    var t = getCountriesYear(type, states, year, true).toDataTable();
+function getSankeyDataForCountry(type, states, years) {
+    year = years[0]; // TODO
+    var t = getCountriesYear(type, states, years, true).toDataTable();
     var yearCol = (type === Type.ImportExportDiff ? 2 : getCountryYearCol(year));
     if (type === Type.ImportExportDiff) {
         t.insertColumn(0, 'string', "State");

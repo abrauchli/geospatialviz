@@ -66,12 +66,11 @@ function getWorldSelectedType() {
 
 //Function to paint the WorldMap
 function drawWorldMap() {
-  var year = selectedYears[0];
   var type = getWorldSelectedType();
   var str = TypeString[type];
   var reg = regions.toArray();
-  $('#worldmapdesc').text(reg.sort().join(', ') +", "+ str +" "+ year);
-  var view = getCountriesYear(type, reg, year);
+  $('#worldmapdesc').text(reg.sort().join(', ') + str +" "+ worldSelectedYears.join(', '));
+  var view = getCountriesYear(type, reg, worldSelectedYears);
     /*
     opts.colorAxis = {
       maxValue: 1000 ,

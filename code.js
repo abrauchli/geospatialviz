@@ -4,7 +4,8 @@ google.load('visualization', '1', {
 
 // Selected commodities
 var group_code = [];
-var selectedYears = [2012];
+var commoditiesSelectedYears = [2012];
+var worldSelectedYears = [2012];
 
 //main function
 function main() {
@@ -35,9 +36,9 @@ function onWorldMapDataChanged() {
   drawSankeyChart();
 }
 
-function onYearChanged() {
-    // TODO
-    onWorldMapDataChanged();
+function onYearChanged(page) {
+    if (page === 'world')
+        onWorldMapDataChanged();
 }
 
 function drawRawTable() {
@@ -136,16 +137,30 @@ function initCommoditiesSelector() {
 function initYearSelect (){
     //Function to check the actual year of selection - deselection
     function checkYear (btn) {
-        if (btn.is(':checked')) {
-            selectedYears.push(btn.data('year'));
+        var y = btn.data('year');
+        var chk = btn.is(':checked');
+        if (btn.prop('id').substr(3, 2) === 'us') {
+            if (chk) {
+                commoditiesSelectedYears.push(y);
+                commoditiesSelectedYears.sort();
+            } else {
+                commoditiesSelectedYears.splice(commoditiesSelectedYears.indexOf(y), 1);
+            }
+            onYearChanged('commodities');
         } else {
-            selectedYears.splice(selectedYears.indexOf(btn.data('year')), 1);
+            if (chk) {
+                worldSelectedYears.push(y);
+                worldSelectedYears.sort();
+            } else {
+                worldSelectedYears.splice(worldSelectedYears.indexOf(y), 1);
+            }
+            onYearChanged('world');
         }
     }
     function setSelectedYears () {
         $.each($('.chkyear'), function(i, o) {
             var b = $(o);
-            var sel = ($.inArray(b.data('year'), selectedYears) >= 0);
+            var sel = ($.inArray(b.data('year'), worldSelectedYears) >= 0);
             if (b.prop('checked') !== sel) {
                 b.prop('checked', sel);
                 b.button('refresh');

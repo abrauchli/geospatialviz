@@ -29,6 +29,7 @@ function getCountryYearCol(year, perct) {
   }
   console.error('Invalid case');
 }
+
 /**
  * Get the db column index for a given year for the commodity tables
  * @param year {Number} the year
@@ -162,8 +163,9 @@ function filterCountryViewByYear(view, year, colidxs) {
   return view;
 }
 
-function getCountriesYear(type, states, year, raw) {
-  var y = getCountryYearCol(year);
+function getCountriesYear(type, states, years, raw) {
+  var yearCols = [];
+  $.each(years, function(k,v) { yearCols.push(getCountryYearCol(v)); });
   var v = (type !== Type.ImportExportDiff)
             ? getCountries(type, states)
             : new google.visualization.DataView(
@@ -172,19 +174,55 @@ function getCountriesYear(type, states, year, raw) {
                   getCountries(Type.Export, states),
                   'full',
                   [[Column.State, Column.State],[Column.Country, Column.Country]],
-                  [Column.State, y],
-                  [y])
+                  [Column.State].concat(yearCols),
+                  yearCols)
               );
+  if (states.length > 1) {
+    var yearColObjs = [];
+    $.each(years, function(k,v) {
+      yearColObjs.push({
+        column: getCountryYearCol(v),
+        aggregation: google.visualization.data.sum,
+        type: 'number',
+        label: v
+      });
+    });
+    v = new google.visualization.DataView(
+      new google.visualization.data.group(v.toDataTable(), [Column.Country], yearColObjs)
+    );
+  }
 
   if (!raw) {
-    var columns = (type !== Type.ImportExportDiff ? [2, y] : [0]);
+    var columns = (type !== Type.ImportExportDiff && states.length === 1 ? [2] : [0]);
+    columns.push({
+      label: 'Years',
+      type: 'number',
+      role: 'data',
+      calc: function(t,r) {
+        var sum = 0;
+        $.each(yearCols, function(k,v) {
+          // year columns are different in country-grouped table
+          sum += t.getValue(r, (states.length > 1 ? k+1 : v));
+        });
+        return sum;
+      }
+    });
     if (type !== Type.ImportExportDiff) {
       columns.push({
-        label: 'Years',
+        label: 'Tooltip',
         type: 'string',
         role: 'tooltip',
         calc: function(t,r) {
-          return 'Year '+year+': '+ t.getValue(r, getCountryYearCol(year));
+          var ret = [];
+          var sum = 0;
+          $.each(yearCols, function(k,v) {
+            var val = t.getValue(r, (states.length > 1 ? k+1 : v));
+            sum += val;
+            ret.push(years[k]+': '+ val);
+          });
+          if (years.length > 1)
+            ret.push("Total: "+ sum);
+          return ret.join("\n");
         }
       });
 

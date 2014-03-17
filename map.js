@@ -27,6 +27,16 @@ var maps = {
             legend: false,
             width: 800,
             height: 372
+        },
+        usacomm:null,
+        usacommOptions: {
+            region: 'US',
+            displayMode: 'regions',
+            enableRegionInteractivity: 'true',
+            resolution: 'provinces',
+            legend: false,
+            width: 396,
+            height: 180
         }
     }
 };
@@ -42,6 +52,7 @@ var regions = {
 function initMaps() {
   // Commodity Maps
   maps.byCommodity.usa = new google.visualization.GeoChart(document.getElementById('USAmap'));
+  maps.byCommodity.usacomm = new google.visualization.GeoChart(document.getElementById('USselectmapcomm'));
   google.visualization.events.addListener(maps.byCommodity.usa, 'regionClick', function(eventData) {
     // TODO
   });
@@ -98,6 +109,7 @@ function drawSelectionUSMap(e) {
     selection.addRow([k, k]);
   });
   maps.byCountry.usa.draw(selection, maps.byCountry.usaOptions);
+  maps.byCommodity.usacomm.draw(selection, maps.byCommodity.usacommOptions);
   if (e) {
     onWorldMapDataChanged();
   }

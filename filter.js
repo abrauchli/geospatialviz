@@ -164,6 +164,9 @@ function filterCountryViewByYear(view, year, colidxs) {
 }
 
 function getCountriesYear(type, states, years, raw) {
+  function getIEYearCol(y, exports) {
+    return (exports ? years.length +1 : 1) + years.indexOf(y);
+  }
   var yearCols = [];
   $.each(years, function(k,v) { yearCols.push(getCountryYearCol(v)); });
   var v = (type !== Type.ImportExportDiff)
@@ -174,22 +177,36 @@ function getCountriesYear(type, states, years, raw) {
                   getCountries(Type.Export, states),
                   'full',
                   [[Column.State, Column.State],[Column.Country, Column.Country]],
-                  [Column.State].concat(yearCols),
+                  yearCols,
                   yearCols)
               );
   if (states.length > 1) {
     var yearColObjs = [];
     $.each(years, function(k,v) {
       yearColObjs.push({
-        column: getCountryYearCol(v),
+        column: (type !== Type.ImportExportDiff ? getCountryYearCol(v) : getIEYearCol(v)),
         aggregation: google.visualization.data.sum,
         type: 'number',
         label: v
       });
     });
-    v = new google.visualization.DataView(
-      new google.visualization.data.group(v.toDataTable(), [Column.Country], yearColObjs)
-    );
+    if (type === Type.ImportExportDiff) {
+      // same game again for joined exports
+      $.each(years, function(k,v) {
+        yearColObjs.push({
+          column: getIEYearCol(v, true),
+          aggregation: google.visualization.data.sum,
+          type: 'number',
+          label: 'Exports ' + v
+        });
+      });
+    }
+    if (!raw) {
+      // don't group raw queries (sankey needs the state correspondance)
+      v = new google.visualization.DataView(
+        new google.visualization.data.group(v.toDataTable(), [Column.Country], yearColObjs)
+      );
+    }
   }
 
   if (!raw) {
@@ -202,7 +219,13 @@ function getCountriesYear(type, states, years, raw) {
         var sum = 0;
         $.each(yearCols, function(k,v) {
           // year columns are different in country-grouped table
-          sum += t.getValue(r, (states.length > 1 ? k+1 : v));
+          if (type !== Type.ImportExportDiff) {
+            sum += t.getValue(r, (states.length > 1 ? k+1 : v));
+          } else {
+            var e = t.getValue(r, k+1);
+            var i = t.getValue(r, years.length + k+1);
+            sum += (e-i);
+          }
         });
         return sum;
       }
@@ -228,17 +251,25 @@ function getCountriesYear(type, states, years, raw) {
 
     } else {
       columns.push({
-        label: 'Years',
+        label: 'Tooltip',
         type: 'string',
         role: 'tooltip',
         calc: function(t,r) {
-          var i = t.getValue(r, 2),
-              e = t.getValue(r, 3);
-          return "Diff: "+ (e-i) +"\n"
-            + "Imports: "+ (i+0) +"\n"
-            + "Exports: "+ (e+0);
+          var ret = [];
+          var sum = 0;
+          $.each(years, function(i,y) {
+            var e = t.getValue(r, i+1);
+            var i = t.getValue(r, years.length + i+1);
+            sum += (e-i);
+            ret.push(y+' exp: '+ (e+0));
+            ret.push(y+' imp: '+ (i+0));
+            ret.push(y+' diff: '+ (e-i));
+          });
+          if (years.length > 1)
+            ret.push("Total diff: "+ sum);
+          return ret.join("\n");
         }
-      })
+      });
     }
     v.setColumns(columns);
   }

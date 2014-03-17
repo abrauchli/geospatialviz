@@ -69,7 +69,7 @@ function drawWorldMap() {
   var type = getWorldSelectedType();
   var str = TypeString[type];
   var reg = regions.toArray();
-  $('#worldmapdesc').text(reg.sort().join(', ') + str +" "+ worldSelectedYears.join(', '));
+  $('#worldmapdesc').text(reg.sort().join(', ') +" "+ str +" "+ worldSelectedYears.join(', '));
   var view = getCountriesYear(type, reg, worldSelectedYears);
     /*
     opts.colorAxis = {

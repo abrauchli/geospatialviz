@@ -15,7 +15,7 @@ function initCharts() {
 function drawSankeyChart() {
     //Set the data
     var type = getWorldSelectedType();
-    data = getSankeyDataForCountry(type, regions.toArray(), worldSelectedYears);
+    var data = getSankeyDataForCountry(type, regions.toArray(), worldSelectedYears);
 
     // Set chart options
     var options = {
@@ -36,62 +36,78 @@ function drawSankeyChart() {
 }
 
 function getSankeyDataForCountry(type, states, years) {
-    year = years[0]; // TODO
+    var ct;
     var t = getCountriesYear(type, states, years, true).toDataTable();
-    var yearCol = (type === Type.ImportExportDiff ? 2 : getCountryYearCol(year));
+    ct = states.length > 1 ? getCountriesYear(type, states, years) : t;
+    var yearCols = [];
     if (type === Type.ImportExportDiff) {
-        t.insertColumn(0, 'string', "State");
-        t.setColumnLabel(yearCol, "Import Export Difference");
+        for (var i = 2; i < yearCols.length+2; ++i)
+            yearCols.push(i);
+    } else {
+        $.each(years, function(k,v) { yearCols.push(getCountryYearCol(v)); });
     }
     var v = new google.visualization.DataView(t);
     var i;
     var maxMost = [];
-    function ascSort(a,b) {return a-b}
-    for (i = 0; i < t.getNumberOfRows(); ++i) {
-        var val;
-        if (type !== Type.ImportExportDiff) {
-            val = t.getValue(i, yearCol);
+    var countries = [];
+    function ascSort(a,b) {return a[0]-b[0]}
+    for (i = 0; i < ct.getNumberOfRows(); ++i) {
+        var sum = 0;
+        if (t === ct) {
+            $.each(yearCols, function(k,v) { sum += ct.getValue(i, v); });
+            if (type === Type.ImportExportDiff) {
+                $.each(yearCols, function(k,v) { sum -= ct.getValue(i, v+years.length); });
+            }
         } else {
-            // TODO: this case is still broken
-            val = t.getValue(i, 3) - t.getValue(i, 2); // Exp-Imp
-            t.setValue(i, yearCol, val); // Reuse imp column as difference
+            sum = ct.getValue(i, 1);
         }
-        // pick at most the 20 largest values
+        // pick at most the 15 largest values
         if (maxMost.length < 15) {
-            maxMost.push(val);
+            maxMost.push([sum,i]);
         } else {
             maxMost = maxMost.sort(ascSort);
-            if (val > maxMost[0])
-                maxMost[0] = val;
+            if (sum > maxMost[0][0])
+                maxMost[0] = [sum, i];
         }
     }
     maxMost = maxMost.sort(ascSort);
-    var threshold = maxMost[0];
+    if (t === ct) {
+        for (i = 0; i < maxMost.length; ++i)
+            countries.push(ct.getValue(i, Column.Country));
+    } else {
+        for (i = 0; i < maxMost.length; ++i)
+            countries.push(ct.getValue(i, 0));
+    }
     var rows = [];
     var sumOther = {};
     $.each(states, function(k,v) { sumOther[v] = 0; });
     for (i = 0; i < t.getNumberOfRows(); ++i) {
-        val = t.getValue(i, yearCol);
-        if (val < threshold) // let's ignore negative values on ImportExportDiff
+        var country = t.getValue(i, Column.Country);
+        var val = 0;
+        $.each(yearCols, function(k,v) { val += t.getValue(i, v); });
+        if (type === Type.ImportExportDiff) {
+            $.each(yearCols, function(k,v) { val -= t.getValue(i, v+years.length); });
+        }
+        if (val < 0 || countries.indexOf(country) < 0) // ignore negative values on ImportExportDiff
             sumOther[t.getValue(i, Column.State)] += val;
         else
             rows.push(i);
     }
     $.each(states, function(k,v) {
-        if (sumOther[v] >= threshold) {
+        if (sumOther[v] > 0) {
             t.addRow();
             t.setCell(i, Column.State, v);
-            t.setCell(i, Column.Country, "Others");
-            t.setCell(i, yearCol, sumOther[v]);
+            t.setCell(i, (type === Type.ImportExportDiff ? 1 : Column.Country), "Others");
+            t.setCell(i, yearCols[0], sumOther[v]);
             rows.push(i);
             ++i;
         }
     });
     v.setRows(rows);
     if (type === Type.ImportExportDiff) {
-        v.setColumns([Column.State, 1, yearCol]);
+        v.setColumns([Column.State, 1, yearCols[0]]);
     } else {
-        v.setColumns([Column.State, Column.Country, yearCol]);
+        v.setColumns([Column.State, Column.Country, yearCols[0]]);
     }
     return v;
 }

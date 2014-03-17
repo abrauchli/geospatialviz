@@ -10,7 +10,11 @@ var selectedYears = [2012];
 function main() {
     $('#tabs').tabs();
     $('#formatcoun').buttonset();
+    $('#plotbutton').buttonset();
     $('#formatcomm').buttonset();
+    $('.plotbutton').toggle(); //Chart Buttons initially hidden
+    buttonBar();
+    changePlot();
     initYearSelect();
     google.setOnLoadCallback(googleReady());
 }
@@ -156,6 +160,20 @@ function initYearSelect (){
     $('.chkyear').click(function (e) {
         checkYear($(e.target));
     });
+}
+
+//Function to toggle button on hover
+function buttonBar(){
+    $('.formatplot').hover(function(){
+        $('.plotbutton').toggle("slow");
+    });
+}
+
+//Function to get value from Plot buttons and change the plot accordingly
+function changePlot(){
+    $('.plotbutton').click(function(){
+        console.log(this.id)
+    })
 }
 
 $(main);

@@ -253,3 +253,14 @@ body {
     background-color: grey;
     padding: 2px;
 }
+
+.formatplot{
+    position: relative;
+    float:left;
+    width: 112px;
+    height: 158px;
+}
+.formatplot button{ 
+    position: relative;
+    top:-2px;
+    border-radius: 80%;

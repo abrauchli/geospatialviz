@@ -96,7 +96,7 @@ body {
 #commodities_selector{
     position: relative;
     left:8px;
-    top:25px;
+    top:90px;
 
 }
 
@@ -113,6 +113,7 @@ body {
 
 #state_selector{
     position: relative;
+    top:15px;
     padding: 5px;
     left:20px;
 }
@@ -134,50 +135,46 @@ body {
 }
 
 #USselectmap{
+    position: relative;
+    top:15px;
     width:300px;
+    padding: 2px;
     border: solid 2px black;
     border-radius: 5px;
-    left:3px;
-    /*left: 130px;*/
+    left:2px;
+    background-color: grey;
 }
 
-.importexport{
+#usimportexport{
     position: relative;
-    top:5px;
-    left:30px;
+    top:40px;
+    left:10px;
 }
 
-.importexportlabel{
+#importexportlabel{
     position:relative;
-    top:5px;
-    left:15px;
+    top:20px;
+    left:40px;
+    font-size: 25px;
 }
 
 #label{
     left:5px;
 }
 
-.ui-button-text {
-    font-size: 14px !important;
-} 
-
 #formatcomm{
     position: relative;
-    top:85px;
+    top:10px;
     left:10px;
     height: 40px;
     width: 378px;
     border:solid 2px lightgrey;
-    border-radius: 5px;
-    
+    border-radius: 5px;   
 }
 
-#options .worldimportexport{
-    position: relative;
-    top:40px;
-    left: 10px;
-    width: 100px;
-}
+#formatcomm .ui-button-text {
+    font-size: 20px !important;
+} 
 
 .selection #worldimportexportlabel{
     position: relative;
@@ -186,7 +183,7 @@ body {
     font-size: 25px;
 }
 
-#options{
+#optionscomm{
     position: relative;
     top:40px;
     left: 6px;
@@ -202,8 +199,47 @@ body {
     position:relative;
     left:10px;
     top:100px;
-    width: 150px;
-    height: 30px;
+    height: 200px;
+    width: 100px;
 }
 
+#worldimportexportlabel{
+    position: relative;
+    top:5px;
+    left:20px;
+    font-size: 20px;
+}
+
+#optionscoun{
+    position: relative;
+    top:10px;
+    left: 2px;
+    height: 100px;
+    width: 304px;
+    background: white;
+    border:solid 2px black;
+    border-radius: 5px;
+    box-shadow: 0 0 0 3px grey inset;
+}
+
+#optionscoun #worldimportexport{
+    position: relative;
+    top:20px;
+    left: 10px;
+    width: 100px;
+}
+
+#formatcoun{
+    position: relative;
+    top:10px;
+    left:4px;
+    height: 32px;
+    width: 290px;
+    border:solid 2px lightgrey;
+    border-radius: 5px; 
+}
+
+#formatcoun .ui-button-text {
+    font-size: 15px !important;
+} 
 

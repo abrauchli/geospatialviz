@@ -98,6 +98,7 @@ function getSankeyDataForCountry(type, states, years) {
         $.each(yearCols, function(k,v) { val += t.getValue(i, v); });
         if (type === Type.ImportExportDiff) {
             $.each(yearCols, function(k,v) { val -= t.getValue(i, v+years.length); });
+            val *= -1; // it's e-i but imports are listed first
         }
         if (isNaN(val)) throw new Error("NaN val");
         if (val <= 0 || countries.indexOf(country) < 0) // ignore negative values on ImportExportDiff

@@ -163,9 +163,47 @@ function filterCountryViewByYear(view, year, colidxs) {
   return view;
 }
 
-function getCountriesYear(type, states, years, raw) {
+function getCountriesYearUngrouped(type, states, years) {
   function getIEYearCol(y, exports) {
-    return (exports ? years.length +1 : 1) + years.indexOf(y);
+    return (exports ? years.length +2 : 2) + years.indexOf(y);
+  }
+  var yearCols = [];
+  $.each(years, function(k,v) { yearCols.push(getCountryYearCol(v)); });
+  var v = (type !== Type.ImportExportDiff)
+            ? getCountries(type, states).toDataTable()
+            : google.visualization.data.join(
+                getCountries(Type.Import, states),
+                getCountries(Type.Export, states),
+                'full',
+                [[Column.State, Column.State],[Column.Country, Column.Country]],
+                yearCols,
+                yearCols);
+  var yearColObjs = [];
+  $.each(years, function(k,v) {
+    yearColObjs.push({
+      column: (type !== Type.ImportExportDiff ? getCountryYearCol(v) : getIEYearCol(v)),
+      aggregation: google.visualization.data.sum,
+      type: 'number',
+      label: v
+    });
+  });
+  if (type === Type.ImportExportDiff) {
+    // same game again for joined exports
+    $.each(years, function(k,v) {
+      yearColObjs.push({
+        column: getIEYearCol(v, true),
+        aggregation: google.visualization.data.sum,
+        type: 'number',
+        label: 'Exports ' + v
+      });
+    });
+  }
+  return v;
+}
+
+function getCountriesYear(type, states, years) {
+  function getIEYearCol(y, exports) {
+    return (exports ? years.length +2 : 2) + years.indexOf(y);
   }
   var yearCols = [];
   $.each(years, function(k,v) { yearCols.push(getCountryYearCol(v)); });
@@ -201,78 +239,90 @@ function getCountriesYear(type, states, years, raw) {
         });
       });
     }
-    if (!raw) {
-      // don't group raw queries (sankey needs the state correspondance)
-      v = new google.visualization.DataView(
-        new google.visualization.data.group(v.toDataTable(), [Column.Country], yearColObjs)
-      );
+    var colCountry = (type === Type.ImportExportDiff ? 1 : Column.Country);
+    if (v.getColumnLabel(colCountry) !== "Country") throw new Error("Wrong ctry index");
+    var gdt = new google.visualization.data.group(v.toDataTable(), [colCountry], yearColObjs);
+    if (type !== Type.ImportExportDiff) {
+      gdt.removeColumn(Column.Rank);
     }
+    v = new google.visualization.DataView(gdt);
   }
 
-  if (!raw) {
-    var columns = (type !== Type.ImportExportDiff && states.length === 1 ? [2] : [0]);
+  // 1st nondiff State, Rank, Country, ...
+  // 1st diff    State, Country, ...
+  // 2st nondiff Country, ...
+  // 2st diff    Country, ...
+  var offset = 0; // country column offset
+  if (states.length === 1) {
+    if (type === Type.ImportExportDiff)
+      offset = 1;
+    else
+      offset = 2;
+  }
+  if (v.getColumnLabel(offset) !== "Country")
+    throw new Error("Wrong country idx");
+
+  var columns = [offset];
+  columns.push({
+    label: 'Years',
+    type: 'number',
+    role: 'data',
+    calc: function(t,r) {
+      var sum = 0;
+      $.each(yearCols, function(k,v) {
+        if (type !== Type.ImportExportDiff) {
+          sum += t.getValue(r, v);
+        } else {
+          var i = t.getValue(r, k+offset+1);
+          var e = t.getValue(r, years.length + k+offset+1);
+          sum += (e-i);
+        }
+      });
+      return sum;
+    }
+  });
+  if (type !== Type.ImportExportDiff) {
     columns.push({
-      label: 'Years',
-      type: 'number',
-      role: 'data',
+      label: 'Tooltip',
+      type: 'string',
+      role: 'tooltip',
       calc: function(t,r) {
+        var ret = [];
         var sum = 0;
         $.each(yearCols, function(k,v) {
-          // year columns are different in country-grouped table
-          if (type !== Type.ImportExportDiff) {
-            sum += t.getValue(r, (states.length > 1 ? k+1 : v));
-          } else {
-            var e = t.getValue(r, k+1);
-            var i = t.getValue(r, years.length + k+1);
-            sum += (e-i);
-          }
+          var val = t.getValue(r, v);
+          sum += val;
+          ret.push(years[k]+': '+ val);
         });
-        return sum;
+        if (years.length > 1)
+          ret.push("Total: "+ sum);
+        return ret.join("\n");
       }
     });
-    if (type !== Type.ImportExportDiff) {
-      columns.push({
-        label: 'Tooltip',
-        type: 'string',
-        role: 'tooltip',
-        calc: function(t,r) {
-          var ret = [];
-          var sum = 0;
-          $.each(yearCols, function(k,v) {
-            var val = t.getValue(r, (states.length > 1 ? k+1 : v));
-            sum += val;
-            ret.push(years[k]+': '+ val);
-          });
-          if (years.length > 1)
-            ret.push("Total: "+ sum);
-          return ret.join("\n");
-        }
-      });
 
-    } else {
-      columns.push({
-        label: 'Tooltip',
-        type: 'string',
-        role: 'tooltip',
-        calc: function(t,r) {
-          var ret = [];
-          var sum = 0;
-          $.each(years, function(i,y) {
-            var e = t.getValue(r, i+1);
-            var i = t.getValue(r, years.length + i+1);
-            sum += (e-i);
-            ret.push(y+' exp: '+ (e+0));
-            ret.push(y+' imp: '+ (i+0));
-            ret.push(y+' diff: '+ (e-i));
-          });
-          if (years.length > 1)
-            ret.push("Total diff: "+ sum);
-          return ret.join("\n");
-        }
-      });
-    }
-    v.setColumns(columns);
+  } else {
+    columns.push({
+      label: 'Tooltip',
+      type: 'string',
+      role: 'tooltip',
+      calc: function(t,r) {
+        var ret = [];
+        var sum = 0;
+        $.each(years, function(k,y) {
+          var i = t.getValue(r, offset+k+1);
+          var e = t.getValue(r, offset+years.length+k+1);
+          sum += (e-i);
+          ret.push(y+' exp: '+ (e+0));
+          ret.push(y+' imp: '+ (i+0));
+          ret.push(y+' diff: '+ (e-i));
+        });
+        if (years.length > 1)
+          ret.push("Total diff: "+ sum);
+        return ret.join("\n");
+      }
+    });
   }
+  v.setColumns(columns);
   return v;
 }
 

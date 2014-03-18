@@ -37,16 +37,15 @@ function drawSankeyChart() {
 
 function getSankeyDataForCountry(type, states, years) {
     var ct;
-    var t = getCountriesYear(type, states, years, true).toDataTable();
+    var t = getCountriesYearUngrouped(type, states, years, true);
     ct = states.length > 1 ? getCountriesYear(type, states, years) : t;
     var yearCols = [];
     if (type === Type.ImportExportDiff) {
-        for (var i = 2; i < yearCols.length+2; ++i)
+        for (var i = 2; i < years.length+2; ++i)
             yearCols.push(i);
     } else {
         $.each(years, function(k,v) { yearCols.push(getCountryYearCol(v)); });
     }
-    var v = new google.visualization.DataView(t);
     var i;
     var maxMost = [];
     var countries = [];
@@ -61,6 +60,7 @@ function getSankeyDataForCountry(type, states, years) {
         } else {
             sum = ct.getValue(i, 1);
         }
+        if (isNaN(sum)) throw new Error("NaN sum");
         // pick at most the 15 largest values
         if (maxMost.length < 15) {
             maxMost.push([sum,i]);
@@ -71,24 +71,36 @@ function getSankeyDataForCountry(type, states, years) {
         }
     }
     maxMost = maxMost.sort(ascSort);
+    var col;
     if (t === ct) {
+        col = (type === Type.ImportExportDiff ? 1 : Column.Country);
+        if (ct.getColumnLabel(col) !== "Country")
+          throw new Error("bah");
         for (i = 0; i < maxMost.length; ++i)
-            countries.push(ct.getValue(i, Column.Country));
+            countries.push(ct.getValue(i, col));
     } else {
+        if (ct.getColumnLabel(0) !== "Country")
+          throw new Error("bah");
         for (i = 0; i < maxMost.length; ++i)
             countries.push(ct.getValue(i, 0));
     }
+    var v = new google.visualization.DataView(t);
     var rows = [];
     var sumOther = {};
     $.each(states, function(k,v) { sumOther[v] = 0; });
     for (i = 0; i < t.getNumberOfRows(); ++i) {
-        var country = t.getValue(i, Column.Country);
+        col = (type === Type.ImportExportDiff ? 1 : Column.Country);
+
+        var country = t.getValue(i, col);
+        if (ct.getColumnLabel(col) !== "Country")
+          throw new Error("bah");
         var val = 0;
         $.each(yearCols, function(k,v) { val += t.getValue(i, v); });
         if (type === Type.ImportExportDiff) {
             $.each(yearCols, function(k,v) { val -= t.getValue(i, v+years.length); });
         }
-        if (val < 0 || countries.indexOf(country) < 0) // ignore negative values on ImportExportDiff
+        if (isNaN(val)) throw new Error("NaN val");
+        if (val <= 0 || countries.indexOf(country) < 0) // ignore negative values on ImportExportDiff
             sumOther[t.getValue(i, Column.State)] += val;
         else
             rows.push(i);

@@ -33,8 +33,9 @@ ul ul {
                     <ul>
                         <li><a href="index.htm">index.htm</a></li>
                         <li>setup.htm (this file)</li>
+                        <li><a href="charts.js">charts.js</a></li>
                         <li><a href="code.js">code.js</a></li>
-                        <li><a href="filter.js">code.js</a></li>
+                        <li><a href="filter.js">filter.js</a></li>
                         <li><a href="map.js">map.js</a></li>
                         <li><a href="style.css">style.css</a></li>
                     </ul>
@@ -102,12 +103,20 @@ ul ul {
                 <li>2014-03-08: Andreas implemented Import-Export difference visualization on world map.</li>
                 <li>2014-03-10: Alberto implemented Sankey chart.</li>
                 <li>2014-03-11: Hawaii classroom demo.</li>
+                <li>2014-03-14: Alberto changed year selection from dropdown to buttons.</li>
+                <li>2014-03-16: Alberto improved the overall page sexiness.</li>
+                <li>2014-03-17: Andreas spent whole weekend getting the world export map to display with aggregated selected states/years.</li>
+                <li>2014-03-18: Hawaii classroom demo.</li>
             </ul>
-            <h2>Development findings</h2>
+            <h2>Development findings (special picks)</h2>
+            <p>Just because you use a library doesn't mean the work is done. We found that the time spent to customize the library feature is unfortunately non-negligible. Also some features such as coloring individual strands in the sankey chart are simply not available.</p>
+            <p>There is generally the question of how to aggregate data when selecting multiple states/years on a map. Since drawing zoomable mini-charts inside a country is not easily possible with the library's functionality, we thus resorted to adding the numbers together to generate a compound value that is used to color the country.</p>
+            <p>We used git as source control tool, this proved to be a good decision and made life at merging much easier. Two of the three team members were new to git.</p>
+            <h2>Used libaries</h2>
             <p><span class="subtitle">Google Visualization API</span> All graphs and charts rely on the Google Visualization API for rendering.</p>
             <p><span class="subtitle">jQuery</span> As base javascript framework, jQuery is used. This makes it easy to capture and process events.</p>
-            <p><span class="subtitle">chosen</span> A jQuery plugin for tag lists.</p>
-            <p><span class="subtitle">Raw Data</span> TODO</p>
+            <p><span class="subtitle">chosen</span> A widget for tag lists.</p>
+            <p><span class="subtitle">Raw Data</span> Google visualization tables are used. The also allow users to sort the data.</p>
         </div>
     </div>
     <script type="text/javascript">

@@ -71,9 +71,8 @@ function getSankeyDataForCountry(type, states, years) {
         }
     }
     maxMost = maxMost.sort(ascSort);
-    var col;
+    var col = (type === Type.ImportExportDiff ? 1 : Column.Country);
     if (t === ct) {
-        col = (type === Type.ImportExportDiff ? 1 : Column.Country);
         if (ct.getColumnLabel(col) !== "Country")
           throw new Error("bah");
         for (i = 0; i < maxMost.length; ++i)
@@ -89,10 +88,8 @@ function getSankeyDataForCountry(type, states, years) {
     var sumOther = {};
     $.each(states, function(k,v) { sumOther[v] = 0; });
     for (i = 0; i < t.getNumberOfRows(); ++i) {
-        col = (type === Type.ImportExportDiff ? 1 : Column.Country);
-
         var country = t.getValue(i, col);
-        if (ct.getColumnLabel(col) !== "Country")
+        if (t.getColumnLabel(col) !== "Country")
           throw new Error("bah");
         var val = 0;
         $.each(yearCols, function(k,v) { val += t.getValue(i, v); });

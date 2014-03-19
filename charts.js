@@ -4,7 +4,8 @@ var charts = {
     },
     byCommodity: {
         pie:null,
-        hist:null
+        hist:null,
+        bar:null
     }
 }
 
@@ -14,6 +15,7 @@ function initCharts() {
     //charts for commodites
     charts.byCommodity.pie = new google.visualization.PieChart(document.getElementById('pie'));
     charts.byCommodity.hist = new google.visualization.Histogram(document.getElementById('histogram'));
+    charts.byCommodity.bar = new google.visualization.ColumnChart(document.getElementById('Bar'));
 }
 
 function drawSankeyChart() {
@@ -155,23 +157,28 @@ function drawPieChart(){//Only two sets of data possibles (sum previous years in
         charts.byCommodity.pie.draw(diffData, options);
 }
 
-/*function drawHistogram(){
+function drawHistogram(){
     var type = getCommSelectedType();
-    var data = getImportCommoditiesYear(regions.toArray()[0], select_commodities[0], commSelectedYears[0]);
+    var data = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, commSelectedYears);
     console.log(data);
-    var data = google.visualization.arrayToDataTable([
-          ['Dinosaur', 'Length'],
-          ['Acrocanthosaurus (top-spined lizard)', 12.2],
-          ['Albertosaurus (Alberta lizard)', 9.1],
-          ['Allosaurus (other lizard)', 12.2],
-          ['Apatosaurus (deceptive lizard)', 22.9],
-          ['Archaeopteryx (ancient wing)', 0.9]]);
     var options = {
-          title: 'Distribution for selected States',
+          title: 'Distribution for commodities',
           legend: { position: 'none' },
           width:300,
           height: 100
         };
 
         charts.byCommodity.hist.draw(data, options);
-}*/
+}
+
+function drawBarChart() {
+    var type = getCommSelectedType();
+    var data = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, commSelectedYears);
+
+        var options = {
+          title: 'Distribution for selected States',
+          hAxis: {title: 'States', titleTextStyle: {color: 'red'}}
+        };
+
+        charts.byCommodity.bar.draw(data, options);
+      }

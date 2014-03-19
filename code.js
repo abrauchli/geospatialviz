@@ -4,7 +4,7 @@ google.load('visualization', '1', {
 
 // Selected commodities
 var group_code = [];
-var commoditiesSelectedYears = [2012];
+var commSelectedYears = [2012];
 var worldSelectedYears = [2012];
 
 //main function
@@ -153,10 +153,10 @@ function initYearSelect (){
         var chk = btn.is(':checked');
         if (btn.prop('id').substr(3, 2) === 'us') {
             if (chk) {
-                commoditiesSelectedYears.push(y);
-                commoditiesSelectedYears.sort();
+                commSelectedYears.push(y);
+                commSelectedYears.sort();
             } else {
-                commoditiesSelectedYears.splice(commoditiesSelectedYears.indexOf(y), 1);
+                commSelectedYears.splice(commSelectedYears.indexOf(y), 1);
             }
             onYearChanged('commodities');
         } else {
@@ -169,19 +169,13 @@ function initYearSelect (){
             onYearChanged('world');
         }
         //Change colors for the buttons when toggling them
-        for (var i=0; i<commoditiesSelectedYears.length;i++) {
-            if (commoditiesSelectedYears[i] == 2009) var click2009=true;
-            if (commoditiesSelectedYears[i] == 2010) var click2010=true;
-            if (commoditiesSelectedYears[i] == 2011) var click2011=true;
-            if (commoditiesSelectedYears[i] == 2012) var click2012=true;
-        }
-        if(click2009==true) $('#comm09 .ui-button-text').addClass('green');
+        if(commSelectedYears.indexOf(2009) >= 0) $('#comm09 .ui-button-text').addClass('green');
         else $('#comm09 .ui-button-text').removeClass('green');
-        if (click2010==true) $('#comm10 .ui-button-text').addClass('green');
+        if (commSelectedYears.indexOf(2010) >= 0) $('#comm10 .ui-button-text').addClass('green');
         else $('#comm10 .ui-button-text').removeClass('green');
-        if (click2011==true) $('#comm11 .ui-button-text').addClass('green');
+        if (commSelectedYears.indexOf(2011) >= 0) $('#comm11 .ui-button-text').addClass('green');
         else $('#comm11 .ui-button-text').removeClass('green');
-        if (click2012==true) $('#comm12 .ui-button-text').addClass('green');
+        if (commSelectedYears.indexOf(2012) >= 0) $('#comm12 .ui-button-text').addClass('green');
         else $('#comm12 .ui-button-text').removeClass('green');
     }
     function setSelectedYears () {

@@ -421,8 +421,10 @@ function getCommoditiesYear(type, states, hscodes, years, raw) {
     states = [];
   var v = getCommodities(type, states);
 
-  if (hscodes.length > 0)
+  if (hscodes.length > 0) {
+    v = new google.visualization.DataView(v.toDataTable());
     filterHscodes(v, hscodes);
+  }
   var yearCols = [];
   $.each(years, function(k,v) { yearCols.push(getCommodityYearCol(v)); });
   var columns = [Column.State];

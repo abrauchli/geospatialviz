@@ -5,7 +5,9 @@ var charts = {
     byCommodity: {
         pie:null,
         hist:null,
-        bar:null
+        bar:null,
+        hold_pie:null,
+        hold_hist:null
     }
 }
 
@@ -16,6 +18,12 @@ function initCharts() {
     charts.byCommodity.pie = new google.visualization.PieChart(document.getElementById('pie'));
     charts.byCommodity.hist = new google.visualization.Histogram(document.getElementById('histogram'));
     charts.byCommodity.bar = new google.visualization.ColumnChart(document.getElementById('Bar'));
+}
+
+function initHoldCharts(){
+    //hold charts
+    charts.byCommodity.hold_pie = new google.visualization.PieChart(document.getElementById('hold'));
+    charts.byCommodity.hold_hist = new google.visualization.PieChart(document.getElementById('hold'));
 }
 
 function drawSankeyChart() {
@@ -130,7 +138,7 @@ function getSankeyDataForCountry(type, states, years) {
     return v;
 }
 
-function drawPieChart(){//Only two sets of data possibles (sum previous years in case of multiple selection?)
+function drawPieChart(name,width,height){//Only two sets of data possibles (sum previous years in case of multiple selection?)
     var type = getCommSelectedType();
     var comView = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, [commSelectedYears[0]],true);
     console.log(comView)
@@ -149,24 +157,24 @@ function drawPieChart(){//Only two sets of data possibles (sum previous years in
         legend: 'none',
         diff: {comView: { opacity: 0.15 }} ,
         pieSliceText: 'percentage',
-        width: 300,
-        height: 240
+        width: width,
+        height: height
     };
 
     var diffData = charts.byCommodity.pie.computeDiff(comView, comView1);
-    charts.byCommodity.pie.draw(diffData, options);
+    name.draw(diffData, options);
 }
 
-function drawHistogram(){
+function drawHistogram(name,width,height){
     var type = getCommSelectedType();
     var data = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, commSelectedYears, true);
     var options = {
         title: 'Distribution for commodities',
         legend: { position: 'none' },
-        width:300,
-        height: 200
+        width:width,
+        height: height
     };
-    charts.byCommodity.hist.draw(data, options);
+    name.draw(data, options);
 }
 
 function drawBarChart() {
@@ -177,4 +185,14 @@ function drawBarChart() {
         hAxis: {title: 'States', titleTextStyle: {color: 'red'}}
     };
     charts.byCommodity.bar.draw(data, options);
+}
+
+function drawHoldChart(name, graph_type,width,height){
+    if(graph_type==pie){
+        drawPieChart(name,width,height);
+    }
+    if(graph_type==hist){
+        drawHistogram(name,width,height)
+    }
+
 }

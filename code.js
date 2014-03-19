@@ -20,6 +20,7 @@ function main() {
     changePlot();
     initYearSelect();
     google.setOnLoadCallback(googleReady());
+    holdGraph();
     $('#comm12 .ui-button-text').addClass('green'); //Initialize the 2012 button as green
 }
 
@@ -35,8 +36,8 @@ function googleReady() {
     drawSelectionUSMap();
     drawWorldMap();
     drawRawTable();
-    drawPieChart();
-    drawHistogram();
+    drawPieChart(charts.byCommodity.pie,300,240);
+    drawHistogram(charts.byCommodity.hist,300,200);
     drawBarChart();
     $('#worldimportexport').change(onWorldMapDataChanged);
     $('#usimportexport').change(onCommMapDataChanged);
@@ -49,8 +50,8 @@ function onWorldMapDataChanged() {
 
 function onCommMapDataChanged() {
   drawCommoditiesUSMap();
-  drawPieChart();
-  drawHistogram();
+  drawPieChart(charts.byCommodity.pie,300,240);
+  drawHistogram(charts.byCommodity.hist,300,200);
   drawBarChart();
 }
 
@@ -217,4 +218,14 @@ function changePlot(){
     })
 }
 
+function holdGraph(){
+    $('#pie').click(function(){
+        initHoldCharts();
+        drawHoldChart(charts.byCommodity.hold_pie,pie);
+    })
+    $('#histogram').click(function(){
+        initHoldCharts();
+        drawHoldChart(charts.byCommodity.hold_hist,hist);
+    })
+}
 $(main);

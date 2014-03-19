@@ -41,7 +41,7 @@ var maps = {
     }
 };
 var regions = {
-  'AK': true,
+  'ALL': true,
   toArray: function() {
     var a = []
     $.each(this, function(k, v) { if (!$.isFunction(v)) a.push(k); });
@@ -112,6 +112,6 @@ function drawSelectionUSMap(e) {
 }
 
 function drawCommoditiesUSMap() {
-  var comView = getExportCommoditiesYear('ALL', '26', 2009);
+  var comView = getExportCommoditiesYear(regions.toArray()[0], select_commodities[0], commoditiesSelectedYears[0]);
   maps.byCommodity.usa.draw(comView, maps.byCommodity.usaOptions);
 }

@@ -1,11 +1,19 @@
 var charts = {
     byCountry: {
         sankey: null
+    },
+    byCommodity: {
+        pie:null,
+        hist:null
     }
 }
 
 function initCharts() {
+    //charts for International Trading
     charts.byCountry.sankey = new google.visualization.Sankey(document.getElementById('sankey'));
+    //charts for commodites
+    charts.byCommodity.pie = new google.visualization.PieChart(document.getElementById('pie'));
+    charts.byCommodity.hist = new google.visualization.Histogram(document.getElementById('histogram'));
 }
 
 function drawSankeyChart() {
@@ -118,4 +126,45 @@ function getSankeyDataForCountry(type, states, years) {
         v.setColumns([Column.State, Column.Country, yearCols[0]]);
     }
     return v;
+}
+
+function drawPieChart(){//Only two sets of data possibles (sum previous years in case of multiple selection?)
+    var comView = getExportCommoditiesYear(regions.toArray()[0], select_commodities[0], commoditiesSelectedYears[0]);
+    console.log(comView)
+    var i = 0;
+    if(typeof commoditiesSelectedYears[1] !== 'undefined') i=1;
+    var comView1 = getExportCommoditiesYear(regions.toArray()[0], select_commodities[0], commoditiesSelectedYears[i]);
+    if (i==0) str = 'Hscode: ' + select_commodities[0] + ', for the year: ' + commoditiesSelectedYears[0];
+    else str = 'Hscode: ' + select_commodities[0] + ' Export Diff ' + commoditiesSelectedYears[0] + '-' + commoditiesSelectedYears[i];
+        var options = {
+          title: str,
+          legend: 'none',
+          diff: {comView: { opacity: 0.15 }} ,
+          pieSliceText: 'percentage',
+          width: 300,
+          height: 340
+        };
+
+        var diffData = charts.byCommodity.pie.computeDiff(comView, comView1);
+        charts.byCommodity.pie.draw(diffData, options);
+}
+
+function drawHistogram(){
+    var data = getImportCommoditiesYear(regions.toArray()[0], select_commodities[0], commoditiesSelectedYears[0]);
+    console.log(data);
+    /*var data = google.visualization.arrayToDataTable([
+          ['Dinosaur', 'Length'],
+          ['Acrocanthosaurus (top-spined lizard)', 12.2],
+          ['Albertosaurus (Alberta lizard)', 9.1],
+          ['Allosaurus (other lizard)', 12.2],
+          ['Apatosaurus (deceptive lizard)', 22.9],
+          ['Archaeopteryx (ancient wing)', 0.9]]);*/
+    var options = {
+          title: 'Distribution for selected States',
+          legend: { position: 'none' },
+          width:300,
+          height: 100
+        };
+
+        charts.byCommodity.hist.draw(data, options);
 }

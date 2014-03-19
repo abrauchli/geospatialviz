@@ -61,17 +61,22 @@ function initMaps() {
   google.visualization.events.addListener(maps.byCountry.usa, 'regionClick', drawSelectionUSMap);
 }
 
-// === Helper functions only for world map related code ===
 function getWorldSelectedType() {
-  var ie = $('#worldimportexport').get(0).selectedIndex; // 0: import, 1: export, 2: combined
+  return getSelectedType('#worldimportexport');
+}
+
+function getCommSelectedType() {
+  return getSelectedType('#usimportexport');
+}
+
+function getSelectedType(id) {
+  var ie = $(id).get(0).selectedIndex; // 0: import, 1: export, 2: combined
   if (ie === 0)
     return Type.Import;
   if (ie === 1)
     return Type.Export;
   return Type.ImportExportDiff;
 }
-
-// === End helper functions only for world map related code ===
 
 //Function to paint the WorldMap
 function drawWorldMap() {

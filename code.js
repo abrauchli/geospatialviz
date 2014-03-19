@@ -7,6 +7,7 @@ var select_commodities = [];
 var group_code = [];
 var commSelectedYears = [2012];
 var worldSelectedYears = [2012];
+var holdExpanded = false;
 
 //main function
 function main() {
@@ -219,38 +220,39 @@ function changePlot(){
 }
 //Function to attach a graph to the hold square when clicking a graph
 function holdGraph(){
-    var hold_chart = '';
+    var hold_chart = null;
     var hold_type = '';
     $('#pie').click(function(){
         initHoldCharts();
-        hold_chart =charts.byCommodity.hold_pie;
+        hold_chart = charts.byCommodity.hold_pie;
         hold_type = 'pie';
         drawHoldChart(hold_chart,hold_type);
     })
     $('#histogram').click(function(){
         initHoldCharts();
-        hold_chart =charts.byCommodity.hold_hist;
+        hold_chart = charts.byCommodity.hold_hist;
         hold_type = 'hist'
         drawHoldChart(hold_chart,hold_type);
     })
     $('#Bar').click(function(){
         initHoldCharts();
-        hold_chart =charts.byCommodity.hold_bar;
+        hold_chart = charts.byCommodity.hold_bar;
         hold_type = 'bar'
         drawHoldChart(hold_chart,hold_type);
     })
     $('#hold').click(function(){
+        var width = holdExpanded ? 200 : 1000,
+            height = holdExpanded ? 200 : 290,
+            top = holdExpanded ? 90 : 0;
+        holdExpanded = !holdExpanded;
         $('#hold').css(
-            {'width':1000, 'height':290, 'top':0})
+            {'width':width, 'height':height, 'top':top})
         drawHoldChart(hold_chart,hold_type);
-
     });
     $('#tabviz').dblclick(function(){
         $('#hold').css(
             {'width':200, 'height':200, 'top':90})
         drawHoldChart(hold_chart,hold_type);
-
     });
-
 }
 $(main);

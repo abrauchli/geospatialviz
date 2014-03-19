@@ -114,13 +114,12 @@ function initCommoditiesSelector() {
     //Management of the selection
     $('#comselect').on('change', function(event) {
     var select_object = dojo.byId('comselect');
-    var selected_values = [];
     for (var x=0; x<=select_object.length; x++) {
         if (select_object[x] && select_object[x].selected) {
-            selected_values.push(select_object[x].value.split(" ")[0]);
+            select_commodities.push(select_object[x].value.split(" ")[0]);
         }
     }
-    console.log(selected_values)
+    onCommMapDataChanged();
     });
 
     //Clear search button

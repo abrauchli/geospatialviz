@@ -125,7 +125,7 @@ function drawCommoditiesUSMap() {
   if (commSelectedYears.length === 0)
     view = new google.visualization.arrayToDataTable([['region','data']]);
   else
-    view = getStateAggregateCommoditiesYears(type, reg, '', commSelectedYears);
+    view = getStateAggregateCommoditiesYears(type, reg, select_commodities, commSelectedYears);
 
   maps.byCommodity.usa.draw(view, maps.byCommodity.usaOptions);
 }

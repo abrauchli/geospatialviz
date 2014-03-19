@@ -144,41 +144,37 @@ function drawPieChart(){//Only two sets of data possibles (sum previous years in
     }
     if (i==0) str = 'Hscode: ' + select_commodities[0] + ', for the year: ' + commSelectedYears[0];
     else str = 'Hscode: ' + select_commodities[0] + ' Export Diff ' + commSelectedYears[0] + '-' + commSelectedYears[i];
-        var options = {
-          title: str,
-          legend: 'none',
-          diff: {comView: { opacity: 0.15 }} ,
-          pieSliceText: 'percentage',
-          width: 300,
-          height: 340
-        };
+    var options = {
+        title: str,
+        legend: 'none',
+        diff: {comView: { opacity: 0.15 }} ,
+        pieSliceText: 'percentage',
+        width: 300,
+        height: 340
+    };
 
-        var diffData = charts.byCommodity.pie.computeDiff(comView, comView1);
-        charts.byCommodity.pie.draw(diffData, options);
+    var diffData = charts.byCommodity.pie.computeDiff(comView, comView1);
+    charts.byCommodity.pie.draw(diffData, options);
 }
 
 function drawHistogram(){
     var type = getCommSelectedType();
-    var data = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, commSelectedYears);
-    console.log(data);
+    var data = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, commSelectedYears, true);
     var options = {
-          title: 'Distribution for commodities',
-          legend: { position: 'none' },
-          width:500,
-          height: 200
-        };
-
-        charts.byCommodity.hist.draw(data, options);
+        title: 'Distribution for commodities',
+        legend: { position: 'none' },
+        width:500,
+        height: 200
+    };
+    charts.byCommodity.hist.draw(data, options);
 }
 
 function drawBarChart() {
     var type = getCommSelectedType();
-    var data = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, commSelectedYears);
-
-        var options = {
-          title: 'Distribution for selected States',
-          hAxis: {title: 'States', titleTextStyle: {color: 'red'}}
-        };
-
-        charts.byCommodity.bar.draw(data, options);
-      }
+    var data = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, commSelectedYears, true);
+    var options = {
+        title: 'Distribution for selected States',
+        hAxis: {title: 'States', titleTextStyle: {color: 'red'}}
+    };
+    charts.byCommodity.bar.draw(data, options);
+}

@@ -142,16 +142,16 @@ function getSankeyDataForCountry(type, states, years) {
 function drawPieChart(name,width,height){//Only two sets of data possibles (sum previous years in case of multiple selection?)
     var type = getCommSelectedType();
     var comView = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, [commSelectedYears[0]],true);
-    if(typeof commSelectedYears[1] === 'undefined') {
-        var i=0;
-        var comView1 = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, [commSelectedYears[0]],true);
-    }else {
-        var i=1
-        var comView = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, [commSelectedYears[0]],true);
-        var comView1 = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, [commSelectedYears[1]],true);
+    var comView1;
+    var str = (select_commodities.length ? 'HScode: '+ select_commodities.join() : 'All commodities') + ', ';
+    if (commSelectedYears.length < 2) {
+        comView1 = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, [commSelectedYears[0]],true);
+        str += commSelectedYears[0];
+    } else {
+        comView = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, [commSelectedYears[0]],true);
+        comView1 = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, [commSelectedYears[1]],true);
+        str += ' diff ' + commSelectedYears[0] + '-' + commSelectedYears[commSelectedYears.length-1];
     }
-    if (i==0) str = 'Hscode: ' + select_commodities[0] + ', for the year: ' + commSelectedYears[0];
-    else str = 'Hscode: ' + select_commodities[0] + ' Export Diff ' + commSelectedYears[0] + '-' + commSelectedYears[i];
     var options = {
         title: str,
         legend: 'none',

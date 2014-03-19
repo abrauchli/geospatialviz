@@ -23,7 +23,8 @@ function initCharts() {
 function initHoldCharts(){
     //hold charts
     charts.byCommodity.hold_pie = new google.visualization.PieChart(document.getElementById('hold'));
-    charts.byCommodity.hold_hist = new google.visualization.PieChart(document.getElementById('hold'));
+    charts.byCommodity.hold_hist = new google.visualization.Histogram(document.getElementById('hold'));
+    charts.byCommodity.hold_bar = new google.visualization.ColumnChart(document.getElementById('hold'));
 }
 
 function drawSankeyChart() {
@@ -141,7 +142,6 @@ function getSankeyDataForCountry(type, states, years) {
 function drawPieChart(name,width,height){//Only two sets of data possibles (sum previous years in case of multiple selection?)
     var type = getCommSelectedType();
     var comView = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, [commSelectedYears[0]],true);
-    console.log(comView)
     if(typeof commSelectedYears[1] === 'undefined') {
         var i=0;
         var comView1 = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, [commSelectedYears[0]],true);
@@ -177,22 +177,27 @@ function drawHistogram(name,width,height){
     name.draw(data, options);
 }
 
-function drawBarChart() {
+function drawBarChart(name,width,height) {
     var type = getCommSelectedType();
     var data = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, commSelectedYears, true);
     var options = {
         title: 'Distribution for selected States',
-        hAxis: {title: 'States', titleTextStyle: {color: 'red'}}
+        hAxis: {title: 'States', titleTextStyle: {color: 'red'}},
+        width: width,
+        height: height
     };
-    charts.byCommodity.bar.draw(data, options);
+    name.draw(data, options);
 }
 
 function drawHoldChart(name, graph_type,width,height){
-    if(graph_type==pie){
+    if(graph_type=='pie'){
         drawPieChart(name,width,height);
     }
-    if(graph_type==hist){
-        drawHistogram(name,width,height)
+    if(graph_type=='hist'){
+        drawHistogram(name,width,height);
+    }
+    if (graph_type=='bar'){
+        drawBarChart(name)
     }
 
 }

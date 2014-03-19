@@ -122,7 +122,7 @@ body {
 .plots{
     float:left;
     width:99%;
-    height: 300px;
+    height: 320px;
     border:solid 2px black;
     border-radius:5px;
     padding: 5px;
@@ -247,13 +247,13 @@ body {
 .formatplot{
     position: relative;
     float:left;
-    width: 112px;
-    height: 158px;
+    width: 350px;
+    height: 58px;
 }
 .formatplot button{ 
     position: relative;
     top:-2px;
-    border-radius: 80%;
+    border-radius: 20%;
 }
 #bmenu{
     position: relative;
@@ -262,9 +262,18 @@ body {
     top:-7px;
 }
 
+#bhistogram{
+    position: relative;
+}
+
+#bBar{
+    position: relative;
+}
+
 #plotwrapper{
     position: relative;
-    left: 50px;
+    left: 120px;
+    top:10%;
     width: 1120px;
     height: 300px;
     fill-opacity:0.8;
@@ -291,19 +300,22 @@ body {
     position: relative;
     float:right;
     display: inline;
+    right: 10px;
 }
 
 #pie{
     position: relative;
     float:right;
     display: inline;
+    right: 10px;
 }
 
 #Bar{
     position: relative;
     float: right;
     display: inline;
-    top:0%;
+    top:-30px;
+    right: 10px;
 }
 
 #bmenu{
@@ -316,7 +328,14 @@ body {
     position: relative;
     width: 200px;
     height: 200px;
-    top:100px;
-    right:50px;
+    top:90px;
+    right:123px;
     border: solid 2px black;
+    box-shadow: 0 0 0 3px grey inset;
+}
+
+.resize{
+    position: relative;
+    width:500px;
+    height: 500px;
 }

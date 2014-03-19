@@ -36,9 +36,9 @@ function googleReady() {
     drawSelectionUSMap();
     drawWorldMap();
     drawRawTable();
-    drawPieChart(charts.byCommodity.pie,300,240);
-    drawHistogram(charts.byCommodity.hist,300,200);
-    drawBarChart();
+    drawPieChart(charts.byCommodity.pie,250,320);
+    drawHistogram(charts.byCommodity.hist,310,300);
+    drawBarChart(charts.byCommodity.bar,440,250);
     $('#worldimportexport').change(onWorldMapDataChanged);
     $('#usimportexport').change(onCommMapDataChanged);
 }
@@ -50,9 +50,9 @@ function onWorldMapDataChanged() {
 
 function onCommMapDataChanged() {
   drawCommoditiesUSMap();
-  drawPieChart(charts.byCommodity.pie,300,240);
+  drawPieChart(charts.byCommodity.pie,250,320);
   drawHistogram(charts.byCommodity.hist,300,200);
-  drawBarChart();
+  drawBarChart(charts.byCommodity.bar,420,300);
 }
 
 function onYearChanged(page) {
@@ -205,7 +205,7 @@ function initYearSelect (){
 
 //Function to toggle button on hover
 function buttonBar(){
-    $('.formatplot').mousedown(function(){
+    $('.formatplot').click(function(){
         $('.plotbutton').toggle("slow");
     });
 }
@@ -217,15 +217,40 @@ function changePlot(){
         $('#'+id).toggle('slow')
     })
 }
-
+//Function to attach a graph to the hold square when clicking a graph
 function holdGraph(){
+    var hold_chart = '';
+    var hold_type = '';
     $('#pie').click(function(){
         initHoldCharts();
-        drawHoldChart(charts.byCommodity.hold_pie,pie);
+        hold_chart =charts.byCommodity.hold_pie;
+        hold_type = 'pie';
+        drawHoldChart(hold_chart,hold_type);
     })
     $('#histogram').click(function(){
         initHoldCharts();
-        drawHoldChart(charts.byCommodity.hold_hist,hist);
+        hold_chart =charts.byCommodity.hold_hist;
+        hold_type = 'hist'
+        drawHoldChart(hold_chart,hold_type);
     })
+    $('#Bar').click(function(){
+        initHoldCharts();
+        hold_chart =charts.byCommodity.hold_bar;
+        hold_type = 'bar'
+        drawHoldChart(hold_chart,hold_type);
+    })
+    $('#hold').click(function(){
+        $('#hold').css(
+            {'width':1000, 'height':290, 'top':0})
+        drawHoldChart(hold_chart,hold_type);
+
+    });
+    $('#tabviz').dblclick(function(){
+        $('#hold').css(
+            {'width':200, 'height':200, 'top':90})
+        drawHoldChart(hold_chart,hold_type);
+
+    });
+
 }
 $(main);

@@ -66,11 +66,11 @@ function getImportCountries(state) {
  * @param raw {boolean} Optional, return only raw data true or w/ textual tooltip (default).
  * @return filtered view
  */
-function getExportCountriesYear(state, year, raw) {
-  return getCountriesYear(Type.Export, state, year, raw);
+function getExportCountriesYear(state, years, raw) {
+  return getCountriesYear(Type.Export, state, years, raw);
 }
-function getImportCountriesYear(state, year, raw) {
-  return getCountriesYear(Type.Import, state, year, raw);
+function getImportCountriesYear(state, years, raw) {
+  return getCountriesYear(Type.Import, state, years, raw);
 }
 
 /**
@@ -78,11 +78,11 @@ function getImportCountriesYear(state, year, raw) {
  * @param state {String} Optional, state to select (e.g. 'AK')
  * @return row-filtered view
  */
-function getExportCommodities(state) {
-  return getCommodities(Type.Export, state);
+function getExportCommodities(states) {
+  return getCommodities(Type.Export, states);
 }
-function getImportCommodities(state) {
-  return getCommodities(Type.Import, state);
+function getImportCommodities(states) {
+  return getCommodities(Type.Import, states);
 }
 
 /**
@@ -347,32 +347,46 @@ function getCommodityTotals(type) {
   return view;
 }
 
-function getCommodities(type, state) {
+function getCommodities(type, states) {
   var view = new google.visualization.DataView(type === Type.Export ? stateExportCommodities : stateImportCommodities);
   var filter = [{column: Column.Rank, minValue: 1}];
-  if (state)
-    filter.push({column: Column.State, value: state});
-  view.setRows(view.getFilteredRows(filter));
+  if (states.length > 0)
+    filter.push({column: Column.State, value: states});
+  view.setRows(getMultivalFilteredRows(view, filter));
   return view;
 }
 
-function getCommoditiesYear(type, state, hscode, year, raw) {
-  if (state == 'ALL')
-    state = '';
-  var v = getCommodities(type, state);
+function getCommoditiesYear(type, states, hscode, years, raw) {
+  if (states == 'ALL')
+    states = [];
+  var v = getCommodities(type, states);
+
   if (hscode)
     filterHscodes(v, hscode);
-  var y = getCommodityYearCol(year);
-  var columns = [Column.State, y];
+  var yearCols = [];
+  $.each(years, function(k,v) { yearCols.push(getCountryYearCol(v)); });
+  var offset = 4;
+  var columns = [Column.State];
   if (!raw) {
     columns.push({
       label: 'Years',
       type: 'string',
       role: 'tooltip',
       calc: function(t, r) {
-        return 'Year '+year+': '+ t.getValue(r, y);
+        var ret = [];
+        var sum = 0;
+        $.each(yearCols, function(k,v) {
+          var val = t.getValue(r, (states.length > 1 ? k+offset+1 : v));
+          sum += val;
+          ret.push(years[k]+': '+ val);
+        });
+        if (years.length > 1)
+          ret.push("Total: "+ sum);
+        return ret.join("\n");
       }
     });
+  } else {
+    columns = columns.concat(yearCols);
   }
   v.setColumns(columns);
   return v;

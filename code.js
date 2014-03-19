@@ -33,6 +33,7 @@ function googleReady() {
     drawWorldMap();
     drawRawTable();
     $('#worldimportexport').change(onWorldMapDataChanged);
+    $('#usimportexport').change(onCommMapDataChanged);
 }
 
 function onWorldMapDataChanged() {

@@ -242,9 +242,6 @@ function getCountriesYear(type, states, years) {
     var colCountry = (type === Type.ImportExportDiff ? 1 : Column.Country);
     if (v.getColumnLabel(colCountry) !== "Country") throw new Error("Wrong ctry index");
     var gdt = new google.visualization.data.group(v.toDataTable(), [colCountry], yearColObjs);
-    if (type !== Type.ImportExportDiff) {
-      gdt.removeColumn(Column.Rank);
-    }
     v = new google.visualization.DataView(gdt);
   }
 
@@ -271,7 +268,7 @@ function getCountriesYear(type, states, years) {
       var sum = 0;
       $.each(yearCols, function(k,v) {
         if (type !== Type.ImportExportDiff) {
-          sum += t.getValue(r, v);
+          sum += t.getValue(r, (states.length > 1 ? k+offset+1 : v));
         } else {
           var i = t.getValue(r, k+offset+1);
           var e = t.getValue(r, years.length + k+offset+1);
@@ -290,7 +287,7 @@ function getCountriesYear(type, states, years) {
         var ret = [];
         var sum = 0;
         $.each(yearCols, function(k,v) {
-          var val = t.getValue(r, v);
+          var val = t.getValue(r, (states.length > 1 ? k+offset+1 : v));
           sum += val;
           ret.push(years[k]+': '+ val);
         });

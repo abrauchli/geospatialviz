@@ -36,7 +36,7 @@ var maps = {
             resolution: 'provinces',
             legend: false,
             width: 396,
-            height: 180
+            height: 170
         }
     }
 };

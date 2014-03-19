@@ -380,7 +380,7 @@ function getStateAggregateCommoditiesYears(type, states, hscodes, years, raw) {
     var columns = [Column.State];
     var offset = 0;
     columns.push({
-      label: 'Data',
+      label: TypeString[type],
       type: 'number',
       role: 'data',
       calc: function(t, r) {
@@ -428,7 +428,7 @@ function getCommoditiesYear(type, states, hscodes, years, raw) {
   if (!raw) {
     var offset = 4;
     columns.push({
-      label: 'Data',
+      label: TypeString[type],
       type: 'number',
       role: 'data',
       calc: function(t, r) {

@@ -129,13 +129,13 @@ function getSankeyDataForCountry(type, states, years) {
 }
 
 function drawPieChart(){//Only two sets of data possibles (sum previous years in case of multiple selection?)
-    var comView = getExportCommoditiesYear(regions.toArray()[0], select_commodities[0], commoditiesSelectedYears[0]);
+    var comView = getExportCommoditiesYear(regions.toArray()[0], select_commodities[0], commSelectedYears[0]);
     console.log(comView)
     var i = 0;
-    if(typeof commoditiesSelectedYears[1] !== 'undefined') i=1;
-    var comView1 = getExportCommoditiesYear(regions.toArray()[0], select_commodities[0], commoditiesSelectedYears[i]);
-    if (i==0) str = 'Hscode: ' + select_commodities[0] + ', for the year: ' + commoditiesSelectedYears[0];
-    else str = 'Hscode: ' + select_commodities[0] + ' Export Diff ' + commoditiesSelectedYears[0] + '-' + commoditiesSelectedYears[i];
+    if(typeof commSelectedYears[1] !== 'undefined') i=1;
+    var comView1 = getExportCommoditiesYear(regions.toArray()[0], select_commodities[0], commSelectedYears[i]);
+    if (i==0) str = 'Hscode: ' + select_commodities[0] + ', for the year: ' + commSelectedYears[0];
+    else str = 'Hscode: ' + select_commodities[0] + ' Export Diff ' + commSelectedYears[0] + '-' + commSelectedYears[i];
         var options = {
           title: str,
           legend: 'none',
@@ -150,7 +150,7 @@ function drawPieChart(){//Only two sets of data possibles (sum previous years in
 }
 
 function drawHistogram(){
-    var data = getImportCommoditiesYear(regions.toArray()[0], select_commodities[0], commoditiesSelectedYears[0]);
+    var data = getImportCommoditiesYear(regions.toArray()[0], select_commodities[0], commSelectedYears[0]);
     console.log(data);
     /*var data = google.visualization.arrayToDataTable([
           ['Dinosaur', 'Length'],

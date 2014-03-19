@@ -141,11 +141,12 @@ function getMultivalFilteredRows(view, filters) {
 
 function getCountries(type, states) {
   var view = new google.visualization.DataView(type === Type.Export ? stateExportCountries : stateImportCountries);
-  view.setRows(getMultivalFilteredRows(view, [
+  var filters = [{column: Column.Rank, minValue: 1}];
+  if (states.length > 0) {
     // Filter out current state w/o the "total" rows
-    {column: Column.State, value: states},
-    {column: Column.Rank, minValue: 1}
-  ]));
+    filters.push({column: Column.State, value: states});
+  }
+  view.setRows(getMultivalFilteredRows(view, filters));
   return view;
 }
 
@@ -218,7 +219,7 @@ function getCountriesYear(type, states, years) {
                   yearCols,
                   yearCols)
               );
-  if (states.length > 1) {
+  if (states.length !== 1) {
     var yearColObjs = [];
     $.each(years, function(k,v) {
       yearColObjs.push({
@@ -268,7 +269,7 @@ function getCountriesYear(type, states, years) {
       var sum = 0;
       $.each(yearCols, function(k,v) {
         if (type !== Type.ImportExportDiff) {
-          sum += t.getValue(r, (states.length > 1 ? k+offset+1 : v));
+          sum += t.getValue(r, (states.length !== 1 ? k+offset+1 : v));
         } else {
           var i = t.getValue(r, k+offset+1);
           var e = t.getValue(r, years.length + k+offset+1);
@@ -287,7 +288,7 @@ function getCountriesYear(type, states, years) {
         var ret = [];
         var sum = 0;
         $.each(yearCols, function(k,v) {
-          var val = t.getValue(r, (states.length > 1 ? k+offset+1 : v));
+          var val = t.getValue(r, (states.length !== 1 ? k+offset+1 : v));
           sum += val;
           ret.push(years[k]+': '+ val);
         });

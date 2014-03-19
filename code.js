@@ -20,6 +20,7 @@ function main() {
     changePlot();
     initYearSelect();
     google.setOnLoadCallback(googleReady());
+    $('#comm12 .ui-button-text').addClass('green'); //Initialize the 2012 button as green
 }
 
 //Function to launch the googleAPI

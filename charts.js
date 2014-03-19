@@ -164,8 +164,8 @@ function drawHistogram(){
     var options = {
           title: 'Distribution for commodities',
           legend: { position: 'none' },
-          width:300,
-          height: 100
+          width:500,
+          height: 200
         };
 
         charts.byCommodity.hist.draw(data, options);

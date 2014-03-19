@@ -35,7 +35,7 @@ function googleReady() {
     drawWorldMap();
     drawRawTable();
     drawPieChart();
-    drawHistogram();
+    //drawHistogram();
     $('#worldimportexport').change(onWorldMapDataChanged);
     $('#usimportexport').change(onCommMapDataChanged);
 }

@@ -129,11 +129,17 @@ function getSankeyDataForCountry(type, states, years) {
 }
 
 function drawPieChart(){//Only two sets of data possibles (sum previous years in case of multiple selection?)
-    var comView = getExportCommoditiesYear(regions.toArray()[0], select_commodities[0], commSelectedYears[0]);
+    var type = getCommSelectedType();
+    var comView = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, commSelectedYears[0],"true");
     console.log(comView)
-    var i = 0;
-    if(typeof commSelectedYears[1] !== 'undefined') i=1;
-    var comView1 = getExportCommoditiesYear(regions.toArray()[0], select_commodities[0], commSelectedYears[i]);
+    if(typeof commSelectedYears[1] === 'undefined') {
+        var i=0;
+        var comView1 = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, commSelectedYears[0],"true");
+    }else {
+        var i=1
+        var comView = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, commSelectedYears[0],"true");
+        var comView1 = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, commSelectedYears[1],"true");
+    }
     if (i==0) str = 'Hscode: ' + select_commodities[0] + ', for the year: ' + commSelectedYears[0];
     else str = 'Hscode: ' + select_commodities[0] + ' Export Diff ' + commSelectedYears[0] + '-' + commSelectedYears[i];
         var options = {
@@ -149,16 +155,17 @@ function drawPieChart(){//Only two sets of data possibles (sum previous years in
         charts.byCommodity.pie.draw(diffData, options);
 }
 
-function drawHistogram(){
+/*function drawHistogram(){
+    var type = getCommSelectedType();
     var data = getImportCommoditiesYear(regions.toArray()[0], select_commodities[0], commSelectedYears[0]);
     console.log(data);
-    /*var data = google.visualization.arrayToDataTable([
+    var data = google.visualization.arrayToDataTable([
           ['Dinosaur', 'Length'],
           ['Acrocanthosaurus (top-spined lizard)', 12.2],
           ['Albertosaurus (Alberta lizard)', 9.1],
           ['Allosaurus (other lizard)', 12.2],
           ['Apatosaurus (deceptive lizard)', 22.9],
-          ['Archaeopteryx (ancient wing)', 0.9]]);*/
+          ['Archaeopteryx (ancient wing)', 0.9]]);
     var options = {
           title: 'Distribution for selected States',
           legend: { position: 'none' },
@@ -167,4 +174,4 @@ function drawHistogram(){
         };
 
         charts.byCommodity.hist.draw(data, options);
-}
+}*/

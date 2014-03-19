@@ -150,7 +150,7 @@ function drawPieChart(){//Only two sets of data possibles (sum previous years in
         diff: {comView: { opacity: 0.15 }} ,
         pieSliceText: 'percentage',
         width: 300,
-        height: 340
+        height: 240
     };
 
     var diffData = charts.byCommodity.pie.computeDiff(comView, comView1);

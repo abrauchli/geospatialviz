@@ -1,8 +1,9 @@
 google.load('visualization', '1', {
-    packages: ['geochart', 'table','sankey']
+    packages: ['geochart', 'table','sankey','corechart']
 });
 
 // Selected commodities
+var select_commodities = ['03']
 var group_code = [];
 var commSelectedYears = [2012];
 var worldSelectedYears = [2012];
@@ -14,6 +15,7 @@ function main() {
     $('#plotbutton').buttonset();
     $('#formatcomm').buttonset();
     $('.plotbutton').toggle(); //Chart Buttons initially hidden
+    $('.plotbutton:first').toggle();//We show the menu button
     buttonBar();
     changePlot();
     initYearSelect();
@@ -32,6 +34,8 @@ function googleReady() {
     drawSelectionUSMap();
     drawWorldMap();
     drawRawTable();
+    drawPieChart();
+    drawHistogram();
     $('#worldimportexport').change(onWorldMapDataChanged);
     $('#usimportexport').change(onCommMapDataChanged);
 }
@@ -197,7 +201,7 @@ function initYearSelect (){
 
 //Function to toggle button on hover
 function buttonBar(){
-    $('.formatplot').hover(function(){
+    $('.formatplot').mousedown(function(){
         $('.plotbutton').toggle("slow");
     });
 }
@@ -205,7 +209,8 @@ function buttonBar(){
 //Function to get value from Plot buttons and change the plot accordingly
 function changePlot(){
     $('.plotbutton').click(function(){
-        console.log(this.id)
+        id=this.id.split('b')[1];
+        $('#'+id).toggle('slow')
     })
 }
 

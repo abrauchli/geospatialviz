@@ -263,7 +263,6 @@ body {
 
 #plotwrapper{
     position: relative;
-    top:-100px;
     left: 100px;
     width: 800px;
     height: 250px;

@@ -80,12 +80,6 @@ function drawWorldMap() {
   var reg = regions.toArray();
   $('#worldmapdesc').text(reg.sort().join(', ') +" "+ str +" "+ worldSelectedYears.join(', '));
   var view = getCountriesYear(type, reg, worldSelectedYears);
-    /*
-    opts.colorAxis = {
-      maxValue: 1000 ,
-      colors: ['#438094','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#DE3403','#E0D39E','#E0D39E','#E0D39E']
-    }
-    */
   maps.byCountry.world.draw(view, maps.byCountry.worldOptions);
 }
 

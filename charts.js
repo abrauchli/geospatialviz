@@ -6,10 +6,6 @@ var charts = {
 
 function initCharts() {
     charts.byCountry.sankey = new google.visualization.Sankey(document.getElementById('sankey'));
-
-    //  google.visualization.events.addListener(chart, 'onmouseover', function() {
-    //     console.log('go')
-    // });
 }
 
 function drawSankeyChart() {

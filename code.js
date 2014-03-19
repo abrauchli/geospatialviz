@@ -113,13 +113,14 @@ function initCommoditiesSelector() {
 
     //Management of the selection
     $('#comselect').on('change', function(event) {
-    var select_object = dojo.byId('comselect');
-    for (var x=0; x<=select_object.length; x++) {
-        if (select_object[x] && select_object[x].selected) {
-            select_commodities.push(select_object[x].value.split(" ")[0]);
+        var select_object = dojo.byId('comselect');
+        select_commodities = [];
+        for (var x=0; x<=select_object.length; x++) {
+            if (select_object[x] && select_object[x].selected) {
+                select_commodities.push(select_object[x].value.split(" ")[0]);
+            }
         }
-    }
-    onCommMapDataChanged();
+        onCommMapDataChanged();
     });
 
     //Clear search button

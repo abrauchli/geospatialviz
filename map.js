@@ -79,7 +79,11 @@ function drawWorldMap() {
   var str = TypeString[type];
   var reg = regions.toArray();
   $('#worldmapdesc').text(reg.sort().join(', ') +" "+ str +" "+ worldSelectedYears.join(', '));
-  var view = getCountriesYear(type, reg, worldSelectedYears);
+  var view;
+  if (reg.length === 0 || worldSelectedYears.length === 0)
+    view = new google.visualization.arrayToDataTable([['region','data']]);
+  else
+    view = getCountriesYear(type, reg, worldSelectedYears);
   maps.byCountry.world.draw(view, maps.byCountry.worldOptions);
 }
 

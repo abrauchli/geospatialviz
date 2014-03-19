@@ -11,7 +11,10 @@ function initCharts() {
 function drawSankeyChart() {
     //Set the data
     var type = getWorldSelectedType();
-    var data = getSankeyDataForCountry(type, regions.toArray(), worldSelectedYears);
+    var reg = regions.toArray();
+    var data = (reg.length > 0 && worldSelectedYears.length > 0)
+        ? getSankeyDataForCountry(type, reg, worldSelectedYears)
+        : new google.visualization.DataTable({cols:[{type:'string'},{type:'string'},{type:'number'}]});
 
     // Set chart options
     var options = {

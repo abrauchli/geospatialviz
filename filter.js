@@ -359,9 +359,10 @@ function getCommodities(type, states) {
   return view;
 }
 
-function getStateAggregateCommoditiesYears(type, states, hscodes, years) {
+function getStateAggregateCommoditiesYears(type, states, hscodes, years, raw) {
   var t = getCommoditiesYear(type, states, hscodes, years, true).toDataTable();
   t.sort(Column.State);
+  // Table with State, years...
   for (var i = 0; i < t.getNumberOfRows(); ++i) {
     if (i+1 < t.getNumberOfRows() && t.getValue(i, Column.State) === t.getValue(i+1, Column.State)) {
       for (var j = 0; j < t.getNumberOfColumns(); ++j) {
@@ -371,6 +372,42 @@ function getStateAggregateCommoditiesYears(type, states, hscodes, years) {
         t.removeRow(i+1);
       }
     }
+  }
+  if (!raw) {
+    var columns = [Column.State];
+    var offset = 0;
+    columns.push({
+      label: 'Data',
+      type: 'number',
+      role: 'data',
+      calc: function(t, r) {
+        var sum = 0;
+        $.each(years, function(k,v) {
+          sum += t.getValue(r, k+offset+1);
+        });
+        return sum;
+      }
+    });
+    columns.push({
+      label: 'Tooltip',
+      type: 'string',
+      role: 'tooltip',
+      calc: function(t, r) {
+        var ret = [];
+        var sum = 0;
+        $.each(years, function(k,v) {
+          var val = t.getValue(r, k+offset+1);
+          sum += val;
+          ret.push(years[k]+': '+ val);
+        });
+        if (years.length > 1)
+          ret.push("Total: "+ sum);
+        return ret.join("\n");
+      }
+    });
+    v = new google.visualization.DataView(t);
+    v.setColumns(columns);
+    return v;
   }
   return new google.visualization.DataView(t);
 }
@@ -383,19 +420,31 @@ function getCommoditiesYear(type, states, hscodes, years, raw) {
   if (hscodes.length > 0)
     filterHscodes(v, hscodes);
   var yearCols = [];
-  $.each(years, function(k,v) { yearCols.push(getCountryYearCol(v)); });
-  var offset = 4;
+  $.each(years, function(k,v) { yearCols.push(getCommodityYearCol(v)); });
   var columns = [Column.State];
   if (!raw) {
+    var offset = 4;
     columns.push({
-      label: 'Years',
+      label: 'Data',
+      type: 'number',
+      role: 'data',
+      calc: function(t, r) {
+        var sum = 0;
+        $.each(yearCols, function(k,v) {
+          sum += t.getValue(r, v);
+        });
+        return sum;
+      }
+    });
+    columns.push({
+      label: 'Tooltip',
       type: 'string',
       role: 'tooltip',
       calc: function(t, r) {
         var ret = [];
         var sum = 0;
         $.each(yearCols, function(k,v) {
-          var val = t.getValue(r, (states.length > 1 ? k+offset+1 : v));
+          var val = t.getValue(r, v);
           sum += val;
           ret.push(years[k]+': '+ val);
         });
@@ -409,5 +458,4 @@ function getCommoditiesYear(type, states, hscodes, years, raw) {
   }
   v.setColumns(columns);
   return v;
-  
 }

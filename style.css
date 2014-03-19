@@ -253,3 +253,56 @@ body {
     position: relative;
     top:-2px;
     border-radius: 80%;
+}
+#bmenu{
+    position: relative;
+    border-radius: 5px;
+    right:7px;
+    top:-7px;
+}
+
+#plotwrapper{
+    position: relative;
+    top:-100px;
+    left: 100px;
+    width: 800px;
+    height: 250px;
+    fill-opacity:0.8;
+    margin:0px;
+}
+
+#sankey > div:nth-child(1) > div > svg > g:nth-child(2) > path:nth-child(1){
+    fill-opacity:0.1;
+}
+
+#buttonplot{
+    position:relative;
+    left:10px;
+    top:-24px;
+    width: 100px;
+    height: 100px;
+}
+
+.green{
+    background-color: green;
+}
+
+#histogram{
+    position: relative;
+    float:right;
+    width: 150px;
+    display: inline;
+}
+
+#pie{
+    position: relative;
+    float:right;
+    left:300px;
+    display: inline;
+}
+
+#bmenu{
+    position: relative;
+    width: 100px;
+    left:0 px;
+}

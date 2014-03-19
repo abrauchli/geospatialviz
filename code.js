@@ -160,6 +160,21 @@ function initYearSelect (){
             }
             onYearChanged('world');
         }
+        //Change colors for the buttons when toggling them
+        for (var i=0; i<commoditiesSelectedYears.length;i++) {
+            if (commoditiesSelectedYears[i] == 2009) var click2009=true;
+            if (commoditiesSelectedYears[i] == 2010) var click2010=true;
+            if (commoditiesSelectedYears[i] == 2011) var click2011=true;
+            if (commoditiesSelectedYears[i] == 2012) var click2012=true;
+        }
+        if(click2009==true) $('#comm09 .ui-button-text').addClass('green');
+        else $('#comm09 .ui-button-text').removeClass('green');
+        if (click2010==true) $('#comm10 .ui-button-text').addClass('green');
+        else $('#comm10 .ui-button-text').removeClass('green');
+        if (click2011==true) $('#comm11 .ui-button-text').addClass('green');
+        else $('#comm11 .ui-button-text').removeClass('green');
+        if (click2012==true) $('#comm12 .ui-button-text').addClass('green');
+        else $('#comm12 .ui-button-text').removeClass('green');
     }
     function setSelectedYears () {
         $.each($('.chkyear'), function(i, o) {

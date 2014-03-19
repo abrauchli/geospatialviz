@@ -3,7 +3,7 @@ google.load('visualization', '1', {
 });
 
 // Selected commodities
-var select_commodities = ['03']
+var select_commodities = [];
 var group_code = [];
 var commSelectedYears = [2012];
 var worldSelectedYears = [2012];

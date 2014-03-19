@@ -139,9 +139,32 @@
             <h2>Visualization of TODO Data</h2>
             <p>The page is divided into four tabs: the visualization (map), the raw data, the help section and the sources.</p>
             <p>If you're running this page directly from your local filesystem and the map remains grey and the data on the second tab is empty, see the <a href="setup.htm">setup instructions</a> for help.</p>
-            <h3>Map</h3>
-            <p><span style="font-weight:bolder;">Map key</span> TODO</p>
-            <p><span style="font-weight:bolder;">Zooming/Panning</span> Using the + and - buttons, you can zoom in and out of the map. Drag your mouse to move the map.</p>
+﻿<p/>
+This map works on the premise of mapping multiple inputs. The user may select any number of states, but only one country followed by a combination of the years 2009 to 2012. 
+<img src = “http://puu.sh/7BAau.png” alt = “Selection is done via the highlighted ‘input box’ click states, years here.”/>
+
+
+The selection will then be tallied and passed into the charts located at the bottom of the screen. In the case where the user wishes to select all the states to tally up the country's gross import or export, simply deselect all of the states and by default the input will be the sum of all states. Or simply refresh the page, the default selection is no states.
+<img src= “http://puu.sh/7BwSC.png” alt = “As can be seen, all states selected by default”/>
+
+
+        On initial load, all three charts, histogram, pie chart, and column chart; are displayed. The user may remove/add the charts by clicking “Menu” which expands into a choice of pie chart, column chart and histogram, which will remove or add them depending on whether or not they’re currently being displayed.
+<img src = “http://puu.sh/7Bzgw.png” alt = “Menu”/>
+
+
+<img src = “http://puu.sh/7Bzr6.png” alt = “Selection of charts”/>
+        While viewing the charts the user may feel as though it is difficult to view the data of a chart. You may expand a chart by clicking on the chart element and pulling it up on the bottom left window, which will allow the user to zoom onto the the element. Once the element appears in the zoom window click on the zoom window to enlarge the chart.
+<img src = “ http://puu.sh/7BzWt.png” alt = “ Here we select the image and it gets expanded”/>
+
+
+        The default page is “Commodities by U.S. state” to change your view choose from the tabs at the top, specifically if you wish to see trade on the international scale select, “International Imports/Exports.” However unlike in the state selections, here you select the states on the selection window as before and the country they are based on the larger window on the right.
+<img src = “http://puu.sh/7By1B.jpg” alt = “Below the two windows you will see a sankey chat visually breaking down the quantities of trade between selected states and chosen country.”/>
+
+
+        Finally, the “Raw Data” tab features a table where its rows are broken down by state in relation to either commodity or country. Each column contains a quantity showing the breakdown between the state and country/commodity such as quantity per year, % share and changes in percent.
+<img sr = “http://puu.sh/7Bz31.png” alt = “Each row features a state and its target followed by a break down of data by column.”/>
+        
+</p>
         </div>
         <div id="tabsources">
             <h2>Sources</h2>

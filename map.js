@@ -23,8 +23,6 @@ var maps = {
             displayMode: 'regions',
             enableRegionInteractivity: 'true',
             resolution: 'provinces',
-            colorAxis: {colors: ['#F0FFC2', '#3D4C0F']},
-            legend: false,
             width: 800,
             height: 372
         },
@@ -82,7 +80,7 @@ function drawWorldMap() {
   var type = getWorldSelectedType();
   var str = TypeString[type];
   var reg = regions.toArray();
-  $('#worldmapdesc').text(reg.sort().join(', ') +" "+ str +" "+ worldSelectedYears.join(', '));
+  $('#worldmapdesc').text(reg.sort().join(', ') +" "+ str +" "+ worldSelectedYears.join(', ') + " [Mio USD]");
   var view;
   if (worldSelectedYears.length === 0)
     view = new google.visualization.arrayToDataTable([['region','data']]);
@@ -131,7 +129,7 @@ function drawCommoditiesUSMap() {
     else
       commtext = ', Commodity code '+ select_commodities[0];
   }
-  $('#commmapdesc').text(reg.sort().join(', ') +" "+ str +" "+ commSelectedYears.join(', ') + commtext);
+  $('#commmapdesc').text(reg.sort().join(', ') +" "+ str +" "+ commSelectedYears.join(', ') + commtext + " [Mio USD]");
   var view;
   if (commSelectedYears.length === 0)
     view = new google.visualization.arrayToDataTable([['region','data']]);

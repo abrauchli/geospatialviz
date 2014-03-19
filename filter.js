@@ -356,6 +356,22 @@ function getCommodities(type, states) {
   return view;
 }
 
+function getStateAggregateCommoditiesYears(type, states, hscode, years) {
+  var t = getCommoditiesYear(type, states, hscode, years, true).toDataTable();
+  t.sort(Column.State);
+  for (var i = 0; i < t.getNumberOfRows(); ++i) {
+    if (i+1 < t.getNumberOfRows() && t.getValue(i, Column.State) === t.getValue(i+1, Column.State)) {
+      for (var j = 0; j < t.getNumberOfColumns(); ++j) {
+        if (t.getColumnType(j) !== 'number')
+          continue;
+        t.setValue(i, j, t.getValue(i, j) + t.getValue(i+1, j));
+        t.removeRow(i+1);
+      }
+    }
+  }
+  return new google.visualization.DataView(t);
+}
+
 function getCommoditiesYear(type, states, hscode, years, raw) {
   if (states == 'ALL')
     states = [];

@@ -53,9 +53,7 @@ function initMaps() {
   // Commodity Maps
   maps.byCommodity.usa = new google.visualization.GeoChart(document.getElementById('USAmap'));
   maps.byCommodity.usacomm = new google.visualization.GeoChart(document.getElementById('USselectmapcomm'));
-  google.visualization.events.addListener(maps.byCommodity.usa, 'regionClick', function(eventData) {
-    // TODO
-  });
+  google.visualization.events.addListener(maps.byCommodity.usacomm, 'regionClick', drawSelectionUSMap);
 
   // Country Maps
   maps.byCountry.world = new google.visualization.GeoChart(document.getElementById('worldmap'));
@@ -111,6 +109,7 @@ function drawSelectionUSMap(e) {
   maps.byCommodity.usacomm.draw(selection, maps.byCommodity.usacommOptions);
   if (e) {
     onWorldMapDataChanged();
+    onCommMapDataChanged();
   }
 }
 

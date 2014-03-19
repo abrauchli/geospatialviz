@@ -40,9 +40,17 @@ function onWorldMapDataChanged() {
   drawSankeyChart();
 }
 
+function onCommMapDataChanged() {
+
+  drawCommoditiesUSMap();
+  drawPieChart();
+}
+
 function onYearChanged(page) {
     if (page === 'world')
         onWorldMapDataChanged();
+    if (page === 'commodities')
+        onCommMapDataChanged();
 }
 
 function drawRawTable() {

@@ -117,6 +117,15 @@ function drawSelectionUSMap(e) {
 }
 
 function drawCommoditiesUSMap() {
-  var comView = getExportCommoditiesYear('ALL', '26', 2009);
-  maps.byCommodity.usa.draw(comView, maps.byCommodity.usaOptions);
+  var type = getCommSelectedType();
+  var str = TypeString[type];
+  var reg = regions.toArray();
+  $('#commmapdesc').text(reg.sort().join(', ') +" "+ str +" "+ commSelectedYears.join(', '));
+  var view;
+  if (commSelectedYears.length === 0)
+    view = new google.visualization.arrayToDataTable([['region','data']]);
+  else
+    view = getStateAggregateCommoditiesYears(type, reg, '', commSelectedYears);
+
+  maps.byCommodity.usa.draw(view, maps.byCommodity.usaOptions);
 }

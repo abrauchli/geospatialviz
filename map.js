@@ -41,7 +41,6 @@ var maps = {
     }
 };
 var regions = {
-  'ALL': true,
   toArray: function() {
     var a = []
     $.each(this, function(k, v) { if (!$.isFunction(v)) a.push(k); });

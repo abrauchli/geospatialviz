@@ -263,9 +263,9 @@ body {
 
 #plotwrapper{
     position: relative;
-    left: 100px;
-    width: 800px;
-    height: 250px;
+    left: 50px;
+    width: 1200px;
+    height: 450px;
     fill-opacity:0.8;
     margin:0px;
 }
@@ -289,14 +289,12 @@ body {
 #histogram{
     position: relative;
     float:right;
-    width: 150px;
     display: inline;
 }
 
 #pie{
     position: relative;
     float:right;
-    left:300px;
     display: inline;
 }
 
@@ -304,6 +302,7 @@ body {
     position: relative;
     float: right;
     display: inline;
+    top:0%;
 }
 
 #bmenu{

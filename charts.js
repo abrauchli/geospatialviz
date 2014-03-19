@@ -21,11 +21,10 @@ function drawSankeyChart() {
       width: 1215,
       sankey: {
         link: { color: { stroke: 'lightgrey', strokeWidth: 1 } },
-        node: { label: { fontName: 'Times-Roman',
+        node: { label: { fontFamily: 'sans-serif',
                          fontSize: 14,
                          color: '#871b47',
-                         bold: true,
-                         italic: true }, 
+                         bold: true },
                 nodePadding: 10}
       }
     };

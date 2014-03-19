@@ -46,7 +46,6 @@ function onWorldMapDataChanged() {
 }
 
 function onCommMapDataChanged() {
-
   drawCommoditiesUSMap();
   drawPieChart();
 }
@@ -209,7 +208,7 @@ function buttonBar(){
 //Function to get value from Plot buttons and change the plot accordingly
 function changePlot(){
     $('.plotbutton').click(function(){
-        id=this.id.split('b')[1];
+        var id = this.id.split('b')[1];
         $('#'+id).toggle('slow')
     })
 }

@@ -132,15 +132,15 @@ function getSankeyDataForCountry(type, states, years) {
 
 function drawPieChart(){//Only two sets of data possibles (sum previous years in case of multiple selection?)
     var type = getCommSelectedType();
-    var comView = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, commSelectedYears[0],"true");
+    var comView = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, [commSelectedYears[0]],true);
     console.log(comView)
     if(typeof commSelectedYears[1] === 'undefined') {
         var i=0;
-        var comView1 = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, commSelectedYears[0],"true");
+        var comView1 = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, [commSelectedYears[0]],true);
     }else {
         var i=1
-        var comView = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, commSelectedYears[0],"true");
-        var comView1 = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, commSelectedYears[1],"true");
+        var comView = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, [commSelectedYears[0]],true);
+        var comView1 = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, [commSelectedYears[1]],true);
     }
     if (i==0) str = 'Hscode: ' + select_commodities[0] + ', for the year: ' + commSelectedYears[0];
     else str = 'Hscode: ' + select_commodities[0] + ' Export Diff ' + commSelectedYears[0] + '-' + commSelectedYears[i];

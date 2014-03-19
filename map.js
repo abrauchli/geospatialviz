@@ -119,7 +119,19 @@ function drawCommoditiesUSMap() {
   var type = getCommSelectedType();
   var str = TypeString[type];
   var reg = regions.toArray();
-  $('#commmapdesc').text(reg.sort().join(', ') +" "+ str +" "+ commSelectedYears.join(', '));
+  var commtext = '';
+  if (select_commodities.length > 1) {
+    var coms = select_commodities.join(', ');
+    if (coms.length > 30 && coms.indexOf(',', 30) > 30)
+      coms = coms.substr(0, coms.indexOf(',', 30)+2) + '...';
+    commtext = ', Commodity codes starting with '+ coms;
+  } else if (select_commodities.length === 1) {
+    if (select_commodities[0].length < 6)
+      commtext = ', Commodity code starting with '+ select_commodities[0];
+    else
+      commtext = ', Commodity code '+ select_commodities[0];
+  }
+  $('#commmapdesc').text(reg.sort().join(', ') +" "+ str +" "+ commSelectedYears.join(', ') + commtext);
   var view;
   if (commSelectedYears.length === 0)
     view = new google.visualization.arrayToDataTable([['region','data']]);

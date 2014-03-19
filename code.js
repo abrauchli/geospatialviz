@@ -35,7 +35,8 @@ function googleReady() {
     drawWorldMap();
     drawRawTable();
     drawPieChart();
-    //drawHistogram();
+    drawHistogram();
+    drawBarChart();
     $('#worldimportexport').change(onWorldMapDataChanged);
     $('#usimportexport').change(onCommMapDataChanged);
 }
@@ -48,6 +49,8 @@ function onWorldMapDataChanged() {
 function onCommMapDataChanged() {
   drawCommoditiesUSMap();
   drawPieChart();
+  drawHistogram();
+  drawBarChart();
 }
 
 function onYearChanged(page) {

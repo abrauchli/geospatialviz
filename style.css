@@ -300,6 +300,12 @@ body {
     display: inline;
 }
 
+#Bar{
+    position: relative;
+    float: right;
+    display: inline;
+}
+
 #bmenu{
     position: relative;
     width: 100px;

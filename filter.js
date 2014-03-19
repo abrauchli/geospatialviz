@@ -363,14 +363,17 @@ function getStateAggregateCommoditiesYears(type, states, hscodes, years, raw) {
   var t = getCommoditiesYear(type, states, hscodes, years, true).toDataTable();
   t.sort(Column.State);
   // Table with State, years...
-  for (var i = 0; i < t.getNumberOfRows(); ++i) {
-    if (i+1 < t.getNumberOfRows() && t.getValue(i, Column.State) === t.getValue(i+1, Column.State)) {
+  var i = 1;
+  while (i < t.getNumberOfRows()) {
+    if (t.getValue(i, Column.State) === t.getValue(i-1, Column.State)) {
       for (var j = 0; j < t.getNumberOfColumns(); ++j) {
         if (t.getColumnType(j) !== 'number')
           continue;
-        t.setValue(i, j, t.getValue(i, j) + t.getValue(i+1, j));
-        t.removeRow(i+1);
+        t.setValue(i-1, j, t.getValue(i-1, j) + t.getValue(i, j));
       }
+      t.removeRow(i);
+    } else {
+      ++i;
     }
   }
   if (!raw) {

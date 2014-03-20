@@ -248,17 +248,17 @@ body {
     padding: 2px;
 }
 
-.formatplot{
+#formatplot{
     position: relative;
     float:left;
-    width: 350px;
-    height: 58px;
+    width: 380px;
+    height: 40px;
 }
-.formatplot button{ 
+/*.formatplot button{ 
     position: relative;
     top:-2px;
     border-radius: 20%;
-}
+}*/
 #bmenu{
     position: relative;
     border-radius: 5px;
@@ -296,8 +296,8 @@ body {
     height: 100px;
 }
 
-.green{
-    background-color: #14A95E;
+.buttonselect{
+    background-color: lightblue;
 }
 
 #histogram{
@@ -320,12 +320,6 @@ body {
     display: inline;
     top:-30px;
     right: 10px;
-}
-
-#bmenu{
-    position: relative;
-    width: 100px;
-    left:0 px;
 }
 
 #hold{

@@ -13,16 +13,19 @@ var holdExpanded = false;
 function main() {
     $('#tabs').tabs();
     $('#formatcoun').buttonset();
-    $('#plotbutton').buttonset();
+    $('#formatplot').buttonset();
     $('#formatcomm').buttonset();
-    $('.plotbutton').toggle(); //Chart Buttons initially hidden
-    $('.plotbutton:first').toggle();//We show the menu button
+    //Charts initially hidden
+    $('#pie').toggle();
+    $('#Bar').toggle();
+    $('#histogram').toggle(); 
+    //$('.plotbutton:first').toggle();//We show the menu button
     buttonBar();
     changePlot();
     initYearSelect();
     google.setOnLoadCallback(googleReady());
     holdGraph();
-    $('#comm12 .ui-button-text').addClass('green'); //Initialize the 2012 button as green
+    $('#comm12 .ui-button-text').addClass('buttonselect'); //Initialize the 2012 button as buttonselect
 }
 
 //Function to launch the googleAPI
@@ -179,14 +182,14 @@ function initYearSelect (){
             onYearChanged('world');
         }
         //Change colors for the buttons when toggling them
-        if(commSelectedYears.indexOf(2009) >= 0) $('#comm09 .ui-button-text').addClass('green');
-        else $('#comm09 .ui-button-text').removeClass('green');
-        if (commSelectedYears.indexOf(2010) >= 0) $('#comm10 .ui-button-text').addClass('green');
-        else $('#comm10 .ui-button-text').removeClass('green');
-        if (commSelectedYears.indexOf(2011) >= 0) $('#comm11 .ui-button-text').addClass('green');
-        else $('#comm11 .ui-button-text').removeClass('green');
-        if (commSelectedYears.indexOf(2012) >= 0) $('#comm12 .ui-button-text').addClass('green');
-        else $('#comm12 .ui-button-text').removeClass('green');
+        if(commSelectedYears.indexOf(2009) >= 0) $('#comm09 .ui-button-text').addClass('buttonselect');
+        else $('#comm09 .ui-button-text').removeClass('buttonselect');
+        if (commSelectedYears.indexOf(2010) >= 0) $('#comm10 .ui-button-text').addClass('buttonselect');
+        else $('#comm10 .ui-button-text').removeClass('buttonselect');
+        if (commSelectedYears.indexOf(2011) >= 0) $('#comm11 .ui-button-text').addClass('buttonselect');
+        else $('#comm11 .ui-button-text').removeClass('buttonselect');
+        if (commSelectedYears.indexOf(2012) >= 0) $('#comm12 .ui-button-text').addClass('buttonselect');
+        else $('#comm12 .ui-button-text').removeClass('buttonselect');
     }
     function setSelectedYears () {
         $.each($('.chkyear'), function(i, o) {
@@ -216,6 +219,8 @@ function changePlot(){
     $('.plotbutton').click(function(){
         var id = this.id.split('b')[1];
         $('#'+id).toggle('slow')
+        var button_id= this.id + ' .ui-button-text'
+        $('#l'+ id + ' .ui-button-text').toggleClass('buttonselect')
     })
 }
 //Function to attach a graph to the hold square when clicking a graph

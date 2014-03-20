@@ -16,10 +16,6 @@ function main() {
     $('#formatcoun').buttonset();
     $('#formatplot').buttonset();
     $('#formatcomm').buttonset();
-    //Charts initially hidden
-    $('#pie').toggle();
-    $('#Bar').toggle();
-    $('#histogram').toggle(); 
     //$('.plotbutton:first').toggle();//We show the menu button
     buttonBar();
     changePlot();
@@ -251,7 +247,7 @@ function holdGraph(){
         drawHoldChart(hold_chart,hold_type);
     })
     $('#hold').click(function(){
-        var width = holdExpanded ? 200 : 1000,
+        var width = holdExpanded ? 200 : 820,
             height = holdExpanded ? 200 : 290,
             top = holdExpanded ? 90 : 0;
         holdExpanded = !holdExpanded;

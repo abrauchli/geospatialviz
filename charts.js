@@ -168,9 +168,9 @@ function drawPieChart(name,width,height){//Only two sets of data possibles (sum 
 function drawHistogram(name,width,height){
     var type = getCommSelectedType();
     var data = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, commSelectedYears, true);
-    var str = (select_commodities.length ? 'HScode: '+ select_name_comm.join() : 'All commodities') + ', ';
+    var str = (select_commodities.length ? 'Value grouping for ' + type.toUpperCase() + ': ' + 'of ' + select_name_comm.join(' ') : 'Value grouping for ' + type.toUpperCase() + ': ' + 'of ' + 'All commodities');
     var options = {
-        title: 'Distribution for commodities',
+        title: str,
         legend: { position: 'none' },
         width:width,
         height: height
@@ -181,8 +181,9 @@ function drawHistogram(name,width,height){
 function drawBarChart(name,width,height) {
     var type = getCommSelectedType();
     var data = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, commSelectedYears, true);
+    var str = (select_commodities.length ? 'Distribution for selected states for ' + type.toUpperCase() + ': ' + select_name_comm.join(' ') : 'Distribution for selected states for ' + type.toUpperCase() + ': ' + 'All commodities');
     var options = {
-        title: 'Distribution for selected States',
+        title: str,
         hAxis: {title: 'States', titleTextStyle: {color: 'red'}},
         width: width,
         height: height

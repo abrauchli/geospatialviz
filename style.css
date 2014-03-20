@@ -4,6 +4,10 @@ body {
     margin: 0;
 }
 
+#tabhelp a {
+    color: #F36C00;
+}
+
 /* Raw data table formatting */
 #tabdata table {
     border: solid 1px grey;

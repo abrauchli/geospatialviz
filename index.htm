@@ -136,44 +136,48 @@
             <div id="tbldata"></div>
         </div>
         <div id="tabhelp">
-            <h2>Visualization of TODO Data</h2>
-            <p>The page is divided into four tabs: the visualization (map), the raw data, the help section and the sources.</p>
-            <p>If you're running this page directly from your local filesystem and the map remains grey and the data on the second tab is empty, see the <a href="setup.htm">setup instructions</a> for help.</p>
-            <p>This map works on the premise of mapping multiple inputs. The user may select any number of states, but only one country followed by a combination of the years 2009 to 2012. 
+            <h2>Visualization of US Trade Data</h2>
+            <p>The page is divided into five tabs: the domestic visualization, the international
+                visualization, the raw data, the help section and the source reference.</p>
+            <p>Please refer to the <a href="setup.htm">setup instructions</a> for help on deploying the project.</p>
+            <h2>User Manual</h2>
+            <p>In both, the domestic and the internation trade visualization, the user may select
+            any number of states, a trade type (imports, exports, or the difference (only on
+            international view)) and a combination of the years 2009 to 2012. States are both
+            selected and deselected by clicking on them. To avoid having to select all states for a
+            country-wide view, when no states are selected, the visualization is the same as if all
+            states were selected. This is the selection that is presented on page load.
                 <img src="http://puu.sh/7BAau.png" alt="Selection is done via the highlighted ‘input box’ click states, years here."></p>
 
             <p>The selection will then be tallied and passed into the charts located at the bottom
-                of the screen. In the case where the user wishes to select all the states to tally up
-                the country's gross import or export, simply deselect all of the states and by default
-                the input will be the sum of all states. Or simply refresh the page, the default
-                selection is no states.
+                of the screen.
                 <img src="http://puu.sh/7BwSC.png" alt="As can be seen, all states selected by default"></p>
 
             <p>On initial load, all three charts, histogram, pie chart, and column chart; are
                 displayed. The user may remove/add the charts by clicking "Menu" which expands into a
-                choice of pie chart, column chart and histogram, which will remove or add them depending
-            on whether or not they're currently being displayed.
+                choice of pie chart, column chart and histogram, which will toggle their visibility.
                 <img src="http://puu.sh/7Bzgw.png" alt="Menu">
             </p>
 
             <img src="http://puu.sh/7Bzr6.png" alt="Selection of charts">
-            <p>While viewing the charts the user may feel as though it is difficult to view the data
-                of a chart. You may expand a chart by clicking on the chart element and pulling it up on
-                the bottom left window, which will allow the user to zoom onto the the element. Once the
-                element appears in the zoom window click on the zoom window to enlarge the chart.
-                <img src="http://puu.sh/7BzWt.png" alt="Here we select the image and it gets expanded"></p>
+            <p>While viewing the charts, a chart may be expanded by clicking on the chart element.
+                This will make it appear in the bottom left window, which allows the user to zoom onto the the element. Once the
+                element appears in the zoom window to enlarge the chart. The chart can be scaled
+                back down by clicking on it. This view is particularly useful for comparing
+                different graphs, as it will not change until another chart is selected to replace
+                it.
+                <img src="http://puu.sh/7BzWt.png" alt="Expanded chart window"></p>
 
-            <p>The default page is "Commodities by U.S. state" to change your view choose from the
-                tabs at the top, specifically if you wish to see trade on the international scale
-                select, "International Imports/Exports." However unlike in the state selections, here
-                you select the states on the selection window as before and the country they are based
-                on the larger window on the right.
+            <p>The default tab is "Commodities by U.S. state" to change your view, choose from the
+                tabs at the top. Example: if you wish to see trade on the international scale
+                select, "International Imports/Exports."
                 <img src="http://puu.sh/7By1B.jpg" alt="Below the two windows you will see a sankey chat visually breaking down the quantities of trade between selected states and chosen country."/></p>
 
-            <p>Finally, the "Raw Data" tab features a table where its rows are broken down by state
-                in relation to either commodity or country. Each column contains a quantity showing the
-                breakdown between the state and country/commodity such as quantity per year, % share and
-                changes in percent.
+            <p>The "Raw Data" tab features a table of the visualization's data. After selection of
+                the trade data, its rows are shown by state in relation to either commodity or
+                country. Each column contains a quantity showing the breakdown between the state and
+                country/commodity such as quantity per year, % share and changes in percent. The
+                table can be sorted by clicking on its headers.
                 <img src="http://puu.sh/7Bz31.png" alt="Each row features a state and its target followed by a break down of data by column."></p>
         </div>
         <div id="tabsources">

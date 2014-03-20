@@ -339,3 +339,8 @@ body {
     width:500px;
     height: 500px;
 }
+
+.tooltip{
+    display: inline-block;
+    width: 5em;
+}

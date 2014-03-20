@@ -22,7 +22,12 @@ function main() {
     initYearSelect();
     google.setOnLoadCallback(googleReady());
     holdGraph();
-    $('#comm12 .ui-button-text').addClass('buttonselect'); //Initialize the 2012 button as buttonselect
+    //Initialize the buttons that are initially on
+    $('#comm12 .ui-button-text').addClass('buttonselect');
+    $('#lBar .ui-button-text').addClass('buttonselect')
+    $('#lhistogram .ui-button-text').addClass('buttonselect')
+    $('#lpie .ui-button-text').addClass('buttonselect')
+    //$('#commleftbox').tooltip();
 }
 
 //Function to launch the googleAPI

@@ -143,7 +143,7 @@ function drawPieChart(name,width,height){//Only two sets of data possibles (sum 
     var type = getCommSelectedType();
     var comView = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, [commSelectedYears[0]],true);
     var comView1;
-    var str = (select_commodities.length ? 'HScode: '+ select_name_comm.join() : 'All commodities') + ', ';
+    var str = (select_commodities.length ? type.toUpperCase() + ': ' + select_name_comm.join(' ') : 'All commodities') + ', ';
     if (commSelectedYears.length < 2) {
         comView1 = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, [commSelectedYears[0]],true);
         str += commSelectedYears[0];
@@ -168,6 +168,7 @@ function drawPieChart(name,width,height){//Only two sets of data possibles (sum 
 function drawHistogram(name,width,height){
     var type = getCommSelectedType();
     var data = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, commSelectedYears, true);
+    var str = (select_commodities.length ? 'HScode: '+ select_name_comm.join() : 'All commodities') + ', ';
     var options = {
         title: 'Distribution for commodities',
         legend: { position: 'none' },

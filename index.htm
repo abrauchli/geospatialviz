@@ -40,7 +40,7 @@
         <div id="tabviz">
             <div class="main">
                 <div class="first_group">
-                    <div id="commleftbox" title="slide down on show">
+                    <div id="commleftbox" title="Select the option for the visualization here. By default all commodities and states are selected for the year: 2012">
                         <div id="commodities_selector"></div>
                         <form>
                             <input type="submit" id="comsel" value="Clear Search">
@@ -70,16 +70,16 @@
                 </div>
                 <div class="second_group">
                     <div class="plots">
-                        <div id="formatplot">
+                        <div id="formatplot" title="You can toggle the charts to show or hide them">
                             <input type="checkbox" id="bpie" class="plotbutton" checked="checked"><label for="bpie" id="lpie">Pie Chart</label>
                             <input type="checkbox" id="bhistogram" class="plotbutton" checked="checked"><label for="bhistogram" id="lhistogram">Histogram</label>
                             <input type="checkbox" id="bBar" class="plotbutton" checked="checked"><label for="bBar" id="lBar">Bar Chart</label>
                         </div>
-                        <div id="plotwrapper">
+                        <div id="plotwrapper" title="You can click a chart to hold its value in the hold chart window while searching in order to make comparisons">
                             <div id="pie"></div>
                             <div id="histogram"></div>
                             <div id="Bar"></div>
-                            <div id="hold"></div>
+                            <div id="hold" title="This is the hold box where your chart value is hold to make comparisons. You can make it bigger or smaller by clicking inside"></div>
                         </div>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
         <div id="tabworld">
             <div class="main">
                 <div class="first_group">
-                    <div class="leftbox">
+                    <div class="leftbox" title="Select the option for the visualization here. By default all states are selected  for the year: 2012. You need to select a state to visualize the chart below">
                         <div class="label">
                             <label for="worldimportexport" class="importexportlabel">Select options to visualize</label>
                             <div id="optionscoun">

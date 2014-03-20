@@ -27,7 +27,11 @@ function main() {
     $('#lBar .ui-button-text').addClass('buttonselect')
     $('#lhistogram .ui-button-text').addClass('buttonselect')
     $('#lpie .ui-button-text').addClass('buttonselect')
-    //$('#commleftbox').tooltip();
+    $('#commleftbox').tooltip();
+    $('#leftbox').tooltip();
+    $('#formatplot').tooltip();
+    $('#plotwrapper').tooltip();
+    $('#hold').tooltip();
 }
 
 //Function to launch the googleAPI

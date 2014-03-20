@@ -125,9 +125,10 @@ function initCommoditiesSelector() {
         select_name_comm = [];
         for (var x=0; x<=select_object.length; x++) {
             if (select_object[x] && select_object[x].selected) {
-                select_commodities.push(select_object[x].value.split(" ")[0]);
-                for (var i=1; i<select_object[x].value.split(" ").length;i++)
-                    select_name_comm.push(select_object[x].value.split(" ")[i]);
+                var val = select_object[x].value;
+                var idxspace = val.indexOf(' ');
+                select_commodities.push(val.substr(0, idxspace));
+                select_name_comm.push(val.substr(idxspace));
             }
         }
         onCommMapDataChanged();

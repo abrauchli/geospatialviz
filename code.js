@@ -4,6 +4,7 @@ google.load('visualization', '1', {
 
 // Selected commodities
 var select_commodities = [];
+var select_name_comm = [];
 var group_code = [];
 var commSelectedYears = [2012];
 var worldSelectedYears = [2012];
@@ -121,9 +122,12 @@ function initCommoditiesSelector() {
     $('#comselect').on('change', function(event) {
         var select_object = dojo.byId('comselect');
         select_commodities = [];
+        select_name_comm = [];
         for (var x=0; x<=select_object.length; x++) {
             if (select_object[x] && select_object[x].selected) {
                 select_commodities.push(select_object[x].value.split(" ")[0]);
+                for (var i=1; i<select_object[x].value.split(" ").length;i++)
+                    select_name_comm.push(select_object[x].value.split(" ")[i]);
             }
         }
         onCommMapDataChanged();

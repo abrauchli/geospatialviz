@@ -143,7 +143,7 @@ function drawPieChart(name,width,height){//Only two sets of data possibles (sum 
     var type = getCommSelectedType();
     var comView = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, [commSelectedYears[0]],true);
     var comView1;
-    var str = (select_commodities.length ? 'HScode: '+ select_commodities.join() : 'All commodities') + ', ';
+    var str = (select_commodities.length ? 'HScode: '+ select_name_comm.join() : 'All commodities') + ', ';
     if (commSelectedYears.length < 2) {
         comView1 = getStateAggregateCommoditiesYears(type,regions.toArray(), select_commodities, [commSelectedYears[0]],true);
         str += commSelectedYears[0];
